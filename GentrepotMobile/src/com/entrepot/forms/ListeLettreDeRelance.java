@@ -9,6 +9,6 @@ package com.entrepot.forms;
  *
  * @author oussema
  */
-public class NewClass {
+public class ListeLettreDeRelance {
     
 }
