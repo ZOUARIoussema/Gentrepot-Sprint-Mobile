@@ -14,5 +14,5 @@ public class Statics {
     public static final String BASE_URL = "http://41.226.11.252:11300";
     
    
-    public static final String URL_t="http://localhost/IntegrationFinalSymfonyMaster/PROJET-SYMFONY-GENTREPOT/gentrepot/web/app_dev.php/tresorerie";
+    public static final String URL_t="http://localhost/IntegrationFinalSymfonyMaster/PROJET-SYMFONY-GENTREPOT/gentrepot/web/app_dev.php/api";
 }

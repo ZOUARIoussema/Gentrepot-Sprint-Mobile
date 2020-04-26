@@ -44,9 +44,14 @@ public class CreerCompteForm extends Form {
                 
                  ServiceUser serviceUser = new ServiceUser();
                 
-                User u =new User( 0,login.getText(), adresseMail.getText(), login.getText(),  adresseMail.getText(), motPasse.getText(), "a:1:{i:0;s:10:\"ROLE_CLIEN\";}");
+                User u =new User( 0,login.getText(), adresseMail.getText(), login.getText(),  adresseMail.getText(), motPasse.getText(), "client");
                 
-                System.out.println(  serviceUser.addUser(u));
+              
+                
+                if(serviceUser.addUser(u)){
+                    
+                    new AuthentificationForm().show();
+                }
             
             
             }

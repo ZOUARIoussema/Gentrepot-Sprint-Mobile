@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  *
  * @author oussema
@@ -36,11 +37,11 @@ public class ServiceUser {
     }
 
     public boolean addUser(User user) {
-        String url = Statics.URL_t + "/apiUser/add?username=" + user.getUsername() + "&email=" + user.getEmail() + "&password=" + user.getPassword();
-
-        System.out.println(url);
-
+        String url = Statics.URL_t + "/apiUser/add?username=" + user.getUsername() + "&email=" + user.getEmail()
+                + "&password=" +Password.hashPassword(user.getPassword())+"&role="+user.getRole() ;
         request.setUrl(url);
+        
+        System.out.println(url);
 
         request.addResponseListener(new ActionListener<NetworkEvent>() {
 
@@ -48,16 +49,32 @@ public class ServiceUser {
             public void actionPerformed(NetworkEvent evt) {
                 responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
 
-                // Dialog.show(null, new String(request.getResponseData()), "Ok", null);
                 System.out.println(request.getResponseCode());
-                
-             
 
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(request);
 
         return responseResult;
+    }
+
+    public ArrayList<User> getAllUsers() {
+        String url = Statics.URL_t + "/apiUser/findAll";
+
+        System.out.println(url);
+
+        request.setUrl(url);
+        request.setPost(false);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                users = parseUsers(new String(request.getResponseData()));
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return users;
     }
 
     public ArrayList<User> parseUsers(String jsonText) {
@@ -71,18 +88,38 @@ public class ServiceUser {
             for (Map<String, Object> obj : list) {
                 int id = (int) Float.parseFloat(obj.get("id").toString());
                 String username = obj.get("username").toString();
-               // String usernameCanonical = obj.get("usernameCanonical").toString();
-               // String email = obj.get("email").toString();
+                // String usernameCanonical = obj.get("usernameCanonical").toString();
+                String email = obj.get("email").toString();
                 //String emailCanonical = obj.get("emailCanonical").toString();
-              //  String password = obj.get("password").toString();
-              //    String roles = obj.get("password").toString();
-                users.add(new User(id, username));
+                String password = obj.get("password").toString();
+                String roles = obj.get("roles").toString();
+                users.add(new User(id, username, email, username, email,password, roles));
             }
 
         } catch (IOException ex) {
         }
 
         return users;
+    }
+
+    public User findUser(String login, String password) {
+
+        User u = null;
+          
+            
+        for(User us :this.getAllUsers() ){
+            
+             
+            
+           if( us.getUsername().equals(login)&&Password.checkPassword(password, us.getPassword()))
+           {
+               u=us;
+               return u;
+           }           
+        }
+                
+        return u;
+
     }
 
 }

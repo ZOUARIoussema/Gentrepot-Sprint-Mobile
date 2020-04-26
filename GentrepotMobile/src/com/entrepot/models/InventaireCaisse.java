@@ -8,6 +8,10 @@ package com.entrepot.models;
 import java.util.Date;
 
 
+
+
+
+
 /**
  *
  * @author oussema
