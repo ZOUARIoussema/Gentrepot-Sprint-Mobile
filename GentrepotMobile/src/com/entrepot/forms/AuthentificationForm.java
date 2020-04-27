@@ -5,9 +5,13 @@
  */
 package com.entrepot.forms;
 
+
+
+ 
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
+ 
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
@@ -17,14 +21,19 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.entrepot.models.User;
-
 import com.entrepot.services.ServiceUser;
+ 
+ 
+ 
 
+ 
 /**
  *
  * @author oussema
  */
 public class AuthentificationForm extends Form {
+
+    String jobPic = "";
 
     public AuthentificationForm() {
 
@@ -41,25 +50,30 @@ public class AuthentificationForm extends Form {
         Button bInscription = new Button("Inscription");
 
         Container c = new Container(BoxLayout.x());
-        c.addAll(bConnection,bInscription);
-        
-        
+        c.addAll(bConnection, bInscription);
+
         this.setLayout(BoxLayout.y());
 
         this.setTitle("Authentification");
         this.add(login);
         this.add(password);
-        this.add(l);
+       // this.add(l);
         this.add(c);
-         
+
+        l.addPointerReleasedListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                
+                  
+
+            }
+        });
 
         bConnection.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
 
                 User u = serviceUser.findUser(login.getText(), password.getText());
-
-                System.out.println(serviceUser.findUser(login.getText(), password.getText()));
 
                 if (u == null) {
 
@@ -71,21 +85,16 @@ public class AuthentificationForm extends Form {
 
             }
         });
-        
-        
+
         bInscription.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                
-               new CreerCompteForm().show();
-             
+
+                new CreerCompteForm().show();
+
             }
         });
 
-        /* for (User u :serviceUser.getAllUsers()){
-            
-            System.out.println(u);
-        }*/
     }
 
 }

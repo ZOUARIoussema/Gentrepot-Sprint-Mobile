@@ -173,6 +173,7 @@ public class FactureVente {
         this.bonLivraison = bonLivraison;
     }
 
+   
   
    
     

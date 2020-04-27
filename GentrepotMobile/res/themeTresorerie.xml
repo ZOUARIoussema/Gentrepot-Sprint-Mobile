@@ -2,6 +2,7 @@
 
 <resource majorVersion="1" minorVersion="10" useXmlUI="false">
     <image name="entrer.jpg"  />
+    <image name="inv.png"  />
     <theme name="Theme">
         <val key="@includeNativeBool" value="true" />
     </theme>

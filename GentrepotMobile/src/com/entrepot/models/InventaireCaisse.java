@@ -48,6 +48,10 @@ public class InventaireCaisse {
         this.soldeEspece = soldeEspece;
         this.ecart = ecart;
     }
+
+    public InventaireCaisse(double soldeCalculer) {
+        this.soldeCalculer = soldeCalculer;
+    }
     
     
     

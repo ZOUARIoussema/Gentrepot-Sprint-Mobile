@@ -12,11 +12,17 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.entrepot.models.InventaireCaisse;
-import com.entrepot.models.User;
+
 import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
 import java.io.IOException;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,25 +31,27 @@ import java.util.Map;
  * @author oussema
  */
 public class ServiceInventaireCaisse {
-    
-    
-     private ConnectionRequest request;
+
+    private ConnectionRequest request;
+
+    public static double soldeCheque = 0;
+    public static double soldeEspece = 0;
 
     private boolean responseResult;
-    public ArrayList<User> users;
+    public ArrayList<InventaireCaisse> inventaires;
 
     public ServiceInventaireCaisse() {
         request = DataSource.getInstance().getRequest();
     }
 
     public boolean addinventaireCaisse(InventaireCaisse inv) {
-        String url = Statics.URL_t + "/apiInventaire/add?soldeCheque=" + inv.getSoldeCheque() 
-                + "&soldeEspece=" + inv.getSoldeEspece()+ "&soldeTheorique=" 
-                + inv.getSoldeTheorique()+"&dateC="+inv.getDateCreation()+"&soldecalculer="+inv.getSoldeCalculer()
-                +"&ecart"+inv.getEcart();
-         request.setUrl(url);
-         
-         System.out.println(url);
+        String url = Statics.URL_t + "/apiInventaire/add?soldeCheque=" + inv.getSoldeCheque()
+                + "&soldeEspece=" + inv.getSoldeEspece() + "&soldeTheorique="
+                + inv.getSoldeTheorique() + "&dateC=" + inv.getDateCreation() + "&soldecalculer=" + inv.getSoldeCalculer()
+                + "&ecart=" + inv.getEcart();
+        request.setUrl(url);
+
+        System.out.println(url);
 
         request.addResponseListener(new ActionListener<NetworkEvent>() {
 
@@ -51,7 +59,6 @@ public class ServiceInventaireCaisse {
             public void actionPerformed(NetworkEvent evt) {
                 responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
 
-           
                 System.out.println(request.getResponseCode());
 
             }
@@ -61,9 +68,10 @@ public class ServiceInventaireCaisse {
         return responseResult;
     }
 
-    public ArrayList<User> parseUsers(String jsonText) {
+    public ArrayList<InventaireCaisse> parseInventaire(String jsonText) {
+
         try {
-            users = new ArrayList<>();
+            inventaires = new ArrayList<>();
 
             JSONParser jp = new JSONParser();
             Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
@@ -71,21 +79,98 @@ public class ServiceInventaireCaisse {
             List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
             for (Map<String, Object> obj : list) {
                 int id = (int) Float.parseFloat(obj.get("id").toString());
-                String username = obj.get("username").toString();
-                // String usernameCanonical = obj.get("usernameCanonical").toString();
-                // String email = obj.get("email").toString();
-                //String emailCanonical = obj.get("emailCanonical").toString();
-                //  String password = obj.get("password").toString();
-                //    String roles = obj.get("password").toString();
-                users.add(new User(id, username));
+
+                double soldeCheque = Float.parseFloat(obj.get("soldeCheque").toString());
+                double soldeEspece = Float.parseFloat(obj.get("soldeEspece").toString());
+
+                Map<String, Object> dated = (Map<String, Object>) obj.get("dateCreation");
+                float da = Float.parseFloat(dated.get("timestamp").toString());
+                Date d = new Date((long) (da - 3600) * 1000);
+
+                //  String ch=new SimpleDateFormat("MM-dd-yyyy").format(d);
+                double soldeCalculer = Float.parseFloat(obj.get("soldeCalculer").toString());
+                double soldeTheorique = Float.parseFloat(obj.get("soldeTheorique").toString());
+                double ecart = Float.parseFloat(obj.get("ecart").toString());
+
+                inventaires.add(new InventaireCaisse(d, soldeCalculer, soldeTheorique, soldeCheque, soldeEspece, ecart));
+
             }
 
         } catch (IOException ex) {
         }
 
-        return users;
+        return inventaires;
     }
 
-    
-    
+    public ArrayList<InventaireCaisse> getAllInventaire() {
+        String url = Statics.URL_t + "/apiInventaire/findAll";
+
+        System.out.println(url);
+
+        request.setUrl(url);
+        request.setPost(false);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+
+                inventaires = parseInventaire(new String(request.getResponseData()));
+                request.removeResponseListener(this);
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return inventaires;
+    }
+
+    public void parseRecupere() {
+
+        String url = Statics.URL_t + "/apiInventaire/recupere";
+
+        System.out.println(url);
+
+        request.setUrl(url);
+        request.setPost(false);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+
+                  
+                try {
+
+                    JSONParser jp = new JSONParser();
+                    
+                    
+                    System.out.println(new String(request.getResponseData()));
+                    
+                    
+                   
+                    
+                    Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(new String(request.getResponseData()).toCharArray()));
+
+                    List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+                    for (Map<String, Object> obj : list) {
+
+                        
+                        System.out.println("parse "+ (obj.get("cheque").toString()));
+                        
+                        soldeCheque = Float.parseFloat(obj.get("cheque").toString());
+                        soldeEspece = Float.parseFloat(obj.get("espece").toString());
+
+                        return;
+                    }
+
+                } catch (IOException ex) {
+
+                    System.out.println(ex.getMessage());
+                }
+
+                request.removeResponseListener(this);
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+    }
+
 }

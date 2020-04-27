@@ -5,27 +5,55 @@
  */
 package com.entrepot.forms;
 
-import com.codename1.ui.Button;
+import com.codename1.components.ImageViewer;
+import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
-import com.codename1.ui.TextField;
+import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
-import com.entrepot.models.InventaireCaisse;
-import com.entrepot.services.ServiceInventaireCaisse;
-
+import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
+import com.entrepot.models.LettreDeRelance;
+import com.entrepot.services.ServiceLettreDeRelance;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-
 
 /**
  *
  * @author oussema
  */
-public class AjouterInventaireCaisseForm extends Form {
-    
-     public void CreationMenu() {
+public class ListeLettreDeRelanceForm extends Form {
+
+    ServiceLettreDeRelance serviceLettreDeRelance = new ServiceLettreDeRelance();
+    Resources theme = UIManager.initFirstTheme("/themeTresorerie");
+
+    public ListeLettreDeRelanceForm() {
+
+        CreationMenu();
+
+        for (LettreDeRelance l : serviceLettreDeRelance.getAllLettre()) {
+
+            Container cGlobal = new Container(BoxLayout.x());
+            Container cDetaille = new Container(BoxLayout.y());
+
+            Label espace = new Label(" ");
+            Label labelNumeo = new Label("Numero: " + l.getId());
+            Label labelDate = new Label("Date creation: " + new SimpleDateFormat("MM-dd-yyyy").format(l.getDate()));
+            Label labelF = new Label("Facture: " + l.getFactureVente().getNumeroF());
+
+            cDetaille.addAll(espace, labelNumeo, labelDate, labelF);
+
+            cGlobal.add(new ImageViewer(theme.getImage("inv.png")));
+            cGlobal.add(cDetaille);
+
+            this.add(cGlobal);
+
+        }
+
+    }
+
+    public void CreationMenu() {
 
         this.getToolbar().addMaterialCommandToSideMenu("Ajouter Inventaire Caisse", FontImage.MATERIAL_ADD, new ActionListener() {
             @Override
@@ -71,45 +99,5 @@ public class AjouterInventaireCaisseForm extends Form {
         });
 
     }
-    
-    public AjouterInventaireCaisseForm() {
-        
-        
-        CreationMenu();
-        
-        ServiceInventaireCaisse serviceInventaireCaisse = new  ServiceInventaireCaisse();
-        
-        
-        
-        TextField soldeCalculer = new TextField();
-       
-         
-        
-        Button bAjouter= new Button("Ajouter");
-        
-        this.setLayout(BoxLayout.y());
-        
-        this.addAll(soldeCalculer);
-        this.add(bAjouter);
-        
-        bAjouter.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                
-            
-                
-                InventaireCaisse inventaireCaisse =new InventaireCaisse(Double.parseDouble(soldeCalculer.getText()));
-               
-              if(  serviceInventaireCaisse.addinventaireCaisse(inventaireCaisse)){
-                  
-                  new ListeInventaireCaisseForm().show();
-              }
-              
-            }
-        });
-        
-    }
-    
-    
-    
+
 }

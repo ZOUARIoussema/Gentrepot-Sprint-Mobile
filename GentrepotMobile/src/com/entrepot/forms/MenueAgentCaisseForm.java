@@ -19,48 +19,61 @@ import com.codename1.ui.util.Resources;
  * @author oussema
  */
 public class MenueAgentCaisseForm extends Form {
-    
-    
-    
-    Resources  theme = UIManager.initFirstTheme("/themeTresorerie");
+
+    Resources theme = UIManager.initFirstTheme("/themeTresorerie");
+
+    public void CreationMenu() {
+
+        this.getToolbar().addMaterialCommandToSideMenu("Ajouter Inventaire Caisse", FontImage.MATERIAL_ADD, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new AjouterInventaireCaisseForm().show();
+
+            }
+        });
+
+        this.getToolbar().addMaterialCommandToSideMenu("Liste Inventaire Caisse", FontImage.MATERIAL_ARCHIVE, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new ListeInventaireCaisseForm().show();
+
+            }
+        });
+        this.getToolbar().addMaterialCommandToSideMenu("Ajouter Lettre de relance", FontImage.MATERIAL_ADD, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new AjouterLettreDeRelanceForm().show();
+
+            }
+        });
+        this.getToolbar().addMaterialCommandToSideMenu("Liste lettre de relance", FontImage.MATERIAL_ARCHIVE, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new ListeLettreDeRelanceForm().show();
+
+            }
+        });
+
+        this.getToolbar().addMaterialCommandToSideMenu("Deconnecter", FontImage.MATERIAL_EXIT_TO_APP, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new AuthentificationForm().show();
+
+            }
+        });
+
+    }
 
     public MenueAgentCaisseForm() {
-        
-        
-         
-
-       
 
         this.setTitle("Menue");
-
-        this.getToolbar().addCommandToLeftSideMenu("Ajouter Inventaire Caisse", null, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-
-            }
-        });
         
-         this.getToolbar().addCommandToLeftSideMenu("Liste Inventaire Caisse", null, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                
-                
-                
-
-            }
-        });
-          this.getToolbar().addCommandToLeftSideMenu("Ajouter Lettre de relance", null, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-
-            }
-        });
-           this.getToolbar().addCommandToLeftSideMenu("Liste lettre de relance", null, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-
-            }
-        });
+        CreationMenu();
 
     }
 
