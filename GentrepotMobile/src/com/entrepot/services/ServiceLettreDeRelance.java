@@ -60,6 +60,31 @@ public class ServiceLettreDeRelance {
 
         return responseResult;
     }
+    
+    
+    
+    
+     public boolean deleteLettre(LettreDeRelance l) {
+        String url = Statics.URL_t + "/apiLettre/delete?idL=" + l.getId();
+
+        request.setUrl(url);
+
+        System.out.println(url);
+
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+
+                System.out.println(request.getResponseCode());
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return responseResult;
+    }
 
     public ArrayList<FactureVente> getAllFacture() {
         String url = Statics.URL_t + "/apiLettre/allF";
@@ -151,7 +176,7 @@ public class ServiceLettreDeRelance {
                  Map<String, Object> f = (Map<String, Object>) obj.get("factureVente");
                 int facture = (int) Float.parseFloat(f.get("id").toString());
               
-                  int id = (int) Float.parseFloat(f.get("id").toString());
+                  int id = (int) Float.parseFloat(obj.get("id").toString());
 
                 lettres.add(new LettreDeRelance(id,dCeation, new FactureVente(facture)));
             }

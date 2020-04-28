@@ -67,6 +67,57 @@ public class ServiceInventaireCaisse {
 
         return responseResult;
     }
+    
+    
+    
+     public boolean modifierInventaireCaisse(InventaireCaisse inv) {
+        String url = Statics.URL_t + "/apiInventaire/add?soldeCheque=" + inv.getSoldeCheque()
+                + "&soldeEspece=" + inv.getSoldeEspece() + "&soldeTheorique="
+                + inv.getSoldeTheorique() + "&dateC=" + inv.getDateCreation() + "&soldecalculer=" + inv.getSoldeCalculer()
+                + "&ecart=" + inv.getEcart();
+        request.setUrl(url);
+
+        System.out.println(url);
+
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+
+                System.out.println(request.getResponseCode());
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return responseResult;
+    }
+    
+    
+    
+    
+    public boolean deleteInventaireCaisse(InventaireCaisse inv) {
+        String url = Statics.URL_t + "/apiInventaire/delete?idI=" + inv.getId();
+                
+        request.setUrl(url);
+
+        System.out.println(url);
+
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+
+                System.out.println(request.getResponseCode());
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return responseResult;
+    }
 
     public ArrayList<InventaireCaisse> parseInventaire(String jsonText) {
 
@@ -92,7 +143,7 @@ public class ServiceInventaireCaisse {
                 double soldeTheorique = Float.parseFloat(obj.get("soldeTheorique").toString());
                 double ecart = Float.parseFloat(obj.get("ecart").toString());
 
-                inventaires.add(new InventaireCaisse(d, soldeCalculer, soldeTheorique, soldeCheque, soldeEspece, ecart));
+                inventaires.add(new InventaireCaisse(id,d, soldeCalculer, soldeTheorique, soldeCheque, soldeEspece, ecart));
 
             }
 

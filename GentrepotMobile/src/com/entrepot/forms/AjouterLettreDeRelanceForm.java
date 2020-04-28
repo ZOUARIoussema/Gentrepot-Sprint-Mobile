@@ -91,6 +91,9 @@ public class AjouterLettreDeRelanceForm extends Form {
            
 
         }
+        
+        
+          this.setTitle("Ajouter lettre de relance");
 
     }
 

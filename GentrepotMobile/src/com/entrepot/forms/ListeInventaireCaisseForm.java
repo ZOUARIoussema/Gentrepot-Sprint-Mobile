@@ -6,6 +6,7 @@
 package com.entrepot.forms;
 
 import com.codename1.components.ImageViewer;
+import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
@@ -38,7 +39,7 @@ public class ListeInventaireCaisseForm extends Form{
         
         for(InventaireCaisse inventaireCaisse : serviceInventaireCaisse.getAllInventaire()){
             
-            System.out.println(inventaireCaisse.getDateCreation());
+          
             
             
             
@@ -54,12 +55,34 @@ public class ListeInventaireCaisseForm extends Form{
             cDetaille.add(new Label("Ecart : "+inventaireCaisse.getEcart()));
             
             
+            Container cButton = new Container(BoxLayout.x());
+            
+            Button bModifier = new Button("Modifier");
+            
+             Button bSupprimer = new Button("Supprimer");
+            
+            bSupprimer.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    
+                    serviceInventaireCaisse.deleteInventaireCaisse(inventaireCaisse);
+                    new ListeInventaireCaisseForm().show();
+                  
+                }
+            });
+            
+            cButton.addAll(bModifier,bSupprimer);
+            
+            cDetaille.add(cButton);
+            
+            
             cGlobal.add(new ImageViewer(theme.getImage("inv.png")));
             cGlobal.add(cDetaille);
             this.add(cGlobal);
             
+           
             
-            
+            this.setTitle("Liste des inventaires caisse");
             
         }
         

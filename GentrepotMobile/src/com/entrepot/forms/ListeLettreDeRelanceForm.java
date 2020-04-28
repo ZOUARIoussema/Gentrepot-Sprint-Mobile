@@ -6,6 +6,7 @@
 package com.entrepot.forms;
 
 import com.codename1.components.ImageViewer;
+import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
@@ -27,6 +28,8 @@ public class ListeLettreDeRelanceForm extends Form {
 
     ServiceLettreDeRelance serviceLettreDeRelance = new ServiceLettreDeRelance();
     Resources theme = UIManager.initFirstTheme("/themeTresorerie");
+    
+     
 
     public ListeLettreDeRelanceForm() {
 
@@ -34,6 +37,7 @@ public class ListeLettreDeRelanceForm extends Form {
 
         for (LettreDeRelance l : serviceLettreDeRelance.getAllLettre()) {
 
+            
             Container cGlobal = new Container(BoxLayout.x());
             Container cDetaille = new Container(BoxLayout.y());
 
@@ -42,12 +46,45 @@ public class ListeLettreDeRelanceForm extends Form {
             Label labelDate = new Label("Date creation: " + new SimpleDateFormat("MM-dd-yyyy").format(l.getDate()));
             Label labelF = new Label("Facture: " + l.getFactureVente().getNumeroF());
 
-            cDetaille.addAll(espace, labelNumeo, labelDate, labelF);
+            
+            Button b = new Button("Suuprimer");
+            
+            
+              b.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    
+                     
+                    serviceLettreDeRelance.deleteLettre(l);
+                    
+                    new ListeLettreDeRelanceForm().showBack();
+                    
+                    
+                  
+                }
+            });
+            
+            
+            
+            cDetaille.addAll(espace, labelNumeo, labelDate, labelF,b);
 
             cGlobal.add(new ImageViewer(theme.getImage("inv.png")));
             cGlobal.add(cDetaille);
-
+          
             this.add(cGlobal);
+            
+            
+            
+           
+            
+            
+            
+          
+            
+            
+          
+              this.setTitle("Liste des lettres de relances");
+            
 
         }
 

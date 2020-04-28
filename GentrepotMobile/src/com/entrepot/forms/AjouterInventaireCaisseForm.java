@@ -108,7 +108,59 @@ public class AjouterInventaireCaisseForm extends Form {
             }
         });
         
+        
+        
+          this.setTitle("Ajouter inventairs caisse");
+        
     }
+    
+    
+    
+    
+    
+    public AjouterInventaireCaisseForm(InventaireCaisse i) {
+        
+        
+        CreationMenu();
+        
+        ServiceInventaireCaisse serviceInventaireCaisse = new  ServiceInventaireCaisse();
+        
+        
+        
+        TextField soldeCalculer = new TextField();
+       
+         
+        
+        Button bAjouter= new Button("Ajouter");
+        
+        this.setLayout(BoxLayout.y());
+        
+        this.addAll(soldeCalculer);
+        this.add(bAjouter);
+        
+        bAjouter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                
+            
+                
+                i.setEcart(Double.parseDouble(soldeCalculer.getText()));
+               
+              if(  serviceInventaireCaisse.addinventaireCaisse(i)){
+                  
+                  new ListeInventaireCaisseForm().show();
+              }
+              
+            }
+        });
+        
+        
+        
+          this.setTitle("Ajouter inventairs caisse");
+        
+    }
+    
+    
     
     
     
