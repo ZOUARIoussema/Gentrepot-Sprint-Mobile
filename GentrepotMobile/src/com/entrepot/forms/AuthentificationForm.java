@@ -5,6 +5,7 @@
  */
 package com.entrepot.forms;
 
+import com.codename1.components.ImageViewer;
 import com.codename1.messaging.Message;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
@@ -29,11 +30,9 @@ import com.entrepot.services.ServiceUser;
  */
 public class AuthentificationForm extends Form {
 
-    
-    public static User user=null;
-    
-    
-    
+    public static User user = null;
+
+    Resources theme = UIManager.initFirstTheme("/themeTresorerie");
 
     public AuthentificationForm() {
 
@@ -50,27 +49,26 @@ public class AuthentificationForm extends Form {
         Button bInscription = new Button("Inscription");
 
         Container c = new Container(BoxLayout.x());
-       
+
         c.addAll(bConnection, bInscription);
-        
+
         Container c2 = new Container(BoxLayout.y());
-        
-        c2.addAll(login,password,l,c);
-        
+
+        c2.add(new ImageViewer(theme.getImage("login.png")));
+        c2.addAll(login, password, l, c);
 
         this.setLayout(BoxLayout.y());
 
         this.setTitle("Authentification");
-        
-        this.setLayout(new FlowLayout(CENTER,CENTER));
+
+        this.setLayout(new FlowLayout(CENTER, CENTER));
         this.add(c2);
-        
 
         l.addPointerReleasedListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
 
-               new EnvoyerCodeRecuperationForm().show();
+                new EnvoyerCodeRecuperationForm().show();
 
             }
         });

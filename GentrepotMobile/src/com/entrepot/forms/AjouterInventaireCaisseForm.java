@@ -82,7 +82,7 @@ public class AjouterInventaireCaisseForm extends Form {
         
         
         
-        TextField soldeCalculer = new TextField();
+        TextField soldeCalculer = new TextField(null,"Solde calculer");
        
          
         
@@ -104,6 +104,9 @@ public class AjouterInventaireCaisseForm extends Form {
               if(  serviceInventaireCaisse.addinventaireCaisse(inventaireCaisse)){
                   
                   new ListeInventaireCaisseForm().show();
+                  ToastBar.showMessage("Inventaire caisse est ajouté avec succès", FontImage.MATERIAL_STAR, 16000);
+                  
+                  
               }
               
             }
@@ -159,6 +162,7 @@ public class AjouterInventaireCaisseForm extends Form {
               if(  serviceInventaireCaisse.modifierInventaireCaisse(i)){
                   
                   new ListeInventaireCaisseForm().show();
+                  ToastBar.showMessage("Inventaire caisse est modifié avec succès", FontImage.MATERIAL_STAR, 16000);
               }
               
             }

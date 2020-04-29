@@ -73,6 +73,7 @@ public class MenueAgentCaisseForm extends Form {
 
             }
         });
+        //this.getToolbar().getStyle().setBgColor(0xD3D3D3);
 
     }
 
@@ -82,7 +83,9 @@ public class MenueAgentCaisseForm extends Form {
         
         CreationMenu();
         
-          ToastBar.showMessage("Agent caisse connecter", FontImage.MATERIAL_STAR, 16000);
+          ToastBar.showMessage("Agent caisse connecter", FontImage.MATERIAL_STAR, 30000);
+          
+          
 
     }
 

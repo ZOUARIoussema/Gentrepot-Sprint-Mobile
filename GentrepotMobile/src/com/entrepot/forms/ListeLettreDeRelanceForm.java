@@ -43,6 +43,8 @@ public class ListeLettreDeRelanceForm extends Form {
 
             Label espace = new Label(" ");
             Label labelNumeo = new Label("Numero: " + l.getId());
+            
+           //  labelNumeo.getAllStyles().setFgColor(0xFF0000);
             Label labelDate = new Label("Date creation: " + new SimpleDateFormat("MM-dd-yyyy").format(l.getDate()));
             Label labelF = new Label("Facture: " + l.getFactureVente().getNumeroF());
 
