@@ -71,10 +71,9 @@ public class ServiceInventaireCaisse {
     
     
      public boolean modifierInventaireCaisse(InventaireCaisse inv) {
-        String url = Statics.URL_t + "/apiInventaire/add?soldeCheque=" + inv.getSoldeCheque()
-                + "&soldeEspece=" + inv.getSoldeEspece() + "&soldeTheorique="
-                + inv.getSoldeTheorique() + "&dateC=" + inv.getDateCreation() + "&soldecalculer=" + inv.getSoldeCalculer()
-                + "&ecart=" + inv.getEcart();
+        String url = Statics.URL_t + "/apiInventaire/modifier?id=" + inv.getId()
+                + "&sc=" + inv.getSoldeCalculer();
+                
         request.setUrl(url);
 
         System.out.println(url);

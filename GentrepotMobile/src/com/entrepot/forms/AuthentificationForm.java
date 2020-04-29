@@ -5,35 +5,35 @@
  */
 package com.entrepot.forms;
 
-
-
- 
+import com.codename1.messaging.Message;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
- 
+import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.layouts.Layout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.entrepot.models.User;
 import com.entrepot.services.ServiceUser;
- 
- 
- 
 
- 
 /**
  *
  * @author oussema
  */
 public class AuthentificationForm extends Form {
 
-    String jobPic = "";
+    
+    public static User user=null;
+    
+    
+    
 
     public AuthentificationForm() {
 
@@ -50,21 +50,27 @@ public class AuthentificationForm extends Form {
         Button bInscription = new Button("Inscription");
 
         Container c = new Container(BoxLayout.x());
+       
         c.addAll(bConnection, bInscription);
+        
+        Container c2 = new Container(BoxLayout.y());
+        
+        c2.addAll(login,password,l,c);
+        
 
         this.setLayout(BoxLayout.y());
 
         this.setTitle("Authentification");
-        this.add(login);
-        this.add(password);
-       // this.add(l);
-        this.add(c);
+        
+        this.setLayout(new FlowLayout(CENTER,CENTER));
+        this.add(c2);
+        
 
         l.addPointerReleasedListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                
-                  
+
+               new EnvoyerCodeRecuperationForm().show();
 
             }
         });
@@ -73,14 +79,15 @@ public class AuthentificationForm extends Form {
             @Override
             public void actionPerformed(ActionEvent evt) {
 
-                User u = serviceUser.findUser(login.getText(), password.getText());
+                user = serviceUser.findUser(login.getText(), password.getText());
 
-                if (u == null) {
+                if (user == null) {
 
                     Dialog.show("Erreur", "Login ou mot de passe invalide", "cancel", "ok");
-                } else if (u.getRole().equals("[ROLE_ACAIS, ROLE_USER]")) {
+                } else if (user.getRole().equals("[ROLE_ACAIS, ROLE_USER]")) {
 
                     new MenueAgentCaisseForm().show();
+
                 }
 
             }

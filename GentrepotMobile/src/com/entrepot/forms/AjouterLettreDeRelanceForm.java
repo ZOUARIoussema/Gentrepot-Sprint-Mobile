@@ -6,6 +6,7 @@
 package com.entrepot.forms;
 
 import com.codename1.components.ImageViewer;
+import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
 import com.codename1.ui.Container;
@@ -36,6 +37,9 @@ public class AjouterLettreDeRelanceForm extends Form {
      Resources theme = UIManager.initFirstTheme("/themeTresorerie");
 
     public AjouterLettreDeRelanceForm() {
+        
+        
+        
 
         CreationMenu();
 

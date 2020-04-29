@@ -5,6 +5,7 @@
  */
 package com.entrepot.forms;
 
+import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
@@ -111,6 +112,15 @@ public class AjouterInventaireCaisseForm extends Form {
         
         
           this.setTitle("Ajouter inventairs caisse");
+          
+          
+          
+          
+         
+          
+          
+          
+          
         
     }
     
@@ -127,26 +137,26 @@ public class AjouterInventaireCaisseForm extends Form {
         
         
         
-        TextField soldeCalculer = new TextField();
+        TextField soldeCalculer = new TextField(null,"Solde calculer: "+i.getSoldeCalculer());
        
          
         
-        Button bAjouter= new Button("Ajouter");
+        Button bm= new Button("Modifier");
         
         this.setLayout(BoxLayout.y());
         
         this.addAll(soldeCalculer);
-        this.add(bAjouter);
+        this.add(bm);
         
-        bAjouter.addActionListener(new ActionListener() {
+        bm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 
             
                 
-                i.setEcart(Double.parseDouble(soldeCalculer.getText()));
+                i.setSoldeCalculer(Double.parseDouble(soldeCalculer.getText()));
                
-              if(  serviceInventaireCaisse.addinventaireCaisse(i)){
+              if(  serviceInventaireCaisse.modifierInventaireCaisse(i)){
                   
                   new ListeInventaireCaisseForm().show();
               }

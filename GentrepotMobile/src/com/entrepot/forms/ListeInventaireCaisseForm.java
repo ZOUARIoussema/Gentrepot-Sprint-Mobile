@@ -71,6 +71,15 @@ public class ListeInventaireCaisseForm extends Form{
                 }
             });
             
+            bModifier.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    
+                    new AjouterInventaireCaisseForm(inventaireCaisse).show();
+                  
+                }
+            });
+            
             cButton.addAll(bModifier,bSupprimer);
             
             cDetaille.add(cButton);

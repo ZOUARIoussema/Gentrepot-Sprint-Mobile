@@ -57,6 +57,30 @@ public class ServiceUser {
 
         return responseResult;
     }
+    
+    
+    
+     public boolean modifierUser(User user) {
+        String url = Statics.URL_t + "/apiUser/update?id=" + user.getId() + "&paswd=" + user.getPassword();
+             
+        request.setUrl(url);
+        
+        System.out.println(url);
+
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+
+                System.out.println(request.getResponseCode());
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return responseResult;
+    }
 
     public ArrayList<User> getAllUsers() {
         String url = Statics.URL_t + "/apiUser/findAll";
