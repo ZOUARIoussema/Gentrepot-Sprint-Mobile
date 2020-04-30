@@ -60,11 +60,8 @@ public class ServiceLettreDeRelance {
 
         return responseResult;
     }
-    
-    
-    
-    
-     public boolean deleteLettre(LettreDeRelance l) {
+
+    public boolean deleteLettre(LettreDeRelance l) {
         String url = Statics.URL_t + "/apiLettre/delete?idL=" + l.getId();
 
         request.setUrl(url);
@@ -166,24 +163,37 @@ public class ServiceLettreDeRelance {
             List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
             for (Map<String, Object> obj : list) {
 
-               
+                int id = (int) Float.parseFloat(obj.get("id").toString());
 
                 Map<String, Object> dated = (Map<String, Object>) obj.get("dateCreation");
                 float da = Float.parseFloat(dated.get("timestamp").toString());
-                Date dCeation = new Date((long) (da - 3600) * 1000 );
-                
-                
-                 Map<String, Object> f = (Map<String, Object>) obj.get("factureVente");
-                int facture = (int) Float.parseFloat(f.get("id").toString());
-              
-                  int id = (int) Float.parseFloat(obj.get("id").toString());
+                Date dCeation = new Date((long) (da - 3600) * 1000);
 
-                lettres.add(new LettreDeRelance(id,dCeation, new FactureVente(facture)));
+                Map<String, Object> f = (Map<String, Object>) obj.get("factureVente");
+                int facture = (int) Float.parseFloat(f.get("id").toString());
+
+                lettres.add(new LettreDeRelance(id, dCeation, new FactureVente(facture)));
             }
 
         } catch (IOException ex) {
         }
 
         return lettres;
+    }
+
+    public FactureVente findFactureById(int id) {
+        FactureVente fa = null;
+
+        for (FactureVente facture : this.getAllFacture()) {
+
+            if (facture.getNumeroF() == id) {
+
+                fa = facture;
+                return fa;
+            }
+
+        }
+
+        return fa;
     }
 }

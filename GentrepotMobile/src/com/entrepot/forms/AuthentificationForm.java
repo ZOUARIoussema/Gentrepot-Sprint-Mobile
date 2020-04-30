@@ -35,10 +35,16 @@ public class AuthentificationForm extends Form {
     Resources theme = UIManager.initFirstTheme("/themeTresorerie");
 
     public AuthentificationForm() {
+        
+        
 
         ServiceUser serviceUser = new ServiceUser();
 
         Resources theme = UIManager.initFirstTheme("/themeTresorerie");
+        
+        
+        
+       this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
 
         TextField login = new TextField(null, "Non d'utilisateur");
         TextField password = new TextField(null, "Mot de passe");

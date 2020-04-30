@@ -6,12 +6,15 @@
 package com.entrepot.forms;
 
 import com.codename1.components.ToastBar;
+import com.codename1.ui.Container;
 import com.codename1.ui.Display;
 import com.codename1.ui.Font;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 
@@ -24,6 +27,9 @@ public class MenueAgentCaisseForm extends Form {
     Resources theme = UIManager.initFirstTheme("/themeTresorerie");
 
     public void CreationMenu() {
+        
+        this.getToolbar().setUIID("SideCommande");
+        
         
         
          this.getToolbar().addCommandToOverflowMenu("Modifier Profile",null,(evt) -> {
@@ -85,7 +91,7 @@ public class MenueAgentCaisseForm extends Form {
         
           ToastBar.showMessage("Agent caisse connecter", FontImage.MATERIAL_STAR, 30000);
           
-          
+          this.getStyle().setBgImage(theme.getImage("entrepot.jpg"), focusScrolling);
 
     }
 

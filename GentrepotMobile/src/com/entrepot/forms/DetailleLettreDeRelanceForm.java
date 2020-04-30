@@ -1,0 +1,72 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.entrepot.forms;
+
+import com.codename1.messaging.Message;
+import com.codename1.ui.Button;
+import com.codename1.ui.Container;
+import com.codename1.ui.Display;
+import com.codename1.ui.Form;
+import com.codename1.ui.Label;
+import com.codename1.ui.events.ActionEvent;
+import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
+import com.entrepot.models.FactureVente;
+import com.entrepot.models.LettreDeRelance;
+import com.entrepot.services.ServiceLettreDeRelance;
+
+/**
+ *
+ * @author oussema
+ */
+public class DetailleLettreDeRelanceForm extends Form {
+
+    ServiceLettreDeRelance serviceLettreDeRelance = new ServiceLettreDeRelance();
+
+    public DetailleLettreDeRelanceForm(LettreDeRelance l) {
+
+        FactureVente facture = serviceLettreDeRelance.findFactureById(l.getFactureVente().getNumeroF());
+
+        Label la = new Label("Lettre:");
+        Label numeroL = new Label("Numero de lettre: " + l.getId());
+        Label dateL = new Label("Date creation lettre: " + l.getDate());
+
+        Label laF = new Label("Facture: ");
+
+        Label numeroF = new Label("Numero de facture: " + facture.getNumeroF());
+        Label etat = new Label("Etat   : " + facture.getEtat());
+        Label total = new Label("Total   : " + facture.getTotalTTC());
+        Label rest = new Label("Reste   : " + facture.getRestePaye());
+         Label tp = new Label("Total   payé : " + facture.getTotalPaye());
+          Label de = new Label("Date echaillance de paiment  : " + facture.getDateEchaillancePaiement());
+         
+         Button b = new Button("Envoyer mail");
+
+        Container c = new Container(BoxLayout.y());
+
+        c.addAll(la, numeroL, dateL, laF, numeroF, etat, total,de,rest,tp,b);
+
+        this.setLayout(new FlowLayout(CENTER, CENTER));
+        
+        this.add(c);
+        
+        this.setTitle("Detail lettre de relance");
+        
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                
+                    Message m = new Message("Facture impayé: " );
+                  
+                 Display.getInstance().sendMessage(new String[]{""}, "Lettre de relance", m);
+              
+            }
+        });
+
+    }
+
+}

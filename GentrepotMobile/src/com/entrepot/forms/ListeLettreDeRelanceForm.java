@@ -32,6 +32,8 @@ public class ListeLettreDeRelanceForm extends Form {
      
 
     public ListeLettreDeRelanceForm() {
+        
+         // this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
 
         CreationMenu();
 
@@ -51,6 +53,11 @@ public class ListeLettreDeRelanceForm extends Form {
             
             Button b = new Button("Suuprimer");
             
+              Button bD = new Button("Detail");
+              
+              Container cb = new Container(BoxLayout.x());
+            
+            cb.addAll(bD,b);
             
               b.addActionListener(new ActionListener() {
                 @Override
@@ -65,25 +72,26 @@ public class ListeLettreDeRelanceForm extends Form {
                   
                 }
             });
+              
+              bD.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+                    
+                    new DetailleLettreDeRelanceForm(l).show();
+               
+                }
+            });
             
             
             
-            cDetaille.addAll(espace, labelNumeo, labelDate, labelF,b);
+            cDetaille.addAll(espace, labelNumeo, labelDate, labelF,cb);
 
             cGlobal.add(new ImageViewer(theme.getImage("inv.png")));
             cGlobal.add(cDetaille);
           
             this.add(cGlobal);
             
-            
-            
-           
-            
-            
-            
-          
-            
-            
+             
           
               this.setTitle("Liste des lettres de relances");
             
