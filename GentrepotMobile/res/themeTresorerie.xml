@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <resource majorVersion="1" minorVersion="10" useXmlUI="false">
+    <image name="adduser.png"  />
     <image name="entrepot.jpg"  />
     <image name="entrer.jpg"  />
     <image name="icon.jpg"  />

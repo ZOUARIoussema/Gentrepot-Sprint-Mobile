@@ -5,14 +5,18 @@
  */
 package com.entrepot.forms;
 
+import com.codename1.components.ImageViewer;
 import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
+import static com.codename1.ui.Component.CENTER;
+import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Form;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.ui.validation.LengthConstraint;
@@ -40,17 +44,43 @@ public class CreerCompteForm extends Form {
         Button bValider = new Button("Valider");
 
         Validator v = new Validator();
-        v.addConstraint(motPasse, new LengthConstraint(6, "eeee"));
-        v.addConstraint(adresseMail, RegexConstraint.validEmail("ppppp"));
+        
+        v.setShowErrorMessageForFocusedComponent(true);
+      
+        v.addConstraint(login, new LengthConstraint(1, "champ vide"));
+        v.addConstraint(motPasse, new LengthConstraint(6, "longeur inferieur a six caractre"));
+        v.addConstraint(adresseMail, RegexConstraint.validEmail("adreese mail invalide"));
+               
+        
+        
+       
 
         //RegexConstraint emailConstraint = new RegexConstraint("^[(a-zA-Z-0-9-\\_\\+\\.)]+@[(a-z-A-z)]+\\.[(a-zA-z)]{2,3}$", "Invalid Email Address");
         v.addSubmitButtons(bValider);
-        v.setShowErrorMessageForFocusedComponent(true);
+       // v.setShowErrorMessageForFocusedComponent(true);
 
         this.setLayout(BoxLayout.y());
 
         this.setTitle("Creer compte");
-        this.addAll(login, adresseMail, motPasse, bValider);
+       
+        
+        
+        
+         this.setLayout(new FlowLayout(CENTER, CENTER));
+         
+         Container c  = new Container(BoxLayout.y());
+         
+         
+         ImageViewer image =  new ImageViewer(theme.getImage("adduser.png"));
+         
+         c.addAll(image,login, adresseMail, motPasse, bValider);
+      
+         
+         this.add(c);
+         
+         
+        
+        
 
         bValider.addActionListener(new ActionListener() {
             @Override

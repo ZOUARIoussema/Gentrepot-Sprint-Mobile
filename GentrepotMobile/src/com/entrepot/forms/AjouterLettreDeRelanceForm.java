@@ -42,6 +42,8 @@ public class AjouterLettreDeRelanceForm extends Form {
         
 
         CreationMenu();
+        
+          this.add(new Label("Liste des factures"));
 
         for (FactureVente f : serviceLettreDeRelance.getAllFacture()) {
 
@@ -69,6 +71,9 @@ public class AjouterLettreDeRelanceForm extends Form {
             Label dateE = new Label("Date echaillance du paiement: "+new SimpleDateFormat("MM-dd-yyyy").format(f.getDateEchaillancePaiement()));
             
 
+            
+          
+            
            cD.addAll(espace,numeroF,dateC,total,etat,dateE,cF);
            cG.add(new ImageViewer(theme.getImage("inv.png")));
            cG.add(cD);

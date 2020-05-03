@@ -21,6 +21,8 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.layouts.Layout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
+import com.codename1.ui.validation.LengthConstraint;
+import com.codename1.ui.validation.Validator;
 import com.entrepot.models.User;
 import com.entrepot.services.ServiceUser;
 
@@ -50,6 +52,16 @@ public class AuthentificationForm extends Form {
         Button bConnection = new Button("Connecter");
         Button bInscription = new Button("Inscription");
 
+        Validator v = new Validator();
+        
+         v.setShowErrorMessageForFocusedComponent(true);
+
+        v.addConstraint(login, new LengthConstraint(1, "champ vide"));
+        v.addConstraint(password, new LengthConstraint(1, "champ vide"));
+
+        v.addSubmitButtons(bConnection);
+       
+
         Container c = new Container(BoxLayout.x());
 
         c.addAll(bConnection, bInscription);
@@ -78,41 +90,30 @@ public class AuthentificationForm extends Form {
         bConnection.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                
-              
-                
-                if(login.getText().equals(null)){
-                    
-                     Dialog.show("Erreur", "Champ non d'utilisateur vide", "cancel", "ok");
-                    
-                    
-                    
-                }else
-                if(password.getText().equals(null)){
-                    
-                     Dialog.show("Erreur", "Champ mot de passe vide", "cancel", "ok");
-                    
-                }
-                else
-                {
-                
-                
-                
 
-                user = serviceUser.findUser(login.getText(), password.getText());
+                if (login.getText().equals(null)) {
 
-                if (user == null) {
+                    Dialog.show("Erreur", "Champ non d'utilisateur vide", "cancel", "ok");
 
-                    Dialog.show("Erreur", "Login ou mot de passe invalide", "cancel", "ok");
-                } else if (user.getRole().equals("[ROLE_ACAIS, ROLE_USER]")) {
+                } else if (password.getText().equals(null)) {
 
-                    new MenueAgentCaisseForm().show();
+                    Dialog.show("Erreur", "Champ mot de passe vide", "cancel", "ok");
+
+                } else {
+
+                    user = serviceUser.findUser(login.getText(), password.getText());
+
+                    if (user == null) {
+
+                        Dialog.show("Erreur", "Login ou mot de passe invalide", "cancel", "ok");
+                    } else if (user.getRole().equals("[ROLE_ACAIS, ROLE_USER]")) {
+
+                        new MenueAgentCaisseForm().show();
+
+                    }
 
                 }
 
-            }
-                
-                
             }
         });
 
