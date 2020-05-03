@@ -16,6 +16,8 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
 import com.entrepot.services.Password;
 import com.entrepot.services.ServiceUser;
 
@@ -26,8 +28,17 @@ import com.entrepot.services.ServiceUser;
 public class ModifierProfilForm extends Form {
 
     ServiceUser serviceUser = new ServiceUser();
+    
+    Resources theme = UIManager.initFirstTheme("/themeTresorerie");
+
+        
+
 
     public ModifierProfilForm() {
+        
+        CreationMenu();
+        
+         this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
 
         TextField login = new TextField(null, "Non d'utilisateur: " + AuthentificationForm.user.getUsername());
         login.setEditable(false);
@@ -75,6 +86,55 @@ public class ModifierProfilForm extends Form {
                     Dialog.show("Erreur", " ancien mot de passe invalide", "cancel", "ok");
 
                 }
+
+            }
+        });
+
+    }
+    
+    
+    
+     public void CreationMenu() {
+
+        this.getToolbar().addMaterialCommandToSideMenu("Ajouter Inventaire Caisse", FontImage.MATERIAL_ADD, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new AjouterInventaireCaisseForm().show();
+
+            }
+        });
+
+        this.getToolbar().addMaterialCommandToSideMenu("Liste Inventaire Caisse", FontImage.MATERIAL_ARCHIVE, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new ListeInventaireCaisseForm().show();
+
+            }
+        });
+        this.getToolbar().addMaterialCommandToSideMenu("Ajouter Lettre de relance", FontImage.MATERIAL_ADD, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new AjouterLettreDeRelanceForm().show();
+
+            }
+        });
+        this.getToolbar().addMaterialCommandToSideMenu("Liste lettre de relance", FontImage.MATERIAL_ARCHIVE, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new ListeLettreDeRelanceForm().show();
+
+            }
+        });
+
+        this.getToolbar().addMaterialCommandToSideMenu("Deconnecter", FontImage.MATERIAL_EXIT_TO_APP, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new AuthentificationForm().show();
 
             }
         });

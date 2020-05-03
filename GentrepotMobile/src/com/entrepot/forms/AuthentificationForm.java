@@ -35,16 +35,12 @@ public class AuthentificationForm extends Form {
     Resources theme = UIManager.initFirstTheme("/themeTresorerie");
 
     public AuthentificationForm() {
-        
-        
 
         ServiceUser serviceUser = new ServiceUser();
 
         Resources theme = UIManager.initFirstTheme("/themeTresorerie");
-        
-        
-        
-       this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
+
+        this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
 
         TextField login = new TextField(null, "Non d'utilisateur");
         TextField password = new TextField(null, "Mot de passe");
@@ -61,7 +57,7 @@ public class AuthentificationForm extends Form {
         Container c2 = new Container(BoxLayout.y());
 
         c2.add(new ImageViewer(theme.getImage("login.png")));
-        c2.addAll(login, password, l, c);
+        c2.addAll(login, password, c);
 
         this.setLayout(BoxLayout.y());
 
@@ -82,6 +78,26 @@ public class AuthentificationForm extends Form {
         bConnection.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
+                
+              
+                
+                if(login.getText().equals(null)){
+                    
+                     Dialog.show("Erreur", "Champ non d'utilisateur vide", "cancel", "ok");
+                    
+                    
+                    
+                }else
+                if(password.getText().equals(null)){
+                    
+                     Dialog.show("Erreur", "Champ mot de passe vide", "cancel", "ok");
+                    
+                }
+                else
+                {
+                
+                
+                
 
                 user = serviceUser.findUser(login.getText(), password.getText());
 
@@ -94,6 +110,9 @@ public class AuthentificationForm extends Form {
 
                 }
 
+            }
+                
+                
             }
         });
 

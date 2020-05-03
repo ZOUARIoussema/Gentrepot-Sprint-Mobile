@@ -46,6 +46,9 @@ public class AjouterLettreDeRelanceForm extends Form {
         for (FactureVente f : serviceLettreDeRelance.getAllFacture()) {
 
             Container cG = new Container(BoxLayout.x());
+            
+            
+            
             Container cD = new Container(BoxLayout.y());
             
             Container cF = new Container(BoxLayout.x());
@@ -102,6 +105,8 @@ public class AjouterLettreDeRelanceForm extends Form {
     }
 
     public void CreationMenu() {
+        
+      //  this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
 
         this.getToolbar().addMaterialCommandToSideMenu("Ajouter Inventaire Caisse", FontImage.MATERIAL_ADD, new ActionListener() {
             @Override

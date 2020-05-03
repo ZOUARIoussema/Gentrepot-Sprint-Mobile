@@ -13,6 +13,8 @@ import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
 import com.entrepot.models.InventaireCaisse;
 import com.entrepot.services.ServiceInventaireCaisse;
 
@@ -25,6 +27,10 @@ import java.util.Date;
  * @author oussema
  */
 public class AjouterInventaireCaisseForm extends Form {
+    
+     Resources theme = UIManager.initFirstTheme("/themeTresorerie");
+     
+     
     
      public void CreationMenu() {
 
@@ -74,6 +80,8 @@ public class AjouterInventaireCaisseForm extends Form {
     }
     
     public AjouterInventaireCaisseForm() {
+        
+        this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
         
         
         CreationMenu();

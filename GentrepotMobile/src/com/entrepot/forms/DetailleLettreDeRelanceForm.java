@@ -9,12 +9,15 @@ import com.codename1.messaging.Message;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Display;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
 import com.entrepot.models.FactureVente;
 import com.entrepot.models.LettreDeRelance;
 import com.entrepot.services.ServiceLettreDeRelance;
@@ -26,9 +29,13 @@ import com.entrepot.services.ServiceLettreDeRelance;
 public class DetailleLettreDeRelanceForm extends Form {
 
     ServiceLettreDeRelance serviceLettreDeRelance = new ServiceLettreDeRelance();
+      Resources theme = UIManager.initFirstTheme("/themeTresorerie");
 
     public DetailleLettreDeRelanceForm(LettreDeRelance l) {
 
+        
+        CreationMenu();
+        
         FactureVente facture = serviceLettreDeRelance.findFactureById(l.getFactureVente().getNumeroF());
 
         Label la = new Label("Lettre:");
@@ -66,6 +73,66 @@ public class DetailleLettreDeRelanceForm extends Form {
               
             }
         });
+
+    }
+    
+    
+    
+    
+     public void CreationMenu() {
+        
+        this.getToolbar().setUIID("SideCommande");
+        
+        
+        
+         this.getToolbar().addCommandToOverflowMenu("Modifier Profile",null,(evt) -> {
+             
+             new ModifierProfilForm().show();
+       });
+
+        this.getToolbar().addMaterialCommandToSideMenu("Ajouter Inventaire Caisse", FontImage.MATERIAL_ADD, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new AjouterInventaireCaisseForm().show();
+
+            }
+        });
+
+        this.getToolbar().addMaterialCommandToSideMenu("Liste Inventaire Caisse", FontImage.MATERIAL_ARCHIVE, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new ListeInventaireCaisseForm().show();
+
+            }
+        });
+        this.getToolbar().addMaterialCommandToSideMenu("Ajouter Lettre de relance", FontImage.MATERIAL_ADD, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new AjouterLettreDeRelanceForm().show();
+
+            }
+        });
+        this.getToolbar().addMaterialCommandToSideMenu("Liste lettre de relance", FontImage.MATERIAL_ARCHIVE, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new ListeLettreDeRelanceForm().show();
+
+            }
+        });
+
+        this.getToolbar().addMaterialCommandToSideMenu("Deconnecter", FontImage.MATERIAL_EXIT_TO_APP, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new AuthentificationForm().show();
+
+            }
+        });
+        //this.getToolbar().getStyle().setBgColor(0xD3D3D3);
 
     }
 
