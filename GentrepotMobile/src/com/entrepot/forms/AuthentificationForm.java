@@ -69,7 +69,7 @@ public class AuthentificationForm extends Form {
         Container c2 = new Container(BoxLayout.y());
 
         c2.add(new ImageViewer(theme.getImage("login.png")));
-        c2.addAll(login, password, c);
+        c2.addAll(login, password,l ,c);
 
         this.setLayout(BoxLayout.y());
 

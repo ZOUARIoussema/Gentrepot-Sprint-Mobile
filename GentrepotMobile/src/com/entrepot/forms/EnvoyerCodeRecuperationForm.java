@@ -18,10 +18,10 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.util.Base64;
+import com.entrepot.services.MailService;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Random;
-
 
 /**
  *
@@ -29,8 +29,7 @@ import java.util.Random;
  */
 public class EnvoyerCodeRecuperationForm extends Form {
 
-    String accountSID = "ACc03b63cd26ee3a0eab39fbf3ea1843d8";
-    String authToken = "078c70c9576471b9571b13ff82454050";
+    public static String code;
 
     public EnvoyerCodeRecuperationForm() {
 
@@ -53,36 +52,19 @@ public class EnvoyerCodeRecuperationForm extends Form {
             public void actionPerformed(ActionEvent evt) {
 
                 Random r = new Random();
-                String val = "" + r.nextInt(10000);
-                while (val.length() < 4) {
-                    val = "0" + val;
+                code = "" + r.nextInt(10000);
+                while (code.length() < 4) {
+                    code = "0" + code;
                 }
+                
+                
+                
+                
 
-                  Message m = new Message("Code: "+val );
-                  
-                  
-            /*    try {
-                    Display.getInstance().sendSMS("+21624812689", "");
-                } catch (IOException ex) {
-                    System.err.println(ex.getMessage());
-                }*/
-                  
-                 
-                 Display.getInstance().sendMessage(new String[]{"oussema.zouari@esprit.tn"}, "Code de verifcation", m);
+                MailService.EnvoyerMail("oussema.zouari@esprit.tn", "Code recuperation ", "code:" + code);
                 
-                
-                
-                
-                
-              /*  Response<Map> result = Rest.post("https://api.twilio.com/2010-04-01/Accounts/" + accountSID + "/Messages.json").
-        queryParam("To", "+21624812689").
-        queryParam("From", "+21624812689").
-        queryParam("Body", val).
-        header("Authorization", "Basic " + Base64.encodeNoNewline((accountSID + ":" + authToken).getBytes())).
-        getAsJsonMap();*/
-                
-                
-                
+                new VerifCodeForm().show();
+
             }
         });
 
