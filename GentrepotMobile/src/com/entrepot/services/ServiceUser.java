@@ -5,10 +5,13 @@
  */
 package com.entrepot.services;
 
+import com.entrepot.utls.Statics;
+import jdk.nashorn.internal.ir.RuntimeNode;
+import sun.security.util.Password;
+
 /**
  *
  * @author oussema
  */
-public class ServiceUser {
-    
+public class ServiceUser { 
 }
