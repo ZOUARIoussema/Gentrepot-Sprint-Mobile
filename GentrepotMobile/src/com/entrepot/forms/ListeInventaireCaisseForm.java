@@ -105,6 +105,12 @@ public class ListeInventaireCaisseForm extends Form{
     
      public void CreationMenu() {
          
+         
+          this.getToolbar().addCommandToOverflowMenu("Modifier Profile",null,(evt) -> {
+             
+             new ModifierProfilForm().show();
+       });
+         
        
 
         this.getToolbar().addMaterialCommandToSideMenu("Ajouter Inventaire Caisse", FontImage.MATERIAL_ADD, new ActionListener() {

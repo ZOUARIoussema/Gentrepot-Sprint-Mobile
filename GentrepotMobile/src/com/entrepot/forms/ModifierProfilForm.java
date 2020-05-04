@@ -5,6 +5,7 @@
  */
 package com.entrepot.forms;
 
+import com.codename1.components.ImageViewer;
 import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
@@ -53,7 +54,7 @@ public class ModifierProfilForm extends Form {
 
         Container c = new Container(BoxLayout.y());
 
-        c.addAll(login, adresseeMail, ancientMotPasse, nouveauMotPasse, b);
+        c.addAll(new ImageViewer(theme.getImage("updateuser.png")),login, adresseeMail, ancientMotPasse, nouveauMotPasse, b);
 
         this.setLayout(new FlowLayout(CENTER, CENTER));
 

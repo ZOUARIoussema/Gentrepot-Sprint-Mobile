@@ -33,7 +33,7 @@ public class ListeLettreDeRelanceForm extends Form {
 
     public ListeLettreDeRelanceForm() {
         
-         // this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
+       //  this.getStyle().setBgImage(theme.getImage("backroundlist.jpg"), focusScrolling);
 
         CreationMenu();
 
@@ -101,6 +101,11 @@ public class ListeLettreDeRelanceForm extends Form {
     }
 
     public void CreationMenu() {
+        
+         this.getToolbar().addCommandToOverflowMenu("Modifier Profile",null,(evt) -> {
+             
+             new ModifierProfilForm().show();
+       });
 
         this.getToolbar().addMaterialCommandToSideMenu("Ajouter Inventaire Caisse", FontImage.MATERIAL_ADD, new ActionListener() {
             @Override

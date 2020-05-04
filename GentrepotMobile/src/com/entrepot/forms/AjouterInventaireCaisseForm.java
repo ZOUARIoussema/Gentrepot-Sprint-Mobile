@@ -5,34 +5,43 @@
  */
 package com.entrepot.forms;
 
+import com.codename1.components.ImageViewer;
 import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
+import static com.codename1.ui.Component.CENTER;
+import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
+import com.codename1.ui.validation.NumericConstraint;
+import com.codename1.ui.validation.RegexConstraint;
+import com.codename1.ui.validation.Validator;
 import com.entrepot.models.InventaireCaisse;
 import com.entrepot.services.ServiceInventaireCaisse;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 /**
  *
  * @author oussema
  */
 public class AjouterInventaireCaisseForm extends Form {
-    
-     Resources theme = UIManager.initFirstTheme("/themeTresorerie");
-     
-     
-    
-     public void CreationMenu() {
+
+    Resources theme = UIManager.initFirstTheme("/themeTresorerie");
+
+    public void CreationMenu() {
+
+        this.getToolbar().addCommandToOverflowMenu("Modifier Profile", null, (evt) -> {
+
+            new ModifierProfilForm().show();
+        });
 
         this.getToolbar().addMaterialCommandToSideMenu("Ajouter Inventaire Caisse", FontImage.MATERIAL_ADD, new ActionListener() {
             @Override
@@ -78,112 +87,85 @@ public class AjouterInventaireCaisseForm extends Form {
         });
 
     }
-    
+
     public AjouterInventaireCaisseForm() {
-        
+
         this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
-        
-        
+
         CreationMenu();
+
+        ServiceInventaireCaisse serviceInventaireCaisse = new ServiceInventaireCaisse();
+
+        TextField soldeCalculer = new TextField(null, "Solde calculer");
+
+        Button bAjouter = new Button("Ajouter");
+
+        Validator v = new Validator();
+        v.setShowErrorMessageForFocusedComponent(true);
         
-        ServiceInventaireCaisse serviceInventaireCaisse = new  ServiceInventaireCaisse();
-        
-        
-        
-        TextField soldeCalculer = new TextField(null,"Solde calculer");
-       
-         
-        
-        Button bAjouter= new Button("Ajouter");
-        
-        this.setLayout(BoxLayout.y());
-        
-        this.addAll(soldeCalculer);
-        this.add(bAjouter);
-        
+          RegexConstraint n = new RegexConstraint("^[0-9]*.[0-9]+$", "Invalid ");
+        v.addConstraint(soldeCalculer, n);
+        v.addSubmitButtons(bAjouter);
+
+        this.setLayout(new FlowLayout(CENTER, CENTER));
+
+        Container c = new Container(BoxLayout.y());
+
+        c.addAll(new ImageViewer(theme.getImage("credit-control.png")), soldeCalculer, bAjouter);
+        this.add(c);
+
         bAjouter.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                
-            
-                
-                InventaireCaisse inventaireCaisse =new InventaireCaisse(Double.parseDouble(soldeCalculer.getText()));
-               
-              if(  serviceInventaireCaisse.addinventaireCaisse(inventaireCaisse)){
-                  
-                  new ListeInventaireCaisseForm().show();
-                  ToastBar.showMessage("Inventaire caisse est ajouté avec succès", FontImage.MATERIAL_STAR, 16000);
-                  
-                  
-              }
-              
+
+                InventaireCaisse inventaireCaisse = new InventaireCaisse(Double.parseDouble(soldeCalculer.getText()));
+
+                if (serviceInventaireCaisse.addinventaireCaisse(inventaireCaisse)) {
+
+                    new ListeInventaireCaisseForm().show();
+                    ToastBar.showMessage("Inventaire caisse est ajouté avec succès", FontImage.MATERIAL_STAR, 16000);
+
+                }
+
             }
         });
-        
-        
-        
-          this.setTitle("Ajouter inventairs caisse");
-          
-          
-          
-          
-         
-          
-          
-          
-          
-        
+
+        this.setTitle("Ajouter inventairs caisse");
+
     }
-    
-    
-    
-    
-    
+
     public AjouterInventaireCaisseForm(InventaireCaisse i) {
-        
-        
+
         CreationMenu();
-        
-        ServiceInventaireCaisse serviceInventaireCaisse = new  ServiceInventaireCaisse();
-        
-        
-        
-        TextField soldeCalculer = new TextField(null,"Solde calculer: "+i.getSoldeCalculer());
-       
-         
-        
-        Button bm= new Button("Modifier");
-        
+
+        ServiceInventaireCaisse serviceInventaireCaisse = new ServiceInventaireCaisse();
+
+        TextField soldeCalculer = new TextField(null, "Solde calculer: " + i.getSoldeCalculer());
+
+        Button bm = new Button("Modifier");
+
         this.setLayout(BoxLayout.y());
-        
+
         this.addAll(soldeCalculer);
         this.add(bm);
-        
+
         bm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                
-            
-                
+
                 i.setSoldeCalculer(Double.parseDouble(soldeCalculer.getText()));
-               
-              if(  serviceInventaireCaisse.modifierInventaireCaisse(i)){
-                  
-                  new ListeInventaireCaisseForm().show();
-                  ToastBar.showMessage("Inventaire caisse est modifié avec succès", FontImage.MATERIAL_STAR, 16000);
-              }
-              
+
+                if (serviceInventaireCaisse.modifierInventaireCaisse(i)) {
+
+                    new ListeInventaireCaisseForm().show();
+                    ToastBar.showMessage("Inventaire caisse est modifié avec succès", FontImage.MATERIAL_STAR, 16000);
+                }
+
             }
         });
-        
-        
-        
-          this.setTitle("Ajouter inventairs caisse");
-        
+
+        this.setTitle("Ajouter inventairs caisse");
+
     }
-    
-    
-    
-    
-    
+
 }

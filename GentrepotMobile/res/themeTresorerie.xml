@@ -2,15 +2,19 @@
 
 <resource majorVersion="1" minorVersion="10" useXmlUI="false">
     <image name="adduser.png"  />
+    <image name="backroundlist.jpg"  />
+    <image name="credit-control.png"  />
     <image name="entrepot.jpg"  />
     <image name="entrer.jpg"  />
     <image name="icon.jpg"  />
     <image name="imageM.jpg"  />
     <image name="inv.png"  />
+    <image name="inventaireCaisse.jpg"  />
     <image name="login.png"  />
     <image name="loginBack.png"  />
     <theme name="Theme">
         <val key="@includeNativeBool" value="true" />
+        <val key="Label.fgColor" value="244eff" />
         <val key="SideCommand.align" value="1" />
         <val key="SideCommand.bgColor" value="546aea" />
         <border key="SideCommand.border" type="empty" />
@@ -36,4 +40,5 @@
         <val key="SideNavigationPanel.bgColor" value="ffffff" />
         <val key="SideNavigationPanel.transparency" value="255" />
     </theme>
+    <image name="updateuser.png"  />
 </resource>

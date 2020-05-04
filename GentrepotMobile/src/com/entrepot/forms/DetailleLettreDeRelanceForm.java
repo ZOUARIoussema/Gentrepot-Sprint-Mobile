@@ -29,16 +29,18 @@ import com.entrepot.services.ServiceLettreDeRelance;
 public class DetailleLettreDeRelanceForm extends Form {
 
     ServiceLettreDeRelance serviceLettreDeRelance = new ServiceLettreDeRelance();
-      Resources theme = UIManager.initFirstTheme("/themeTresorerie");
+    Resources theme = UIManager.initFirstTheme("/themeTresorerie");
 
     public DetailleLettreDeRelanceForm(LettreDeRelance l) {
 
-        
+       // this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
+
         CreationMenu();
-        
+
         FactureVente facture = serviceLettreDeRelance.findFactureById(l.getFactureVente().getNumeroF());
 
         Label la = new Label("Lettre:");
+        la.setUIID("Label");
         Label numeroL = new Label("Numero de lettre: " + l.getId());
         Label dateL = new Label("Date creation lettre: " + l.getDate());
 
@@ -48,47 +50,44 @@ public class DetailleLettreDeRelanceForm extends Form {
         Label etat = new Label("Etat   : " + facture.getEtat());
         Label total = new Label("Total   : " + facture.getTotalTTC());
         Label rest = new Label("Reste   : " + facture.getRestePaye());
-         Label tp = new Label("Total   payé : " + facture.getTotalPaye());
-          Label de = new Label("Date echaillance de paiment  : " + facture.getDateEchaillancePaiement());
-         
-         Button b = new Button("Envoyer mail");
+        Label tp = new Label("Total   payé : " + facture.getTotalPaye());
+        Label de = new Label("Date echaillance de paiment  : " + facture.getDateEchaillancePaiement());
+
+        Button b = new Button("Envoyer mail");
 
         Container c = new Container(BoxLayout.y());
 
-        c.addAll(la, numeroL, dateL, laF, numeroF, etat, total,de,rest,tp,b);
+        c.addAll(la, numeroL, dateL, laF, numeroF, etat, total, de, rest, tp, b);
 
         this.setLayout(new FlowLayout(CENTER, CENTER));
-        
+
         this.add(c);
-        
+
         this.setTitle("Detail lettre de relance");
-        
+
         b.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-                
-                    Message m = new Message("Facture impayé: " );
-                  
-                 Display.getInstance().sendMessage(new String[]{""}, "Lettre de relance", m);
-              
+
+                Message m = new Message("Facture impayé: ");
+
+                Display.getInstance().sendMessage(new String[]{""}, "Lettre de relance", m);
+
             }
         });
 
     }
-    
-    
-    
-    
-     public void CreationMenu() {
-        
+
+    public void CreationMenu() {
+
+       
+
         this.getToolbar().setUIID("SideCommande");
-        
-        
-        
-         this.getToolbar().addCommandToOverflowMenu("Modifier Profile",null,(evt) -> {
-             
-             new ModifierProfilForm().show();
-       });
+
+        this.getToolbar().addCommandToOverflowMenu("Modifier Profile", null, (evt) -> {
+
+            new ModifierProfilForm().show();
+        });
 
         this.getToolbar().addMaterialCommandToSideMenu("Ajouter Inventaire Caisse", FontImage.MATERIAL_ADD, new ActionListener() {
             @Override
