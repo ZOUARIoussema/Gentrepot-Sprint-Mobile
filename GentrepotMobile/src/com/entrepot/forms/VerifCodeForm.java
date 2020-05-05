@@ -5,14 +5,18 @@
  */
 package com.entrepot.forms;
 
+import com.codename1.components.ImageViewer;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Form;
 import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
-
-
+import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
+import com.codename1.ui.validation.LengthConstraint;
+import com.codename1.ui.validation.Validator;
 
 /**
  *
@@ -20,7 +24,11 @@ import com.codename1.ui.layouts.FlowLayout;
  */
 public class VerifCodeForm extends Form {
 
+    Resources theme = UIManager.initFirstTheme("/themeTresorerie");
+
     public VerifCodeForm() {
+
+        this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
 
         this.setLayout(new FlowLayout(CENTER, CENTER));
 
@@ -30,7 +38,18 @@ public class VerifCodeForm extends Form {
 
         Button b = new Button("Valider");
 
-        c.addAll(tCode, b);
+        Validator v = new Validator();
+
+        v.setShowErrorMessageForFocusedComponent(true);
+
+        v.addConstraint(tCode, new LengthConstraint(1, " champ vide  "));
+
+        v.addSubmitButtons(b);
+        
+        ImageViewer image=new ImageViewer(theme.getImage("valider.png").scaled(350, 350));
+        
+
+        c.addAll(image, tCode, b);
 
         this.add(c);
 
@@ -38,7 +57,15 @@ public class VerifCodeForm extends Form {
             @Override
             public void actionPerformed(com.codename1.ui.events.ActionEvent evt) {
 
-                new ModifierProfilForm().show();
+                
+                if(EnvoyerCodeRecuperationForm.code.equals(tCode.getText())){
+                    
+                
+                new ModifierProfilForm(AuthentificationForm.user).show();
+                }else
+                {
+                       Dialog.show("Erreur", "code invalide", "cancel", "ok");
+                }
 
             }
         });

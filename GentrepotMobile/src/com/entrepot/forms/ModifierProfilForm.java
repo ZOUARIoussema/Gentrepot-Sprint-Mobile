@@ -19,6 +19,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
+import com.entrepot.models.User;
 import com.entrepot.services.Password;
 import com.entrepot.services.ServiceUser;
 
@@ -29,17 +30,55 @@ import com.entrepot.services.ServiceUser;
 public class ModifierProfilForm extends Form {
 
     ServiceUser serviceUser = new ServiceUser();
-    
+
     Resources theme = UIManager.initFirstTheme("/themeTresorerie");
 
-        
+    public ModifierProfilForm(User u) {
 
+        this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
+
+        TextField login = new TextField(null, "Non d'utilisateur: " + u.getUsername());
+        login.setEditable(false);
+        TextField adresseeMail = new TextField(null, "Adresse mail:" + u.getEmail());
+        adresseeMail.setEditable(false);
+
+        TextField nouveauMotPasse = new TextField(null, "Nouveau mot de passe");
+        nouveauMotPasse.setConstraint(TextField.PASSWORD);
+
+        Button b = new Button("Valider");
+
+        Container c = new Container(BoxLayout.y());
+
+        c.addAll(new ImageViewer(theme.getImage("updateuser.png")), login, adresseeMail, nouveauMotPasse, b);
+
+        this.setLayout(new FlowLayout(CENTER, CENTER));
+
+        this.add(c);
+
+        this.setTitle("Modifier Profile");
+
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                u.setPassword(nouveauMotPasse.getText());
+
+                serviceUser.modifierUser(u);
+
+                ToastBar.showMessage("Profil est modifier avec succès", FontImage.MATERIAL_STAR, 16000);
+
+                new AuthentificationForm().show();
+
+            }
+        });
+
+    }
 
     public ModifierProfilForm() {
-        
+
         CreationMenu();
-        
-         this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
+
+        this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
 
         TextField login = new TextField(null, "Non d'utilisateur: " + AuthentificationForm.user.getUsername());
         login.setEditable(false);
@@ -54,7 +93,7 @@ public class ModifierProfilForm extends Form {
 
         Container c = new Container(BoxLayout.y());
 
-        c.addAll(new ImageViewer(theme.getImage("updateuser.png")),login, adresseeMail, ancientMotPasse, nouveauMotPasse, b);
+        c.addAll(new ImageViewer(theme.getImage("updateuser.png")), login, adresseeMail, ancientMotPasse, nouveauMotPasse, b);
 
         this.setLayout(new FlowLayout(CENTER, CENTER));
 
@@ -77,8 +116,6 @@ public class ModifierProfilForm extends Form {
                             new MenueAgentCaisseForm().show();
                         }
 
-                        
-
                     } else {
                         Dialog.show("Erreur", "champ vide ", "cancel", "ok");
                     }
@@ -92,10 +129,8 @@ public class ModifierProfilForm extends Form {
         });
 
     }
-    
-    
-    
-     public void CreationMenu() {
+
+    public void CreationMenu() {
 
         this.getToolbar().addMaterialCommandToSideMenu("Ajouter Inventaire Caisse", FontImage.MATERIAL_ADD, new ActionListener() {
             @Override

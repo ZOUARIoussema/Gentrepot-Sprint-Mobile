@@ -62,7 +62,7 @@ public class ServiceUser {
     
     
      public boolean modifierUser(User user) {
-        String url = Statics.URL_t + "/apiUser/update?id=" + user.getId() + "&paswd=" + user.getPassword();
+        String url = Statics.URL_t + "/apiUser/update?id=" + user.getId() + "&paswd=" + Password.hashPassword(user.getPassword());
              
         request.setUrl(url);
         
@@ -137,6 +137,27 @@ public class ServiceUser {
              
             
            if( us.getUsername().equals(login)&&Password.checkPassword(password, us.getPassword()))
+           {
+               u=us;
+               return u;
+           }           
+        }
+                
+        return u;
+
+    }
+    
+    
+    public User findUserLoginMail(String login, String adresseMail) {
+
+        User u = null;
+          
+            
+        for(User us :this.getAllUsers() ){
+            
+             
+            
+           if( us.getUsername().equals(login)&&us.getEmail().equals(adresseMail))
            {
                u=us;
                return u;

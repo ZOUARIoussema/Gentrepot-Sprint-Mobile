@@ -41,4 +41,5 @@
         <val key="SideNavigationPanel.transparency" value="255" />
     </theme>
     <image name="updateuser.png"  />
+    <image name="valider.png"  />
 </resource>
