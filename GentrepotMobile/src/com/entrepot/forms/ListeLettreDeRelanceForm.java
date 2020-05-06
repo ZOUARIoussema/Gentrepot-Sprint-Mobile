@@ -86,7 +86,7 @@ public class ListeLettreDeRelanceForm extends Form {
             
             cDetaille.addAll(espace, labelNumeo, labelDate, labelF,cb);
 
-            cGlobal.add(new ImageViewer(theme.getImage("inv.png")));
+            cGlobal.add(new ImageViewer(theme.getImage("iconLettre.png").scaled(300, 300)));
             cGlobal.add(cDetaille);
           
             this.add(cGlobal);

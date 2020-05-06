@@ -69,7 +69,7 @@ public class EnvoyerCodeRecuperationForm extends Form {
         v.setShowErrorMessageForFocusedComponent(true);
 
         v.addConstraint(login, new LengthConstraint(1, " champ vide  "));
-         v.addConstraint(adresseMail, RegexConstraint.validEmail("adreese mail invalide"));
+        v.addConstraint(adresseMail, RegexConstraint.validEmail("adreese mail invalide"));
 
         v.addSubmitButtons(b);
 

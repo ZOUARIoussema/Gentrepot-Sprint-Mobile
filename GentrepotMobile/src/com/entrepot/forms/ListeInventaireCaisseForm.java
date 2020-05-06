@@ -25,93 +25,74 @@ import java.text.SimpleDateFormat;
  *
  * @author oussema
  */
-public class ListeInventaireCaisseForm extends Form{
-    
-      ServiceInventaireCaisse serviceInventaireCaisse = new ServiceInventaireCaisse();
-      
-       Resources theme = UIManager.initFirstTheme("/themeTresorerie");
-    
-    
-    
-    public ListeInventaireCaisseForm(){
-        
+public class ListeInventaireCaisseForm extends Form {
+
+    ServiceInventaireCaisse serviceInventaireCaisse = new ServiceInventaireCaisse();
+
+    Resources theme = UIManager.initFirstTheme("/themeTresorerie");
+
+    public ListeInventaireCaisseForm() {
+
         CreationMenu();
-        
-        for(InventaireCaisse inventaireCaisse : serviceInventaireCaisse.getAllInventaire()){
-            
-          
-            
-            
-            
+
+        for (InventaireCaisse inventaireCaisse : serviceInventaireCaisse.getAllInventaire()) {
+
             Container cGlobal = new Container(BoxLayout.x());
             Container cDetaille = new Container(BoxLayout.y());
-            
+
             cDetaille.add(new Label(" "));
-            cDetaille.add(new Label("Date creation  : "+new SimpleDateFormat("MM-dd-yyyy").format(inventaireCaisse.getDateCreation())));
-            cDetaille.add(new Label("Solde en espece: "+inventaireCaisse.getSoldeEspece()));
-            cDetaille.add(new Label("Solde en cheque: "+inventaireCaisse.getSoldeCheque()));
-            cDetaille.add(new Label("Solde total theorique: "+inventaireCaisse.getSoldeTheorique()));
-            cDetaille.add(new Label("Solde calculer : "+inventaireCaisse.getSoldeCalculer()));
-            cDetaille.add(new Label("Ecart : "+inventaireCaisse.getEcart()));
-            
-            
+            cDetaille.add(new Label("Date creation  : " + new SimpleDateFormat("MM-dd-yyyy").format(inventaireCaisse.getDateCreation())));
+            cDetaille.add(new Label("Solde en espece: " + inventaireCaisse.getSoldeEspece()));
+            cDetaille.add(new Label("Solde en cheque: " + inventaireCaisse.getSoldeCheque()));
+            cDetaille.add(new Label("Solde total theorique: " + inventaireCaisse.getSoldeTheorique()));
+            cDetaille.add(new Label("Solde calculer : " + inventaireCaisse.getSoldeCalculer()));
+            cDetaille.add(new Label("Ecart : " + inventaireCaisse.getEcart()));
+
             Container cButton = new Container(BoxLayout.x());
-            
+
             Button bModifier = new Button("Modifier");
-            
-             Button bSupprimer = new Button("Supprimer");
-            
+
+            Button bSupprimer = new Button("Supprimer");
+
             bSupprimer.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-                    
+
                     serviceInventaireCaisse.deleteInventaireCaisse(inventaireCaisse);
                     new ListeInventaireCaisseForm().show();
-                  
+
                 }
             });
-            
+
             bModifier.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-                    
+
                     new AjouterInventaireCaisseForm(inventaireCaisse).show();
-                  
+
                 }
             });
-            
-            cButton.addAll(bModifier,bSupprimer);
-            
+
+            cButton.addAll(bModifier, bSupprimer);
+
             cDetaille.add(cButton);
-            
-            
+
             cGlobal.add(new ImageViewer(theme.getImage("inv.png")));
             cGlobal.add(cDetaille);
             this.add(cGlobal);
-            
-           
-            
+
             this.setTitle("Liste des inventaires caisse");
-            
+
         }
-        
-        
+
     }
-    
-    
-    
-    
-    
-    
-     public void CreationMenu() {
-         
-         
-          this.getToolbar().addCommandToOverflowMenu("Modifier Profile",null,(evt) -> {
-             
-             new ModifierProfilForm().show();
-       });
-         
-       
+
+    public void CreationMenu() {
+
+        this.getToolbar().addCommandToOverflowMenu("Modifier Profile", null, (evt) -> {
+
+            new ModifierProfilForm().show();
+        });
 
         this.getToolbar().addMaterialCommandToSideMenu("Ajouter Inventaire Caisse", FontImage.MATERIAL_ADD, new ActionListener() {
             @Override
@@ -157,8 +138,5 @@ public class ListeInventaireCaisseForm extends Form{
         });
 
     }
-    
-   
-    
-    
+
 }

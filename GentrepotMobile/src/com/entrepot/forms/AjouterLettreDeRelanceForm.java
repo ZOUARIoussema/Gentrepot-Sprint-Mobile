@@ -59,10 +59,11 @@ public class AjouterLettreDeRelanceForm extends Form {
             Label dateC = new Label("Date creation: " + new SimpleDateFormat("MM-dd-yyyy").format(f.getDateCreation()));
             Label total = new Label("Toatl: " + String.valueOf(f.getTotalTTC()));
             Label etat = new Label("Etat: " + String.valueOf(f.getEtat()));
-            Label dateE = new Label("Date echaillance du paiement: " + new SimpleDateFormat("MM-dd-yyyy").format(f.getDateEchaillancePaiement()));
+            Label dateE = new Label("Date echaillance du paiement: " );
+             Label dateE2 = new Label(new SimpleDateFormat("MM-dd-yyyy").format(f.getDateEchaillancePaiement()));
 
-            cD.addAll(espace, numeroF, dateC, total, etat, dateE, cF);
-            cG.add(new ImageViewer(theme.getImage("inv.png")));
+            cD.addAll(espace, numeroF, dateC, total, etat, dateE,dateE2, cF);
+            cG.add(new ImageViewer(theme.getImage("iconLettre.png").scaled(300, 300)));
             cG.add(cD);
 
             this.add(cG);

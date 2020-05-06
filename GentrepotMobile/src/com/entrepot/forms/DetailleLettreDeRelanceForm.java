@@ -5,6 +5,7 @@
  */
 package com.entrepot.forms;
 
+import com.codename1.components.ImageViewer;
 import com.codename1.messaging.Message;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
@@ -21,6 +22,7 @@ import com.codename1.ui.util.Resources;
 import com.entrepot.models.FactureVente;
 import com.entrepot.models.LettreDeRelance;
 import com.entrepot.services.ServiceLettreDeRelance;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -33,8 +35,7 @@ public class DetailleLettreDeRelanceForm extends Form {
 
     public DetailleLettreDeRelanceForm(LettreDeRelance l) {
 
-       // this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
-
+        // this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
         CreationMenu();
 
         FactureVente facture = serviceLettreDeRelance.findFactureById(l.getFactureVente().getNumeroF());
@@ -42,7 +43,7 @@ public class DetailleLettreDeRelanceForm extends Form {
         Label la = new Label("Lettre:");
         la.setUIID("Label");
         Label numeroL = new Label("Numero de lettre: " + l.getId());
-        Label dateL = new Label("Date creation lettre: " + l.getDate());
+        Label dateL = new Label("Date creation lettre: " + new SimpleDateFormat("MM-dd-yyyy").format(l.getDate()));
 
         Label laF = new Label("Facture: ");
 
@@ -51,13 +52,13 @@ public class DetailleLettreDeRelanceForm extends Form {
         Label total = new Label("Total   : " + facture.getTotalTTC());
         Label rest = new Label("Reste   : " + facture.getRestePaye());
         Label tp = new Label("Total   payé : " + facture.getTotalPaye());
-        Label de = new Label("Date echaillance de paiment  : " + facture.getDateEchaillancePaiement());
+        Label de = new Label("Date echaillance de paiment  : " + new SimpleDateFormat("MM-dd-yyyy").format(facture.getDateEchaillancePaiement()));
 
         Button b = new Button("Envoyer mail");
 
         Container c = new Container(BoxLayout.y());
 
-        c.addAll(la, numeroL, dateL, laF, numeroF, etat, total, de, rest, tp, b);
+        c.addAll(new ImageViewer(theme.getImage("iconLettre.png").scaled(400, 400)), la, numeroL, dateL, laF, numeroF, etat, total, de, rest, tp, b);
 
         this.setLayout(new FlowLayout(CENTER, CENTER));
 
@@ -71,7 +72,8 @@ public class DetailleLettreDeRelanceForm extends Form {
 
                 Message m = new Message("Facture impayé: ");
 
-                Display.getInstance().sendMessage(new String[]{""}, "Lettre de relance", m);
+                // Display.getInstance().sendMessage(new String[]{""}, "Lettre de relance", m);
+                new EnvoiLettreRelanceParMail(l).show();
 
             }
         });
@@ -79,8 +81,6 @@ public class DetailleLettreDeRelanceForm extends Form {
     }
 
     public void CreationMenu() {
-
-       
 
         this.getToolbar().setUIID("SideCommande");
 
