@@ -67,7 +67,7 @@ public class EnvoiLettreRelanceParMail extends Form {
             }
         });
 
-        this.getToolbar().addCommandToLeftBar("back", null, (ev) -> {
+        this.getToolbar().addCommandToLeftBar("Retour", null, (ev) -> {
             new DetailleLettreDeRelanceForm(l).show();
 
         });

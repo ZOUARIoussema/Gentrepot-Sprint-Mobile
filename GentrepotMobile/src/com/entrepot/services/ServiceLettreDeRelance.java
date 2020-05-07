@@ -135,6 +135,7 @@ public class ServiceLettreDeRelance {
                 String etat = obj.get("etat").toString();
 
                 double total = Float.parseFloat(obj.get("totalTTC").toString());
+                double totalP = Float.parseFloat(obj.get("totalPaye").toString());
 
                 Map<String, Object> dated = (Map<String, Object>) obj.get("dateCreation");
                 float da = Float.parseFloat(dated.get("timestamp").toString());
@@ -144,7 +145,7 @@ public class ServiceLettreDeRelance {
                 float da2 = Float.parseFloat(dated2.get("timestamp").toString());
                 Date dateEchaillancePaiement = new Date((long) (da2 - 3600) * 1000);
 
-                factures.add(new FactureVente(id, dCeation, dateEchaillancePaiement, total, etat));
+                factures.add(new FactureVente(id, dCeation, dateEchaillancePaiement, total, etat,totalP));
             }
 
         } catch (IOException ex) {
@@ -196,4 +197,29 @@ public class ServiceLettreDeRelance {
 
         return fa;
     }
+
+    public double totalVente() {
+
+        double t = 0;
+
+        for (FactureVente f : this.getAllFacture()) {
+
+            t = t + f.getTotalTTC();
+        }
+
+        return t;
+    }
+
+    public double totalPayer() {
+
+        double t = 0;
+
+        for (FactureVente f : this.getAllFacture()) {
+
+            t = t + f.getTotalPaye();
+        }
+
+        return t;
+    }
+
 }
