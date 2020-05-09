@@ -61,15 +61,14 @@ public class MyApplication {
         hi.add(new Label("Hi World"));
         hi.show();*/
 
-      //  new AuthentificationForm().show();
+        new AuthentificationForm().show();
         //new CreerCompteForm().show();
         // new CreerCompteForm().show();
         // new AjouterInventaireCaisseForm().show();
-         new  MenueAgentCaisseForm().show();
+        //   new  MenueAgentCaisseForm().show();
         //new ModifierProfilForm().show();
-        
-       // new ListeLettreDeRelanceForm().show();
 
+        // new ListeLettreDeRelanceForm().show();
         // new VerifCodeForm().show();
     }
 

@@ -8,6 +8,7 @@ package com.entrepot.forms;
 import com.codename1.components.ImageViewer;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
@@ -57,9 +58,13 @@ public class ListeInventaireCaisseForm extends Form {
             bSupprimer.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
+                    
+                    
+                    if(  Dialog.show("Comfirmation", "Vouler vous supprimer ce inventaire ? ", "oui", "non")){
 
                     serviceInventaireCaisse.deleteInventaireCaisse(inventaireCaisse);
                     new ListeInventaireCaisseForm().show();
+                    }
 
                 }
             });
@@ -77,7 +82,7 @@ public class ListeInventaireCaisseForm extends Form {
 
             cDetaille.add(cButton);
 
-            cGlobal.add(new ImageViewer(theme.getImage("inv.png")));
+            cGlobal.add(new ImageViewer(theme.getImage("iconLettre.png").scaled(300, 300)));
             cGlobal.add(cDetaille);
             this.add(cGlobal);
 

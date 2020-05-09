@@ -109,7 +109,7 @@ public class ModifierProfilForm extends Form {
                 if (!ancientMotPasse.getText().equals(null) && Password.checkPassword(ancientMotPasse.getText(), AuthentificationForm.user.getPassword())) {
 
                     if (!nouveauMotPasse.getText().equals(null)) {
-                        AuthentificationForm.user.setPassword(Password.hashPassword(nouveauMotPasse.getText()));
+                        AuthentificationForm.user.setPassword(nouveauMotPasse.getText());
 
                         if (serviceUser.modifierUser(AuthentificationForm.user)) {
                             ToastBar.showMessage("Profil est modifier avec succès", FontImage.MATERIAL_STAR, 16000);

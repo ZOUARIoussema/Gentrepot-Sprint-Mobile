@@ -10,11 +10,13 @@ import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
 import static com.codename1.ui.Component.CENTER;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.UIManager;
@@ -102,8 +104,8 @@ public class AjouterInventaireCaisseForm extends Form {
 
         Validator v = new Validator();
         v.setShowErrorMessageForFocusedComponent(true);
-        
-          RegexConstraint n = new RegexConstraint("^[0-9]*.[0-9]+$", "Invalid ");
+
+        RegexConstraint n = new RegexConstraint("^[0-9]*.[0-9]+$", "Invalid ");
         v.addConstraint(soldeCalculer, n);
         v.addSubmitButtons(bAjouter);
 
@@ -118,16 +120,32 @@ public class AjouterInventaireCaisseForm extends Form {
             @Override
             public void actionPerformed(ActionEvent evt) {
 
-                InventaireCaisse inventaireCaisse = new InventaireCaisse(Double.parseDouble(soldeCalculer.getText()));
+                try {
 
-                if (serviceInventaireCaisse.addinventaireCaisse(inventaireCaisse)) {
+                    if (Double.parseDouble(soldeCalculer.getText()) <= 0) {
 
-                    new ListeInventaireCaisseForm().show();
-                    ToastBar.showMessage("Inventaire caisse est ajouté avec succès", FontImage.MATERIAL_STAR, 16000);
+                        Dialog.show("Erreur", "solde calculer invalide ", "cancel", "ok");
+
+                    } else {
+
+                        InventaireCaisse inventaireCaisse = new InventaireCaisse(Double.parseDouble(soldeCalculer.getText()));
+
+                        if (serviceInventaireCaisse.addinventaireCaisse(inventaireCaisse)) {
+
+                            new ListeInventaireCaisseForm().show();
+                            ToastBar.showMessage("Inventaire caisse est ajouté avec succès", FontImage.MATERIAL_STAR, 16000);
+
+                        }
+                    }
+
+                } catch (Exception ew) {
+
+                    Dialog.show("Erreur", "solde calculer invalide ", "cancel", "ok");
 
                 }
 
             }
+
         });
 
         this.setTitle("Ajouter inventairs caisse");
@@ -135,6 +153,8 @@ public class AjouterInventaireCaisseForm extends Form {
     }
 
     public AjouterInventaireCaisseForm(InventaireCaisse i) {
+
+        this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
 
         CreationMenu();
 
@@ -144,27 +164,51 @@ public class AjouterInventaireCaisseForm extends Form {
 
         Button bm = new Button("Modifier");
 
-        this.setLayout(BoxLayout.y());
+        Validator v = new Validator();
+        v.setShowErrorMessageForFocusedComponent(true);
 
-        this.addAll(soldeCalculer);
-        this.add(bm);
+        RegexConstraint n = new RegexConstraint("^[0-9]*.[0-9]+$", "Invalid ");
+        v.addConstraint(soldeCalculer, n);
+        v.addSubmitButtons(bm);
+
+        this.setLayout(new FlowLayout(CENTER, CENTER));
+
+        Container c = new Container(BoxLayout.y());
+
+        c.addAll(new ImageViewer(theme.getImage("credit-control.png")), soldeCalculer, bm);
+        this.add(c);
 
         bm.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
 
-                i.setSoldeCalculer(Double.parseDouble(soldeCalculer.getText()));
+                try {
 
-                if (serviceInventaireCaisse.modifierInventaireCaisse(i)) {
+                    if (Double.parseDouble(soldeCalculer.getText()) <= 0) {
+                        
+                         Dialog.show("Erreur", "solde calculer invalide ", "cancel", "ok");
 
-                    new ListeInventaireCaisseForm().show();
-                    ToastBar.showMessage("Inventaire caisse est modifié avec succès", FontImage.MATERIAL_STAR, 16000);
+                    } else {
+
+                        i.setSoldeCalculer(Double.parseDouble(soldeCalculer.getText()));
+
+                        if (serviceInventaireCaisse.modifierInventaireCaisse(i)) {
+
+                            new ListeInventaireCaisseForm().show();
+                            ToastBar.showMessage("Inventaire caisse est modifié avec succès", FontImage.MATERIAL_STAR, 16000);
+                        }
+
+                    }
+
+                } catch (Exception ex) {
+
+                    Dialog.show("Erreur", "solde calculer invalide ", "cancel", "ok");
                 }
 
             }
         });
 
-        this.setTitle("Ajouter inventairs caisse");
+        this.setTitle("Modifier inventairs caisse");
 
     }
 

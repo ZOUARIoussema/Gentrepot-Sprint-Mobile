@@ -97,7 +97,7 @@ public class MenueAgentCaisseForm extends Form {
 
     public MenueAgentCaisseForm() {
 
-        this.setTitle("Menue");
+        this.setTitle("Accueil");
         
         CreationMenu();
         

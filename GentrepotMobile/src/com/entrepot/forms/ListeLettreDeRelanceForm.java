@@ -8,6 +8,7 @@ package com.entrepot.forms;
 import com.codename1.components.ImageViewer;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
@@ -51,7 +52,7 @@ public class ListeLettreDeRelanceForm extends Form {
             Label labelF = new Label("Facture: " + l.getFactureVente().getNumeroF());
 
             
-            Button b = new Button("Suuprimer");
+            Button b = new Button("Supprimer");
             
               Button bD = new Button("Detail");
               
@@ -63,11 +64,12 @@ public class ListeLettreDeRelanceForm extends Form {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
                     
+                       if(  Dialog.show("Comfirmation", "Vouler vous supprimer cette lettre ? ", "oui", "non")){
                      
                     serviceLettreDeRelance.deleteLettre(l);
                     
                     new ListeLettreDeRelanceForm().showBack();
-                    
+                       }
                     
                   
                 }
