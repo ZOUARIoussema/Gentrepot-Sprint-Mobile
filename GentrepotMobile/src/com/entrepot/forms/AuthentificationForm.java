@@ -6,11 +6,13 @@
 package com.entrepot.forms;
 
 import com.codename1.components.ImageViewer;
+import com.codename1.components.ToastBar;
 import com.codename1.messaging.Message;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Display;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
@@ -53,14 +55,13 @@ public class AuthentificationForm extends Form {
         Button bInscription = new Button("Inscription");
 
         Validator v = new Validator();
-        
-         v.setShowErrorMessageForFocusedComponent(true);
+
+        v.setShowErrorMessageForFocusedComponent(true);
 
         v.addConstraint(login, new LengthConstraint(1, "champ vide"));
         v.addConstraint(password, new LengthConstraint(1, "champ vide"));
 
         v.addSubmitButtons(bConnection);
-       
 
         Container c = new Container(BoxLayout.x());
 
@@ -69,7 +70,7 @@ public class AuthentificationForm extends Form {
         Container c2 = new Container(BoxLayout.y());
 
         c2.add(new ImageViewer(theme.getImage("login.png")));
-        c2.addAll(login, password,l ,c);
+        c2.addAll(login, password, l, c);
 
         this.setLayout(BoxLayout.y());
 
@@ -108,7 +109,28 @@ public class AuthentificationForm extends Form {
                         Dialog.show("Erreur", "Login ou mot de passe invalide", "cancel", "ok");
                     } else if (user.getRole().equals("[ROLE_ACAIS, ROLE_USER]")) {
 
+                        ToastBar.showMessage("Agent de caisse connecter", FontImage.MATERIAL_STAR, 30000);
                         new MenueAgentCaisseForm().show();
+
+                    } else if (user.getRole().equals("[ROLE_CLIEN, ROLE_USER]")) {
+
+                        ToastBar.showMessage("Client connecter", FontImage.MATERIAL_STAR, 30000);
+
+                    } else if (user.getRole().equals("[ROLE_STOCK, ROLE_USER]")) {
+
+                        ToastBar.showMessage("Agent de stockage connecter", FontImage.MATERIAL_STAR, 30000);
+
+                    } else if (user.getRole().equals("[ROLE_CPARC, ROLE_USER]")) {
+
+                        ToastBar.showMessage("Chef de parc connecter", FontImage.MATERIAL_STAR, 30000);
+
+                    }else if (user.getRole().equals("[ROLE_RACHA, ROLE_USER]")) {
+
+                        ToastBar.showMessage("Responsable achat connecter", FontImage.MATERIAL_STAR, 30000);
+
+                    }else if (user.getRole().equals("[ROLE_RVENT, ROLE_USER]")) {
+
+                        ToastBar.showMessage("Responsable vente connecter", FontImage.MATERIAL_STAR, 30000);
 
                     }
 

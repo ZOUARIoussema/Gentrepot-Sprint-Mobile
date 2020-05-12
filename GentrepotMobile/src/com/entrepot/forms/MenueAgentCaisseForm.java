@@ -101,7 +101,7 @@ public class MenueAgentCaisseForm extends Form {
         
         CreationMenu();
         
-          ToastBar.showMessage("Agent caisse connecter", FontImage.MATERIAL_STAR, 30000);
+         
           
           this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
           
