@@ -108,6 +108,15 @@ public class ListeLettreDeRelanceForm extends Form {
              
              new ModifierProfilForm().show();
        });
+         
+           this.getToolbar().addMaterialCommandToSideMenu("Acceuille", FontImage.MATERIAL_HOME, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new MenueAgentCaisseForm().show();
+
+            }
+        });
 
         this.getToolbar().addMaterialCommandToSideMenu("Ajouter Inventaire Caisse", FontImage.MATERIAL_ADD, new ActionListener() {
             @Override
