@@ -36,6 +36,8 @@ public class AjouterLettreDeRelanceForm extends Form {
     Resources theme = UIManager.initFirstTheme("/themeTresorerie");
 
     public AjouterLettreDeRelanceForm() {
+        
+         this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
 
         CreationMenu();
 
