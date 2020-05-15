@@ -35,7 +35,7 @@ public class DetailleLettreDeRelanceForm extends Form {
 
     public DetailleLettreDeRelanceForm(LettreDeRelance l) {
 
-        // this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
+        this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
         CreationMenu();
 
         FactureVente facture = serviceLettreDeRelance.findFactureById(l.getFactureVente().getNumeroF());

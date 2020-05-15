@@ -18,6 +18,7 @@ import com.entrepot.models.User;
 import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -145,7 +146,7 @@ public class ServiceLettreDeRelance {
                 float da2 = Float.parseFloat(dated2.get("timestamp").toString());
                 Date dateEchaillancePaiement = new Date((long) (da2 - 3600) * 1000);
 
-                factures.add(new FactureVente(id, dCeation, dateEchaillancePaiement, total, etat,totalP));
+                factures.add(new FactureVente(id, dCeation, dateEchaillancePaiement, total, etat, totalP));
             }
 
         } catch (IOException ex) {
@@ -204,7 +205,11 @@ public class ServiceLettreDeRelance {
 
         for (FactureVente f : this.getAllFacture()) {
 
-            t = t + f.getTotalTTC();
+            if (new SimpleDateFormat("yyyy").format(f.getDateCreation()).equals(new SimpleDateFormat("yyyy").format(new Date()))) {
+
+                t = t + f.getTotalTTC();
+            }
+
         }
 
         return t;
@@ -216,7 +221,9 @@ public class ServiceLettreDeRelance {
 
         for (FactureVente f : this.getAllFacture()) {
 
-            t = t + f.getTotalPaye();
+            if (new SimpleDateFormat("yyyy").format(f.getDateCreation()).equals(new SimpleDateFormat("yyyy").format(new Date()))) {
+                t = t + f.getTotalPaye();
+            }
         }
 
         return t;

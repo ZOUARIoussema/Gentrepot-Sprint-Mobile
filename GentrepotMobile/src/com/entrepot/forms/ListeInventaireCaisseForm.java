@@ -33,6 +33,8 @@ public class ListeInventaireCaisseForm extends Form {
     Resources theme = UIManager.initFirstTheme("/themeTresorerie");
 
     public ListeInventaireCaisseForm() {
+        
+         this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
 
         CreationMenu();
 

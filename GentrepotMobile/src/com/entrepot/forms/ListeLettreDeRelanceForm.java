@@ -34,8 +34,7 @@ public class ListeLettreDeRelanceForm extends Form {
 
     public ListeLettreDeRelanceForm() {
         
-       //  this.getStyle().setBgImage(theme.getImage("backroundlist.jpg"), focusScrolling);
-
+       this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
         CreationMenu();
 
         for (LettreDeRelance l : serviceLettreDeRelance.getAllLettre()) {
@@ -47,7 +46,9 @@ public class ListeLettreDeRelanceForm extends Form {
             Label espace = new Label(" ");
             Label labelNumeo = new Label("Numero: " + l.getId());
             
-           //  labelNumeo.getAllStyles().setFgColor(0xFF0000);
+            //244EFF
+            
+            //labelNumeo.getAllStyles().setFgColor(0xFFFFF);
             Label labelDate = new Label("Date creation: " + new SimpleDateFormat("MM-dd-yyyy").format(l.getDate()));
             Label labelF = new Label("Facture: " + l.getFactureVente().getNumeroF());
 

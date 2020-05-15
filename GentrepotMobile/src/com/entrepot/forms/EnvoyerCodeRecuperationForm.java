@@ -45,6 +45,12 @@ public class EnvoyerCodeRecuperationForm extends Form {
     Resources theme = UIManager.initFirstTheme("/themeTresorerie");
 
     public EnvoyerCodeRecuperationForm() {
+        
+        
+         this.getToolbar().addCommandToLeftBar("Retour", null, (ev) -> {
+            new AuthentificationForm().show();
+
+        });
 
         this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
 
