@@ -1,0 +1,11 @@
+#Constants {
+    includeNativeBool: true; 
+}
+Button {
+    text-align: center;
+    border: 1pt solid gray;
+    background-color: transparent;
+}
+Button.pressed {
+    background-color: gray;
+}

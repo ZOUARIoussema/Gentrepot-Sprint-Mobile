@@ -1,0 +1,14 @@
+
+/* C:\Users\LENOVO\Desktop\mobile pi\Gentrepot-Sprint-Mobile\GentrepotMobile\css\theme.css */
+#Constants {
+    includeNativeBool: true; 
+}
+Button {
+    text-align: center;
+    border: 1pt solid gray;
+    background-color: transparent;
+}
+Button.pressed {
+    background-color: gray;
+}
+/* End C:\Users\LENOVO\Desktop\mobile pi\Gentrepot-Sprint-Mobile\GentrepotMobile\css\theme.css */

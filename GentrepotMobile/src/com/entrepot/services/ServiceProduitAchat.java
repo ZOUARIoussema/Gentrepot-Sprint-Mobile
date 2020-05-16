@@ -33,7 +33,6 @@ public class ServiceProduitAchat {
      public ServiceProduitAchat() {
         request = DataSource.getInstance().getRequest();
     }
-    
      
       public ArrayList<ProduitAchat> getAllProduits() {
         String url = "http://localhost/PROJET-SYMFONY-GENTREPOT/Gentrepot/web/app_dev.php/api/apiProduit/affiche";

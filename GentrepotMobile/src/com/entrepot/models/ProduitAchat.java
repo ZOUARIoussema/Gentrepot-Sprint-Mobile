@@ -10,6 +10,7 @@ package com.entrepot.models;
  * @author oussema
  */
 public class ProduitAchat {
+    
 
     private String reference;
     private String libelle;

@@ -53,7 +53,7 @@ public class MyApplication {
             current.show();
             return;
         }
-       new ProduitsListForm(theme).show();
+       new HomeVente(current).show();
     }
 
     public void stop() {
