@@ -10,14 +10,19 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
+import com.codename1.l10n.DateFormat;
+import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.events.ActionListener;
 import com.entrepot.models.Perte;
 import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONObject;
 /**
  *
  * @author rodrigue
@@ -33,7 +38,7 @@ public class ServicePerte {
     }
 
     public boolean addPerte(Perte pert) {
-        String url = Statics.BASE_URL + "/apiPerte/new" ;
+        String url = Statics.BASE_URL2 + "/apiPerte/new" ;
 
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -49,7 +54,7 @@ public class ServicePerte {
     }
 
     public ArrayList<Perte> getAllPertes() {
-        String url = Statics.BASE_URL + "/apiPerte/all";
+        String url = Statics.BASE_URL2 + "/apiPerte/all";
 
         request.setUrl(url);
         request.setPost(false);
@@ -66,7 +71,7 @@ public class ServicePerte {
     }
 
     public boolean deletePerte(Perte l) {
-        String url = Statics.BASE_URL + " /apiPerte/delete?id=" + l.getId();
+        String url = Statics.BASE_URL2 + " /apiPerte/delete?id=" + l.getId();
 
         request.setUrl(url);
 
@@ -87,23 +92,23 @@ public class ServicePerte {
         return responseResult;
     }
     public ArrayList<Perte> parseComs(String jsonText) {
-        try {
-            perts = new ArrayList<>();
+        perts = new ArrayList<>();
 
-            JSONParser jp = new JSONParser();
-            Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
-
-            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
-            for (Map<String, Object> obj : list) {
-                int id = (int)Float.parseFloat(obj.get("id").toString());
+             JSONArray jsonArray = new JSONArray(jsonText);      
+             for(int i=0;i<jsonArray.length();i++)
+             {
+                JSONObject ob = jsonArray.getJSONObject(i);
+                int idp = (int)Float.parseFloat(ob.get("id").toString());
+             
+                JSONObject dateCreation  = new JSONObject(ob.get("dateCreation").toString());                
+                float da = Float.parseFloat(dateCreation.get("timestamp").toString()); 
+                Date dCeation = new Date((long) (da - 3600) * 1000);                
+                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+                String dp = df.format(dCeation);
+                System.out.println(dp);
                 
-                String dateCreation = obj.get("dateCreation").toString();
-                
-                perts.add(new Perte(id,dateCreation));
+                perts.add(new Perte(idp,dp));
             }
-
-        } catch (IOException ex) {
-        }
 
         return perts;
     }

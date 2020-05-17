@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource majorVersion="1" minorVersion="11" useXmlUI="false">
+    <theme name="Theme">
+        <val key="Toolbar.bgColor" value="ffa219" />
+        <val key="Toolbar.fgColor" value="000000" />
+        <val key="Toolbar.transparency" value="0" />
+    </theme>
+</resource>

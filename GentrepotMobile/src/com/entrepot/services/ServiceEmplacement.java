@@ -20,6 +20,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.json.JSONArray;
+import org.json.JSONObject;
 /**
  *
  * @author oussema
@@ -34,9 +36,9 @@ public class ServiceEmplacement {
         request = DataSource.getInstance().getRequest();
     }
 
-    public boolean addLPerte(Emplacement lpert) {
-        String url = Statics.BASE_URL + "/apiEmp/new" + lpert.getAdresse() + "/" + lpert.getClasse() + "/" + lpert.getCapaciteStockage() + "/" + lpert.getQuantiteStocker();
-
+    public boolean addEmplas(Emplacement lpert) {
+        String url = Statics.BASE_URL2 + "/apiEmp/new?adresse=" + lpert.getAdresse() + "&capaciteStockage=" + lpert.getCapaciteStockage() + "&quantiteStocker" + lpert.getQuantiteStocker() + "&classe=" + lpert.getClasse() + "&matriculeFiscal=oo";
+        
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -51,7 +53,7 @@ public class ServiceEmplacement {
     }
 
     public ArrayList<Emplacement> getAllEmplas() {
-        String url = Statics.BASE_URL + "/apiEmp/all";
+        String url = Statics.BASE_URL2 + "/apiEmp/all";
 
         request.setUrl(url);
         request.setPost(false);
@@ -89,25 +91,25 @@ public class ServiceEmplacement {
         return responseResult;
     }
     public ArrayList<Emplacement> parseEmpls(String jsonText) {
-        try {
-            empls = new ArrayList<>();
-
-            JSONParser jp = new JSONParser();
-            Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
-
-            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
-            for (Map<String, Object> obj : list) {
-                int id = (int)Float.parseFloat(obj.get("id").toString());               
-                String adresse = obj.get("adresse").toString();
-                String classe = obj.get("classe").toString();
-                int capaciteStockage = (int)Float.parseFloat(obj.get("capaciteStockage").toString());
-                int quantiteStocker = (int)Float.parseFloat(obj.get("quantiteStocker").toString());
-                Entrepot entrepot = (Entrepot)obj.get("entrepot");
+        
+             empls = new ArrayList<>();
+             JSONArray jsonArray = new JSONArray(jsonText);      
+             for(int i=0;i<jsonArray.length();i++)
+             {
+                JSONObject ob = jsonArray.getJSONObject(i);
+                int id = (int)Float.parseFloat(ob.get("id").toString());               
+                String adresse = ob.get("adresse").toString();
+                String classe = ob.get("classe").toString();
+                int capaciteStockage = (int)Float.parseFloat(ob.get("capaciteStockage").toString());
+                int quantiteStocker = (int)Float.parseFloat(ob.get("quantiteStocker").toString());
+                //String ent = ob.get("entrepot").toString().getString("matriculeFiscal");
+                
+                Entrepot entrepot = new Entrepot("MA02SA");
+                Emplacement e = new Emplacement( id, adresse, capaciteStockage, quantiteStocker, classe, entrepot);
+                
                 empls.add(new Emplacement( id, adresse, capaciteStockage, quantiteStocker, classe, entrepot));
-            }
-
-        } catch (IOException ex) {
-        }
+            
+             }
 
         return empls;
     }

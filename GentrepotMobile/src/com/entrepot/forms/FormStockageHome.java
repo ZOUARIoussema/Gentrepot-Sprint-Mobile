@@ -5,16 +5,25 @@
  */
 package com.entrepot.forms;
 
+import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
 import com.codename1.ui.Label;
+import com.codename1.ui.Toolbar;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.plaf.Style;
+import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
 
 /**
  *
  * @author guiforodrigue
  */
 public class FormStockageHome extends Form{
+    
     public FormStockageHome(){
         setTitle("Home");
         setLayout(new FlowLayout(CENTER, CENTER));
@@ -22,28 +31,32 @@ public class FormStockageHome extends Form{
         Label lbWelcome = new Label("WELCOME TO Gentrepot Stockage");
         add(lbWelcome);
         
-        getToolbar().addCommandToLeftSideMenu("Home", null, ev->{
+        getToolbar().addMaterialCommandToLeftSideMenu(" ", ' ', ev->{
+            
+        });
+        getToolbar().addMaterialCommandToLeftSideMenu("Home", FontImage.MATERIAL_HOME, ev->{
             Dialog.show("Info", "Vous etes dans la form home", "OK", null);
         });
         
-        getToolbar().addCommandToLeftSideMenu("Gestion commandes d'approvisionnement", null, ev->{
+        getToolbar().addMaterialCommandToLeftSideMenu("Gestion commandes d'approvisionnement", FontImage.MATERIAL_LOCAL_SHIPPING, ev->{
             new FormMenuCommandeApprovisionnement(this).show();
         });
         
-        getToolbar().addCommandToLeftSideMenu("Gestion emplacements", null, ev->{
+        getToolbar().addMaterialCommandToLeftSideMenu("Gestion emplacements", FontImage.MATERIAL_ROOM, ev->{
             new FormMenuEmplacement(this).show();
         });
         
-        getToolbar().addCommandToLeftSideMenu("Gestion inventaires", null, ev->{
+        getToolbar().addMaterialCommandToLeftSideMenu("Gestion inventaires", FontImage.MATERIAL_BALLOT, ev->{
             new FormMenuInventaire(this).show();
         });
         
-        getToolbar().addCommandToLeftSideMenu("Gestion pertes", null, ev->{
+        getToolbar().addMaterialCommandToLeftSideMenu("Gestion pertes", FontImage.MATERIAL_TRENDING_DOWN, ev->{
             new FormMenuPerte(this).show();
         });
                 
         getToolbar().addCommandToRightBar("Logout", null, ev->{
             //previous.showBack();
         });
+     
     }
 }

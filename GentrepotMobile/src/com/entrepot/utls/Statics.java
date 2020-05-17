@@ -12,4 +12,5 @@ package com.entrepot.utls;
 public class Statics {
 
     public static final String BASE_URL = "http://41.226.11.252:11300";
+    public static final String BASE_URL2 = "http://localhost/VerstionFinalIntegration/PROJET-SYMFONY-GENTREPOT/Gentrepot/web/app_dev.php/api";
 }

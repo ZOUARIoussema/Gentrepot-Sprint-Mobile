@@ -33,7 +33,7 @@ public class ServiceEntrepot {
     }
 
     public boolean addCom(Entrepot com) {
-        String url = Statics.BASE_URL + "/apiEntrepot/new" + com.getAdresse() + "/" + com.getAdresseMail() + "/" + com.getMatriculeFiscale() + "/" + com.getNumeroTel() + "/" + com.getRaisonSociale();
+        String url = Statics.BASE_URL2 + "/apiEntrepot/new?adresse=" + com.getAdresse() + "$adresseMail=" + com.getAdresseMail() + "$matriculeFiscal=" + com.getMatriculeFiscale() + "$numeroTel=" + com.getNumeroTel() + "$raisonSocial=" + com.getRaisonSociale();
 
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -49,7 +49,7 @@ public class ServiceEntrepot {
     }
 
     public ArrayList<Entrepot> getAllEnps() {
-        String url = Statics.BASE_URL + "/apiEntrepot/all";
+        String url = Statics.BASE_URL2 + "/apiEntrepot/all";
 
         request.setUrl(url);
         request.setPost(false);

@@ -31,9 +31,14 @@ public class InventaireStock {
         this.ecart = ecart;
         this.quantiteTheorique = quantiteTheorique;
     }
+    public InventaireStock(ProduitAchat produitAchat, Emplacement emplacement, int qunatiteInventiare) {
+        
+        this.produitAchat = produitAchat;
+        this.emplacement = emplacement;
+        this.qunatiteInventiare = qunatiteInventiare;
+    }
     
-    
-     public InventaireStock(ProduitAchat produitAchat, Emplacement emplacement, String dateCreation, int qunatiteInventiare, int ecart, int quantiteTheorique) {
+    public InventaireStock(ProduitAchat produitAchat, Emplacement emplacement, String dateCreation, int qunatiteInventiare, int ecart, int quantiteTheorique) {
         
         this.produitAchat = produitAchat;
         this.emplacement = emplacement;
