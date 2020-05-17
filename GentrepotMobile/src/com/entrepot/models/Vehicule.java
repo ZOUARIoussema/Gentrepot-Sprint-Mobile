@@ -24,6 +24,12 @@ public class Vehicule {
         this.capacite = capacite;
         this.type = type;
     }
+
+    public Vehicule(int matricule, int capacite, String type) {
+        this.matricule = matricule;
+        this.capacite = capacite;
+        this.type = type;
+    }
     
      
 

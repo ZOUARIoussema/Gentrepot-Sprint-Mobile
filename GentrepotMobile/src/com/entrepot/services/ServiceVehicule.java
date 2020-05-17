@@ -33,8 +33,8 @@ public class ServiceVehicule {
         request = DataSource.getInstance().getRequest();
     }
     public boolean addVehicule(Vehicule v) {
-        String url = Statics.LOGISTIQUE_URL + "/apiv/ajout" +"?matricule"+v.getMatricule()+ "&capacite=" + v.getCapacite()+ "&type=" + v.getType()+ "&etat" + v.getEtat();
-
+        String url = Statics.LOGISTIQUE_URL + "/apiv/ajout" +"?matricule="+v.getMatricule()+ "&capacite=" + v.getCapacite()+ "&type=" + v.getType();
+        System.out.println(url);
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override

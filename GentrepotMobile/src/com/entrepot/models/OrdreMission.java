@@ -36,6 +36,15 @@ public class OrdreMission {
         this.dateRetour = dateRetour;
         this.bonLivraisons=new ArrayList<>();
     }
+
+    public OrdreMission(Vehicule vehicule, Chauffeur chauffeur, AideChauffeur aideChauffeur, Date dateCreation, Date dateSortie, Date dateRetour) {
+        this.vehicule = vehicule;
+        this.chauffeur = chauffeur;
+        this.aideChauffeur = aideChauffeur;
+        this.dateCreation = dateCreation;
+        this.dateSortie = dateSortie;
+        this.dateRetour = dateRetour;
+    }
     
     
     

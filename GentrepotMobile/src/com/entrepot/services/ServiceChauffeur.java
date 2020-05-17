@@ -34,8 +34,11 @@ public class ServiceChauffeur {
         request = DataSource.getInstance().getRequest();
     }
     public boolean addChauffeur(Chauffeur chauf) {
-        String url = Statics.LOGISTIQUE_URL + "apichauf/ajout" +"?cin="+ chauf.getCin()+ "&nom=" + chauf.getNom()+ "&prenom" + chauf.getPrenom() + "&adresse" + chauf.getAdresse() + "&etat" + chauf.getEtat();
+        String url = Statics.LOGISTIQUE_URL + "/apichauf/ajout" +"?cin="+ chauf.getCin()+ "&nom=" + chauf.getNom()+ "&prenom=" + chauf.getPrenom() + "&adresse=" + chauf.getAdresse() + "&etat=" + chauf.getEtat();
 
+        
+        System.out.println(url);
+        
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
