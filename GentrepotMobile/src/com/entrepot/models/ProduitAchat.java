@@ -10,6 +10,7 @@ package com.entrepot.models;
  * @author oussema
  */
 public class ProduitAchat {
+    
 
     private String reference;
     private String libelle;
@@ -49,6 +50,14 @@ public class ProduitAchat {
         this.sousCategorieAchat = sousCategorieAchat;
     }
 
+    @Override
+    public String toString() {
+        return "ProduitAchat{" + "reference=" + reference + ", libelle=" + libelle + ", quantiteStock=" + quantiteStock + ", classe=" + classe + ", quantiteStockSecurite=" + quantiteStockSecurite + ", dernierPrixAchat=" + dernierPrixAchat + ", tva=" + tva + ", dimension=" + dimension + ", description=" + description + ", typeDeConditionnement=" + typeDeConditionnement + ", prixVente=" + prixVente + ", image=" + image + ", image1=" + image1 + ", image2=" + image2 + ", image3=" + image3 + ", image4=" + image4 + ", sousCategorieAchat=" + sousCategorieAchat + '}';
+    }
+
+    public ProduitAchat() {
+    }
+
     public ProduitAchat(String reference) {
         this.reference = reference;
     }
@@ -60,6 +69,17 @@ public class ProduitAchat {
         this.quantiteStock = quantiteStock;
         this.prixVente=prix;
     }
+
+    public ProduitAchat(String reference, String libelle, int quantiteStock, String classe, double prixVente, String image) {
+        this.reference = reference;
+        this.libelle = libelle;
+        this.quantiteStock = quantiteStock;
+        this.classe = classe;
+        this.prixVente = prixVente;
+        this.image = image;
+    }
+
+   
 
     
     

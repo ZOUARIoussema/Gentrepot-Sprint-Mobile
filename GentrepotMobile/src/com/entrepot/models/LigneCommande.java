@@ -5,6 +5,8 @@
  */
 package com.entrepot.models;
 
+import java.util.ArrayList;
+
  
 
 /**
@@ -13,12 +15,17 @@ package com.entrepot.models;
  */
 public class LigneCommande {
     
+    public static ArrayList<ProduitAchat> pan ;
+    
     private int id;
     private CommandeVente commandeVente;
     private ProduitAchat produit;
     private User user;
     private double prix;
     private int quantite;
+
+    public LigneCommande() {
+    }
     private double total;
     private double tva;
     
@@ -27,7 +34,6 @@ public class LigneCommande {
     
     
     
-    //affuche dans table view
     
     private String refp;
 
