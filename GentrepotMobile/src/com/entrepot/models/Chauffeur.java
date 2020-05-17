@@ -30,6 +30,21 @@ public class Chauffeur {
         this.etat = etat;
     }
 
+    public Chauffeur(String cin, String nom, String prenom, String adresse, String etat) {
+        this.cin = cin;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.adresse = adresse;
+        this.etat = etat;
+    }
+
+    public Chauffeur(String cin, String nom, String prenom, String adresse) {
+        this.cin = cin;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.adresse = adresse;
+    }
+
     public String getCin() {
         return cin;
     }
@@ -84,6 +99,11 @@ public class Chauffeur {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Chauffeur{" + "id=" + id + ", cin=" + cin + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", voyage=" + voyage + ", etat=" + etat + '}';
     }
     
     

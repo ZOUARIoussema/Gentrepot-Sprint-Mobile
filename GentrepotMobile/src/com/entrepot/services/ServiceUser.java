@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
  
+import com.entrepot.utls.Statics;
+import jdk.nashorn.internal.ir.RuntimeNode;
 
 
 /**
@@ -176,4 +178,5 @@ public class ServiceUser {
     
     
 
+public class ServiceUser { 
 }
