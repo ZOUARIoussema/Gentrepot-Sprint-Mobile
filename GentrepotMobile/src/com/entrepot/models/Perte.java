@@ -17,7 +17,7 @@ public class Perte {
 
     private int id;
     private String date;
-    private List<LignePerte>lignePertes;
+    private List<LignePerte> lignePertes;
 
     public Perte(int id, String date) {
         this.id = id;
@@ -30,7 +30,7 @@ public class Perte {
      
     public Perte(String date) {
         this.date = date;
-        //this.lignePertes=new ArrayList<>();
+        this.lignePertes=new ArrayList<>();
     }
 
     public int getId() {

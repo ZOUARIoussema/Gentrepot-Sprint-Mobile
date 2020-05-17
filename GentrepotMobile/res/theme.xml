@@ -1,8 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <resource majorVersion="1" minorVersion="11" useXmlUI="false">
+<<<<<<< HEAD
     <image name="load.png"  />
     <theme name="Theme">
         <val key="@includeNativeBool" value="true" />
+=======
+    <theme name="Theme">
+        <val key="@includeNativeBool" value="true" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.fgColor" value="000000" />
+        <val key="SideCommand.align" value="1" />
+        <val key="SideCommand.bgColor" value="2a3d51" />
+        <border key="SideCommand.border" type="empty" />
+        <val key="SideCommand.fgColor" value="ffffff" />
+        <val key="SideCommand.marUnit" value="2,2,2,2" />
+        <val key="SideCommand.margin" value="3.0,3.0,3.0,3.0" />
+        <val key="SideCommand.transparency" value="255" />
+        <val key="SideNavigationPanel.bgColor" value="2a3d51" />
+        <border key="SideNavigationPanel.border" type="empty" />
+        <val key="SideNavigationPanel.fgColor" value="000000" />
+        <val key="SideNavigationPanel.transparency" value="255" />
+        <border key="SignatureButton.border" type="empty" />
+        <val key="SignatureButton.fgColor" value="000000" />
+        <val key="Title.fgColor" value="000000" />
+        <font key="Title.font" type="system" face="0" style="1" size="0" />
+        <val key="Title.textDecoration" value="16" />
+        <val key="Toolbar.bgColor" value="ffa219" />
+        <border key="Toolbar.border" type="empty" />
+        <val key="Toolbar.fgColor" value="000000" />
+        <val key="Toolbar.transparency" value="255" />
+>>>>>>> origin/Redrigue
     </theme>
 </resource>
