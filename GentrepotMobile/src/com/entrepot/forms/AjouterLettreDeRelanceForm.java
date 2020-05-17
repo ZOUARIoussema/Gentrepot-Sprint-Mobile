@@ -41,9 +41,9 @@ public class AjouterLettreDeRelanceForm extends Form {
 
         CreationMenu();
 
-        this.add(new Label("Liste des factures"));
+        this.add(new Label("Liste des factures impayées:"));
 
-        for (FactureVente f : serviceLettreDeRelance.getAllFacture()) {
+        for (FactureVente f : serviceLettreDeRelance.getAllFactureImpayees()) {
 
             Container cG = new Container(BoxLayout.x());
 

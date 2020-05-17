@@ -55,15 +55,7 @@ public class FactureVente {
     }
 
 
-    public FactureVente(int numeroF, Date dateCreation, Date dateEchaillancePaiement, double totalTTC, String etat,double tPaye) {
-        this.numeroF = numeroF;
-        this.dateCreation = dateCreation;
-        this.dateEchaillancePaiement = dateEchaillancePaiement;
-        this.totalTTC = totalTTC;
-        this.etat = etat;
-        this.totalPaye=tPaye;
-    }
-
+    
     public FactureVente(int numeroF, Date dateCreation, Date dateEchaillancePaiement, double totalTTC, String etat, double totalPaye, double restePaye) {
         this.numeroF = numeroF;
         this.dateCreation = dateCreation;

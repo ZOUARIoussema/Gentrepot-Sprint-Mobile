@@ -103,6 +103,21 @@ public class ServiceLettreDeRelance {
         return factures;
     }
 
+    public List<FactureVente> getAllFactureImpayees() {
+
+        List<FactureVente> liste = new ArrayList<FactureVente>();
+
+        for (FactureVente f : this.getAllFacture()) {
+            if (f.getRestePaye() != 0) {
+                liste.add(f);
+            }
+
+        }
+
+        return liste;
+
+    }
+
     public ArrayList<LettreDeRelance> getAllLettre() {
         String url = Statics.URL_t + "/apiLettre/all";
 
@@ -137,6 +152,7 @@ public class ServiceLettreDeRelance {
 
                 double total = Float.parseFloat(obj.get("totalTTC").toString());
                 double totalP = Float.parseFloat(obj.get("totalPaye").toString());
+                double rest = Float.parseFloat(obj.get("resteAPaye").toString());
 
                 Map<String, Object> dated = (Map<String, Object>) obj.get("dateCreation");
                 float da = Float.parseFloat(dated.get("timestamp").toString());
@@ -146,7 +162,7 @@ public class ServiceLettreDeRelance {
                 float da2 = Float.parseFloat(dated2.get("timestamp").toString());
                 Date dateEchaillancePaiement = new Date((long) (da2 - 3600) * 1000);
 
-                factures.add(new FactureVente(id, dCeation, dateEchaillancePaiement, total, etat, totalP));
+                factures.add(new FactureVente(id, dCeation, dateEchaillancePaiement, total, etat, totalP,rest));
             }
 
         } catch (IOException ex) {
