@@ -28,7 +28,9 @@ public class CommandeDApprovisionnement {
     
     
     
-    
+     public CommandeDApprovisionnement(String dateCreation) {
+        this.dateCreation = dateCreation;
+    }
   
     
     
@@ -46,12 +48,10 @@ public class CommandeDApprovisionnement {
        
     }
 
-    public CommandeDApprovisionnement(String dateCreation) {
-        this.dateCreation = dateCreation;
-    }
     public CommandeDApprovisionnement(int numeroC) {
         this.numeroC = numeroC;
     }
+
     
     
      

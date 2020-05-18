@@ -24,11 +24,6 @@ public class CommandeVente {
     private User user;
     private List<LigneCommande>ligneCommande;
 
-    public CommandeVente(String etat, double tauxRemise) {
-        this.etat = etat;
-        this.tauxRemise = tauxRemise;
-    }
-
     public CommandeVente(int id, double totalC, Date dateC, String etat, double tauxRemise, User user) {
         this.id = id;
         this.totalC = totalC;
@@ -39,19 +34,9 @@ public class CommandeVente {
         this.ligneCommande= new ArrayList<>();
     }
 
-    public CommandeVente(double totalC, String etat, double tauxRemise) {
-        this.totalC = totalC;
-        this.etat = etat;
-        this.tauxRemise = tauxRemise;
-    }
-   
       public CommandeVente() {
-       this.id =8;
+        
          this.ligneCommande= new ArrayList<>();
-         this.dateC= new Date();
-         this.etat = " non livré";
-         this.tauxRemise = 5;
-         this.totalC=6;
         
     }
 
@@ -59,9 +44,9 @@ public class CommandeVente {
         this.id = id;
     }
 
-    @Override
-    public String toString() {
-        return "CommandeVente{" + "id=" + id + ", totalC=" + totalC + ", dateC=" + dateC + ", etat=" + etat + ", tauxRemise=" + tauxRemise + ", user=" + user + ", ligneCommande=" + ligneCommande + '}';
+    public CommandeVente(double totalC, String etat) {
+        this.totalC = totalC;
+        this.etat = etat;
     }
       
          
@@ -74,7 +59,7 @@ public class CommandeVente {
         this.ligneCommande= new ArrayList<>();
         this.id = id;
         
-            
+        
     }
 
     public CommandeVente(double totalC, Date dateC, String etat, double tauxRemise) {
@@ -95,15 +80,10 @@ public class CommandeVente {
 
     public double getTotalC() {
         return totalC;
-    } 
+    }
 
     public void setTotalC(double totalC) {
         this.totalC = totalC;
-    }
-
-    public CommandeVente(double totalC, String etat) {
-        this.totalC = totalC;
-        this.etat = etat;
     }
 
     public Date getDateC() {

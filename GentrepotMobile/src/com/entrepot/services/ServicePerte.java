@@ -38,7 +38,7 @@ public class ServicePerte {
     }
 
     public boolean addPerte(Perte pert) {
-        String url = Statics.BASE_URL2 + "/apiPerte/new" ;
+        String url = Statics.BASE_URL + "/apiPerte/new" ;
 
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -54,7 +54,7 @@ public class ServicePerte {
     }
 
     public ArrayList<Perte> getAllPertes() {
-        String url = Statics.BASE_URL2 + "/apiPerte/all";
+        String url = Statics.BASE_URL + "/apiPerte/all";
 
         request.setUrl(url);
         request.setPost(false);
@@ -71,7 +71,7 @@ public class ServicePerte {
     }
 
     public boolean deletePerte(Perte l) {
-        String url = Statics.BASE_URL2 + " /apiPerte/delete?id=" + l.getId();
+        String url = Statics.BASE_URL + " /apiPerte/delete?id=" + l.getId();
 
         request.setUrl(url);
 

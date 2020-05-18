@@ -41,7 +41,7 @@ public class ServiceLettreDeRelance {
     }
 
     public boolean addLettre(LettreDeRelance l) {
-        String url = Statics.URL_t + "/apiLettre/new?idF=" + l.getFactureVente().getNumeroF();
+        String url = Statics.BASE_URL + "/apiLettre/new?idF=" + l.getFactureVente().getNumeroF();
 
         request.setUrl(url);
 
@@ -63,7 +63,7 @@ public class ServiceLettreDeRelance {
     }
 
     public boolean deleteLettre(LettreDeRelance l) {
-        String url = Statics.URL_t + "/apiLettre/delete?idL=" + l.getId();
+        String url = Statics.BASE_URL + "/apiLettre/delete?idL=" + l.getId();
 
         request.setUrl(url);
 
@@ -85,7 +85,7 @@ public class ServiceLettreDeRelance {
     }
 
     public ArrayList<FactureVente> getAllFacture() {
-        String url = Statics.URL_t + "/apiLettre/allF";
+        String url = Statics.BASE_URL + "/apiLettre/allF";
 
         System.out.println(url);
 
@@ -119,7 +119,7 @@ public class ServiceLettreDeRelance {
     }
 
     public ArrayList<LettreDeRelance> getAllLettre() {
-        String url = Statics.URL_t + "/apiLettre/all";
+        String url = Statics.BASE_URL + "/apiLettre/all";
 
         System.out.println(url);
 

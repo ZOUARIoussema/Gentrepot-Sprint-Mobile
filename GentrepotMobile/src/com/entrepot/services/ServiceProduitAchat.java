@@ -24,7 +24,8 @@ import java.util.Map;
  * @author oussema
  */
 public class ServiceProduitAchat {
-        private ConnectionRequest request;
+    
+      private ConnectionRequest request;
   private boolean responseResult;
     public ArrayList<ProduitAchat> produits;
     
@@ -35,7 +36,7 @@ public class ServiceProduitAchat {
     }
      
       public ArrayList<ProduitAchat> getAllProduits() {
-        String url = "http://localhost/PROJET-SYMFONY-GENTREPOT/Gentrepot/web/app_dev.php/api/apiProduit/affiche";
+        String url = Statics.BASE_URL+ "/apiProduit/affiche";
 
         request.setUrl(url);
         request.setPost(false);
@@ -77,5 +78,7 @@ public class ServiceProduitAchat {
 
         return produits;
     }
+    
+    
     
 }

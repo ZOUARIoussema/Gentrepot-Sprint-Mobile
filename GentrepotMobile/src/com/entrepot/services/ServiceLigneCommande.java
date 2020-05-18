@@ -5,8 +5,6 @@
  */
 package com.entrepot.services;
 
-import com.codename1.db.Cursor;
-import com.codename1.db.Row;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
@@ -14,6 +12,7 @@ import com.codename1.ui.events.ActionListener;
 import com.entrepot.models.LigneCommande;
 import com.entrepot.models.ProduitAchat;
 import com.entrepot.utls.SingletonDataBase;
+import com.entrepot.utls.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +22,6 @@ import java.util.List;
  * @author oussema
  */
 public class ServiceLigneCommande {
-    
-    
-    
-    
     
       private ConnectionRequest request = new ConnectionRequest();
     private boolean responseResult;
@@ -41,7 +36,7 @@ public class ServiceLigneCommande {
    
     public boolean ajouterlignecom(LigneCommande lc){
         
-         String url = "http://localhost/PROJET-SYMFONY-GENTREPOT/Gentrepot/web/app_dev.php/api/apiLigneCommande/ajout?Quantite="+lc.getQuantite()+"&Produit="+lc.getRefp()+"&Total="+lc.getTotal()+"&Commande="+lc.getCommandeVente().getId()+"&Prix="+lc.getPrix()+"&Tva="+lc.getTva(); 
+         String url = Statics.BASE_URL+ "/apiLigneCommande/ajout?Quantite="+lc.getQuantite()+"&Produit="+lc.getRefp()+"&Total="+lc.getTotal()+"&Commande="+lc.getCommandeVente().getId()+"&Prix="+lc.getPrix()+"&Tva="+lc.getTva(); 
     
          System.out.println(url);
          
@@ -132,5 +127,6 @@ public class ServiceLigneCommande {
         }*/
         return listS;
     }
+    
     
 }

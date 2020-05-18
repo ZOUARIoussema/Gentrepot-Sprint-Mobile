@@ -24,8 +24,7 @@ import java.util.Map;
  * @author oussema
  */
 public class ServiceAideChauffeur {
-    
-    private ConnectionRequest request;
+      private ConnectionRequest request;
 
     private boolean responseResult;
     public ArrayList<AideChauffeur> tasks;
@@ -34,7 +33,7 @@ public class ServiceAideChauffeur {
         request = DataSource.getInstance().getRequest();
     }
      public boolean addAideChauffeur(AideChauffeur aide) {
-        String url = Statics.LOGISTIQUE_URL + "/apiAchauf/ajout" +"?cin="+ aide.getCin()+ "&nom=" + aide.getNom()+ "&prenom=" + aide.getPrenom() + "&adresse=" + aide.getAdresse();
+        String url = Statics.BASE_URL + "/apiAchauf/ajout" +"?cin="+ aide.getCin()+ "&nom=" + aide.getNom()+ "&prenom=" + aide.getPrenom() + "&adresse=" + aide.getAdresse();
 
         
          System.out.println(url);
@@ -52,7 +51,7 @@ public class ServiceAideChauffeur {
         return responseResult;
     }
  public ArrayList<AideChauffeur> getAllTasks() {
-        String url = Statics.LOGISTIQUE_URL + "/apiaide/affiche";
+        String url = Statics.BASE_URL + "/apiaide/affiche";
 
         request.setUrl(url);
         request.setPost(false);
@@ -89,4 +88,5 @@ public class ServiceAideChauffeur {
 
         return tasks;
     }
+    
 }

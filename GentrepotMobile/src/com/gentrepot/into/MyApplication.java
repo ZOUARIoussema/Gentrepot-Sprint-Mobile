@@ -27,13 +27,13 @@ import com.entrepot.forms.VerifCodeForm;
 public class MyApplication {
 
     private Form current;
-    private Resources theme1;
+    private Resources theme;
 
     public void init(Object context) {
         // use two network threads instead of one
         updateNetworkThreadCount(2);
 
-        theme1 = UIManager.initFirstTheme("/themeLogistique");
+        theme = UIManager.initFirstTheme("/theme");
 
         // Enable Toolbar on all Forms by default
         Toolbar.setGlobalToolbar(true);

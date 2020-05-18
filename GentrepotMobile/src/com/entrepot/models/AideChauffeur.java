@@ -70,12 +70,11 @@ public class AideChauffeur {
     public void setId(int id) {
         this.id = id;
     }
-
-    @Override
+    
+     @Override
     public String toString() {
         return "AideChauffeur{" + "id=" + id + ", cin=" + cin + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + '}';
     }
-    
     
     
     

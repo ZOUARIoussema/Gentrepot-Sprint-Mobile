@@ -27,14 +27,20 @@ public class Emplacement {
         this.entrepot = entrepot;
     }
     
-    public Emplacement(int id) {
-        
-        this.id = id;
-       
-    }
+    
     
       
-    public Emplacement(String adresse, int capaciteStockage, int quantiteStocker, String classe) {
+    public Emplacement(String adresse, int capaciteStockage, int quantiteStocker, String classe, Entrepot entrepot) {
+        
+        this.adresse = adresse;
+        this.capaciteStockage = capaciteStockage;
+        this.quantiteStocker = quantiteStocker;
+        this.classe = classe;
+        this.entrepot = entrepot;
+        
+    }
+    
+      public Emplacement(String adresse, int capaciteStockage, int quantiteStocker, String classe) {
         
         this.adresse = adresse;
         this.capaciteStockage = capaciteStockage;
@@ -43,6 +49,17 @@ public class Emplacement {
         
         
     }
+      
+      
+       public Emplacement(int id) {
+        
+        this.id = id;
+       
+    }
+
+    
+         
+       
 
     public int getId() {
         return id;
@@ -90,6 +107,11 @@ public class Emplacement {
 
     public void setEntrepot(Entrepot entrepot) {
         this.entrepot = entrepot;
+    }
+
+    @Override
+    public String toString() {
+        return "Emplacement{" + "id=" + id + ", adresse=" + adresse + ", capaciteStockage=" + capaciteStockage + ", quantiteStocker=" + quantiteStocker + ", classe=" + classe + '}';
     }
     
     

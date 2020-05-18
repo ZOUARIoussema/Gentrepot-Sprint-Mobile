@@ -32,6 +32,8 @@ import java.util.List;
  * @author LENOVO
  */
 public class PanierForm extends Form {
+    
+    
    
          
     
@@ -176,7 +178,7 @@ public class PanierForm extends Form {
         
         EncodedImage enco = EncodedImage.createFromImage(theme.getImage("load.png"), false);
         
-        String url = "http://localhost/PROJET-SYMFONY-GENTREPOT/Gentrepot/web/uploads/images/"+p.getImage();
+        String url = "http://localhost/IntegrationFinalSymfonyMaster/PROJET-SYMFONY-GENTREPOT/gentrepot/web/uploads/images/"+p.getImage();
         Image im =URLImage.createToStorage(enco,p.getImage(), url); 
         
         ImageViewer imv = new ImageViewer(im);

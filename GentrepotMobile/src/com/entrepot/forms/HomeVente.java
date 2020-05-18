@@ -19,6 +19,7 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.Border;
 import com.codename1.ui.plaf.Style;
+import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 
 /**
@@ -27,6 +28,7 @@ import com.codename1.ui.util.Resources;
  */
 public class HomeVente extends Form{
     
+      Resources theme = UIManager.initFirstTheme("/themeVente");
     
      public HomeVente( Form previous ) {
          

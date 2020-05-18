@@ -22,6 +22,8 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.list.*;
+import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
 import com.entrepot.models.Emplacement;
 import com.entrepot.models.Entrepot;
 import com.entrepot.services.ServiceEmplacement;
@@ -34,6 +36,9 @@ import java.util.Map;
  * @author guiforodrigue
  */
 public class FormMenuEmplacement extends Form{
+    
+     Resources theme = UIManager.initFirstTheme("/themeStockage");
+    
     public FormMenuEmplacement(Form previous){
         setTitle("GESTION DE L'EMPLACEMENT");
         setLayout(new FlowLayout(CENTER, CENTER));

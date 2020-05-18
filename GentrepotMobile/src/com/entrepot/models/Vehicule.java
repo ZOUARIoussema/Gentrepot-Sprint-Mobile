@@ -24,12 +24,13 @@ public class Vehicule {
         this.capacite = capacite;
         this.type = type;
     }
-
-    public Vehicule(int matricule, int capacite, String type) {
+    
+      public Vehicule(int matricule, int capacite, String type) {
         this.matricule = matricule;
         this.capacite = capacite;
         this.type = type;
     }
+    
     
      
 
@@ -79,12 +80,12 @@ public class Vehicule {
     public void setType(String type) {
         this.type = type;
     }
-
-    @Override
+    
+    
+      @Override
     public String toString() {
         return "Vehicule{" + "id=" + id + ", etat=" + etat + ", matricule=" + matricule + ", capacite=" + capacite + ", type=" + type + '}';
     }
-    
     
     
     

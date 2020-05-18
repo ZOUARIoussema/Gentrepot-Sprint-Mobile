@@ -33,7 +33,7 @@ public class ServiceVehicule {
         request = DataSource.getInstance().getRequest();
     }
     public boolean addVehicule(Vehicule v) {
-        String url = Statics.LOGISTIQUE_URL + "/apiv/ajout" +"?matricule="+v.getMatricule()+ "&capacite=" + v.getCapacite()+ "&type=" + v.getType();
+        String url = Statics.BASE_URL + "/apiv/ajout" +"?matricule="+v.getMatricule()+ "&capacite=" + v.getCapacite()+ "&type=" + v.getType();
         System.out.println(url);
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -49,7 +49,7 @@ public class ServiceVehicule {
     }
     
     public ArrayList<Vehicule> getAllTasks() {
-        String url = Statics. LOGISTIQUE_URL + "/apiv/affiche";
+        String url = Statics. BASE_URL + "/apiv/affiche";
 
         request.setUrl(url);
         request.setPost(false);
@@ -86,4 +86,5 @@ public class ServiceVehicule {
 
         return tasks;
     }
+    
 }

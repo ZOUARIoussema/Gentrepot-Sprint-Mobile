@@ -45,7 +45,7 @@ public class ServiceInventaireCaisse {
     }
 
     public boolean addinventaireCaisse(InventaireCaisse inv) {
-        String url = Statics.URL_t + "/apiInventaire/add?soldeCheque=" + inv.getSoldeCheque()
+        String url = Statics.BASE_URL + "/apiInventaire/add?soldeCheque=" + inv.getSoldeCheque()
                 + "&soldeEspece=" + inv.getSoldeEspece() + "&soldeTheorique="
                 + inv.getSoldeTheorique() + "&dateC=" + inv.getDateCreation() + "&soldecalculer=" + inv.getSoldeCalculer()
                 + "&ecart=" + inv.getEcart();
@@ -71,7 +71,7 @@ public class ServiceInventaireCaisse {
     
     
      public boolean modifierInventaireCaisse(InventaireCaisse inv) {
-        String url = Statics.URL_t + "/apiInventaire/modifier?id=" + inv.getId()
+        String url = Statics.BASE_URL + "/apiInventaire/modifier?id=" + inv.getId()
                 + "&sc=" + inv.getSoldeCalculer();
                 
         request.setUrl(url);
@@ -97,7 +97,7 @@ public class ServiceInventaireCaisse {
     
     
     public boolean deleteInventaireCaisse(InventaireCaisse inv) {
-        String url = Statics.URL_t + "/apiInventaire/delete?idI=" + inv.getId();
+        String url = Statics.BASE_URL + "/apiInventaire/delete?idI=" + inv.getId();
                 
         request.setUrl(url);
 
@@ -153,7 +153,7 @@ public class ServiceInventaireCaisse {
     }
 
     public ArrayList<InventaireCaisse> getAllInventaire() {
-        String url = Statics.URL_t + "/apiInventaire/findAll";
+        String url = Statics.BASE_URL + "/apiInventaire/findAll";
 
         System.out.println(url);
 
@@ -175,7 +175,7 @@ public class ServiceInventaireCaisse {
 
     public void parseRecupere() {
 
-        String url = Statics.URL_t + "/apiInventaire/recupere";
+        String url = Statics.BASE_URL + "/apiInventaire/recupere";
 
         System.out.println(url);
 

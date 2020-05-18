@@ -24,6 +24,8 @@ import com.codename1.ui.util.Resources;
  */
 public class FormStockageHome extends Form{
     
+     Resources theme = UIManager.initFirstTheme("/themeStockage");
+    
     public FormStockageHome(){
         setTitle("Home");
         setLayout(new FlowLayout(CENTER, CENTER));
@@ -46,7 +48,7 @@ public class FormStockageHome extends Form{
             new FormMenuEmplacement(this).show();
         });
         
-        getToolbar().addMaterialCommandToLeftSideMenu("Gestion inventaires", FontImage.MATERIAL_BALLOT, ev->{
+        getToolbar().addMaterialCommandToLeftSideMenu("Gestion inventaires", FontImage.MATERIAL_ADD, ev->{
             new FormMenuInventaire(this).show();
         });
         
@@ -55,7 +57,7 @@ public class FormStockageHome extends Form{
         });
                 
         getToolbar().addCommandToRightBar("Logout", null, ev->{
-            //previous.showBack();
+            new AuthentificationForm().show();
         });
      
     }

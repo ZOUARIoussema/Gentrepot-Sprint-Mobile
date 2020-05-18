@@ -37,7 +37,7 @@ public class ServiceEmplacement {
     }
 
     public boolean addEmplas(Emplacement lpert) {
-        String url = Statics.BASE_URL2 + "/apiEmp/new?adresse=" + lpert.getAdresse() + "&capaciteStockage=" + lpert.getCapaciteStockage() + "&quantiteStocker" + lpert.getQuantiteStocker() + "&classe=" + lpert.getClasse() + "&matriculeFiscal=oo";
+        String url = Statics.BASE_URL + "/apiEmp/new?adresse=" + lpert.getAdresse() + "&capaciteStockage=" + lpert.getCapaciteStockage() + "&quantiteStocker" + lpert.getQuantiteStocker() + "&classe=" + lpert.getClasse() + "&matriculeFiscal=oo";
         
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -53,7 +53,7 @@ public class ServiceEmplacement {
     }
 
     public ArrayList<Emplacement> getAllEmplas() {
-        String url = Statics.BASE_URL2 + "/apiEmp/all";
+        String url = Statics.BASE_URL + "/apiEmp/all";
 
         request.setUrl(url);
         request.setPost(false);

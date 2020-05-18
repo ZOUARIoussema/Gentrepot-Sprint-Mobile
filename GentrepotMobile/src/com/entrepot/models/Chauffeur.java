@@ -29,16 +29,8 @@ public class Chauffeur {
         this.voyage = voyage;
         this.etat = etat;
     }
-
-    public Chauffeur(String cin, String nom, String prenom, String adresse, String etat) {
-        this.cin = cin;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.adresse = adresse;
-        this.etat = etat;
-    }
-
-    public Chauffeur(String cin, String nom, String prenom, String adresse) {
+    
+     public Chauffeur(String cin, String nom, String prenom, String adresse) {
         this.cin = cin;
         this.nom = nom;
         this.prenom = prenom;
@@ -100,12 +92,12 @@ public class Chauffeur {
     public void setId(int id) {
         this.id = id;
     }
-
-    @Override
+    
+    
+     @Override
     public String toString() {
         return "Chauffeur{" + "id=" + id + ", cin=" + cin + ", nom=" + nom + ", prenom=" + prenom + ", adresse=" + adresse + ", voyage=" + voyage + ", etat=" + etat + '}';
     }
-    
     
     
     

@@ -20,8 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
  
-import com.entrepot.utls.Statics;
-import jdk.nashorn.internal.ir.RuntimeNode;
 
 
 /**
@@ -40,7 +38,7 @@ public class ServiceUser {
     }
 
     public boolean addUser(User user) {
-        String url = Statics.URL_t + "/apiUser/add?username=" + user.getUsername() + "&email=" + user.getEmail()
+        String url = Statics.BASE_URL + "/apiUser/add?username=" + user.getUsername() + "&email=" + user.getEmail()
                 + "&password=" +Password.hashPassword(user.getPassword())+"&role="+user.getRole() ;
         request.setUrl(url);
         
@@ -64,7 +62,7 @@ public class ServiceUser {
     
     
      public boolean modifierUser(User user) {
-        String url = Statics.URL_t + "/apiUser/update?id=" + user.getId() + "&paswd=" + Password.hashPassword(user.getPassword());
+        String url = Statics.BASE_URL + "/apiUser/update?id=" + user.getId() + "&paswd=" + Password.hashPassword(user.getPassword());
              
         request.setUrl(url);
         
@@ -86,7 +84,7 @@ public class ServiceUser {
     }
 
     public ArrayList<User> getAllUsers() {
-        String url = Statics.URL_t + "/apiUser/findAll";
+        String url = Statics.BASE_URL + "/apiUser/findAll";
 
         System.out.println(url);
 
@@ -178,5 +176,4 @@ public class ServiceUser {
     
     
 
-public class ServiceUser { 
 }

@@ -41,7 +41,8 @@ public class Fournisseur {
     public Fournisseur(int id) {
         this.id = id;
     }
-    public Fournisseur(String adresseMail) {
+    
+     public Fournisseur(String adresseMail) {
         this.adresseMail = adresseMail;
     }
     

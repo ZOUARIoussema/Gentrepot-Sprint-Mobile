@@ -40,7 +40,7 @@ public class ServiceLignePerte {
     }
 
     public boolean addLPerte(LignePerte lpert) {
-        String url = Statics.BASE_URL2 + "/apiLignePerte/new?" + "refPro=" +lpert.getProduitAchat().getReference() + "&id=" +lpert.getPerte().getId() + "&quantite=" +lpert.getQuantite() + "&raisonPerte=" + lpert.getRaisonPerte();
+        String url = Statics.BASE_URL + "/apiLignePerte/new?" + "refPro=" +lpert.getProduitAchat().getReference() + "&id=" +lpert.getPerte().getId() + "&quantite=" +lpert.getQuantite() + "&raisonPerte=" + lpert.getRaisonPerte();
 
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -56,7 +56,7 @@ public class ServiceLignePerte {
     }
 
     public ArrayList<LignePerte> getAllLPertes() {
-        String url = Statics.BASE_URL2 + "/apiLignePerte/all";
+        String url = Statics.BASE_URL + "/apiLignePerte/all";
 
         request.setUrl(url);
         request.setPost(false);
@@ -73,7 +73,7 @@ public class ServiceLignePerte {
     }
 
     public boolean deleteLPerte(LignePerte l) {
-        String url = Statics.BASE_URL2 + " /apiLignePerte/delete?id=" + l.getId();
+        String url = Statics.BASE_URL + " /apiLignePerte/delete?id=" + l.getId();
 
         request.setUrl(url);
 

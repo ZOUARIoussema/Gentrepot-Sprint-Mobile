@@ -22,7 +22,7 @@ public class InventaireStock {
     private int ecart;
     private int quantiteTheorique;
 
-    public InventaireStock(int id, ProduitAchat produitAchat, Emplacement emplacement, String dateCreation, int qunatiteInventiare, int ecart, int quantiteTheorique) {
+   public InventaireStock(int id, ProduitAchat produitAchat, Emplacement emplacement, String dateCreation, int qunatiteInventiare, int ecart, int quantiteTheorique) {
         this.id = id;
         this.produitAchat = produitAchat;
         this.emplacement = emplacement;

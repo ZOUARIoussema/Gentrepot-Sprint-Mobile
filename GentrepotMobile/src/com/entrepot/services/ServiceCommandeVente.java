@@ -12,12 +12,10 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.entrepot.models.CommandeVente;
-import com.entrepot.models.ProduitAchat;
 import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -26,8 +24,7 @@ import java.util.Map;
  * @author oussema
  */
 public class ServiceCommandeVente {
-    
-  private ConnectionRequest request;
+    private ConnectionRequest request;
   private boolean responseResult;
     public ArrayList<CommandeVente> commande;
     public int id_commande;
@@ -38,7 +35,7 @@ public class ServiceCommandeVente {
     }
     public boolean ajoutercom(CommandeVente v){
         
-        String url = "http://localhost/PROJET-SYMFONY-GENTREPOT/Gentrepot/web/app_dev.php/api/apiCommandeVente/ajout?totalC="+v.getTotalC()+"&etat="+v.getEtat()+"&dateC="+v.getDateC()+"&tauxRemise="+v.getTauxRemise()+"&ligneCommande="+v.getLigneCommande(); 
+        String url = Statics.BASE_URL+ "/apiCommandeVente/ajout?totalC="+v.getTotalC()+"&etat="+v.getEtat()+"&dateC="+v.getDateC()+"&tauxRemise="+v.getTauxRemise()+"&ligneCommande="+v.getLigneCommande(); 
              System.out.println(url);
 
         request.setUrl(url);
@@ -65,7 +62,7 @@ public class ServiceCommandeVente {
      
      
       public ArrayList<CommandeVente> getAllCommandes() {
-        String url = "http://localhost/PROJET-SYMFONY-GENTREPOT/Gentrepot/web/app_dev.php/api/apiCommandeVente/affiche";
+        String url = Statics.BASE_URL+"/apiCommandeVente/affiche";
 
         request.setUrl(url);
         request.setPost(false);
@@ -107,7 +104,7 @@ public class ServiceCommandeVente {
     }
    
    public int getMaxIdCommnde() {
-        String url = "http://localhost/PROJET-SYMFONY-GENTREPOT/Gentrepot/web/app_dev.php/api/apiCommandeVente/max";
+        String url = Statics.BASE_URL+"/apiCommandeVente/max";
         request.setUrl(url);
         System.out.println(url);
         request.setPost(false);
@@ -140,4 +137,5 @@ public class ServiceCommandeVente {
 
         return id_commande;
     }
+    
 }

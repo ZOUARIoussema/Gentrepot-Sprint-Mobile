@@ -41,7 +41,7 @@ public class ServiceInventaireStock {
     }
 
     public boolean addInv(InventaireStock lcom) {
-        String url = Statics.BASE_URL2 + "/apiInvent/new?qteinv=" + lcom.getQunatiteInventiare()+ "&id=" + lcom.getEmplacement().getId() + "&reference=" + lcom.getProduitAchat().getReference();
+        String url = Statics.BASE_URL + "/apiInvent/new?qteinv=" + lcom.getQunatiteInventiare()+ "&id=" + lcom.getEmplacement().getId() + "&reference=" + lcom.getProduitAchat().getReference();
 
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -57,7 +57,7 @@ public class ServiceInventaireStock {
     }
 
     public ArrayList<InventaireStock> getAllInvs() {
-        String url = Statics.BASE_URL2 + "/apiInvent/all";
+        String url = Statics.BASE_URL + "/apiInvent/all";
 
         request.setUrl(url);
         request.setPost(false);

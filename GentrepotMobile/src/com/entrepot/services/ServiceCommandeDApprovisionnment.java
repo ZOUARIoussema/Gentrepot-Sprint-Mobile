@@ -43,7 +43,7 @@ public class ServiceCommandeDApprovisionnment {
     }
 
     public boolean addCom(CommandeDApprovisionnement com) {
-        String url = Statics.BASE_URL2 + "/apiCommandeDAp/new?totalTva=" + com.getTotalTva() + "&totalC=" + com.getTotalC()  + "&tauxRemise=" + com.getTauxRemise() + "&id=" + com.getFournisseur().getId();
+        String url = Statics.BASE_URL + "/apiCommandeDAp/new?totalTva=" + com.getTotalTva() + "&totalC=" + com.getTotalC()  + "&tauxRemise=" + com.getTauxRemise() + "&id=" + com.getFournisseur().getId();
 
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -59,7 +59,7 @@ public class ServiceCommandeDApprovisionnment {
     }
 
     public ArrayList<CommandeDApprovisionnement> getAllComs() {
-        String url = Statics.BASE_URL2 + "/apiCommandeDAp/all";
+        String url = Statics.BASE_URL + "/apiCommandeDAp/all";
 
         request.setUrl(url);
         request.setPost(false);
@@ -76,7 +76,7 @@ public class ServiceCommandeDApprovisionnment {
     }
 
     public boolean deletePerte(CommandeDApprovisionnement l) {
-        String url = Statics.BASE_URL2 + " /apiCommandeDAp/delete?numeroC=" + l.getNumeroC();
+        String url = Statics.BASE_URL + " /apiCommandeDAp/delete?numeroC=" + l.getNumeroC();
 
         request.setUrl(url);
 
@@ -106,8 +106,8 @@ public class ServiceCommandeDApprovisionnment {
                 int numeroC = (int)Float.parseFloat(ob.get("numeroC").toString());
                 double totalC = (double)Float.parseFloat(ob.get("numeroC").toString());
                 double tauxRemise = (double)Float.parseFloat(ob.get("tauxRemise").toString());
-                double totalTva = (double)Float.parseFloat(ob.get("totalTva").toString());
-                int status = (int)Float.parseFloat(ob.get("status").toString());
+                double totalTva = (double)Float.parseFloat(ob.get("totalTVA").toString());
+                String status = ob.get("etat").toString();
                 JSONObject dateCreation  = new JSONObject(ob.get("dateCreation").toString());                
                 float da = Float.parseFloat(dateCreation.get("timestamp").toString()); 
                 Date dCeation = new Date((long) (da - 3600) * 1000);                

@@ -21,6 +21,8 @@ import com.codename1.ui.layouts.BoxLayout;
 import static com.codename1.ui.layouts.BoxLayout.y;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.list.*;
+import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
 import com.entrepot.models.LignePerte;
 import com.entrepot.models.Perte;
 import com.entrepot.models.ProduitAchat;
@@ -35,6 +37,9 @@ import java.util.Map;
  * @author guiforodrigue
  */
 public class FormMenuPerte extends Form{
+    
+     Resources theme = UIManager.initFirstTheme("/themeStockage");
+    
     static int i = 0;
     public FormMenuPerte(Form previous){
         setTitle("GESTION DES PERTES");

@@ -25,6 +25,8 @@ public class Entrepot {
         this.adresseMail = adresseMail;
         this.numeroTel = numeroTel;
     }
+    
+    
     public Entrepot(String matriculeFiscale) {
         this.matriculeFiscale = matriculeFiscale;
     }

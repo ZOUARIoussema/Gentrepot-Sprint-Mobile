@@ -19,6 +19,8 @@ import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
 import com.entrepot.models.CommandeDApprovisionnement;
 import com.entrepot.models.Fournisseur;
 import com.entrepot.models.LigneCommandeDApprovisionnement;
@@ -33,6 +35,10 @@ import java.util.Date;
  * @author guiforodrigue
  */
 public class FormMenuCommandeApprovisionnement extends Form{
+    
+     Resources theme = UIManager.initFirstTheme("/themeStockage");
+    
+    
     static int i=0;
     public FormMenuCommandeApprovisionnement(Form previous){
         setTitle("GESTION COMMANDES D'APPROVISIONNEMENT");

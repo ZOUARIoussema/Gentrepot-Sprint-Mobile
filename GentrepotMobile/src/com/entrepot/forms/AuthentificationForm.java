@@ -115,20 +115,26 @@ public class AuthentificationForm extends Form {
                     } else if (user.getRole().equals("[ROLE_CLIEN, ROLE_USER]")) {
 
                         ToastBar.showMessage("Client connecter", FontImage.MATERIAL_STAR, 30000);
+                        
+                        new HomeVente(new Form()).show();
 
                     } else if (user.getRole().equals("[ROLE_STOCK, ROLE_USER]")) {
 
                         ToastBar.showMessage("Agent de stockage connecter", FontImage.MATERIAL_STAR, 30000);
 
+                        FormStockageHome h = new FormStockageHome();
+                        h.show();
+
                     } else if (user.getRole().equals("[ROLE_CPARC, ROLE_USER]")) {
 
                         ToastBar.showMessage("Chef de parc connecter", FontImage.MATERIAL_STAR, 30000);
+                          new HomeLogistiqueForm().show();
 
-                    }else if (user.getRole().equals("[ROLE_RACHA, ROLE_USER]")) {
+                    } else if (user.getRole().equals("[ROLE_RACHA, ROLE_USER]")) {
 
                         ToastBar.showMessage("Responsable achat connecter", FontImage.MATERIAL_STAR, 30000);
 
-                    }else if (user.getRole().equals("[ROLE_RVENT, ROLE_USER]")) {
+                    } else if (user.getRole().equals("[ROLE_RVENT, ROLE_USER]")) {
 
                         ToastBar.showMessage("Responsable vente connecter", FontImage.MATERIAL_STAR, 30000);
 

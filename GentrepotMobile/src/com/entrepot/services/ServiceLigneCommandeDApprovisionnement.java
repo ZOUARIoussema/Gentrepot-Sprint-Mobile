@@ -42,7 +42,7 @@ public class ServiceLigneCommandeDApprovisionnement {
     }
 
     public boolean addLCom(LigneCommandeDApprovisionnement lcom) {
-        String url = Statics.BASE_URL2 + "/apiLigneCommandeDAp/new?qte=" + lcom.getQuantite() + "&tva=" + lcom.getTva() + "&prix=" + lcom.getPrix() + "&total=" + lcom.getPrix()*lcom.getQuantite()+ "&numeroC=" + lcom.getCommandeDApprovisionnement().getNumeroC() + "&refPro=" +lcom.getProduitAchat().getReference();
+        String url = Statics.BASE_URL + "/apiLigneCommandeDAp/new?qte=" + lcom.getQuantite() + "&tva=" + lcom.getTva() + "&prix=" + lcom.getPrix() + "&total=" + lcom.getPrix()*lcom.getQuantite()+ "&numeroC=" + lcom.getCommandeDApprovisionnement().getNumeroC() + "&refPro=" +lcom.getProduitAchat().getReference();
 
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -58,7 +58,7 @@ public class ServiceLigneCommandeDApprovisionnement {
     }
 
     public ArrayList<LigneCommandeDApprovisionnement> getAllLComs() {
-        String url = Statics.BASE_URL2 + "/apiLigneCommandeDAp/all";
+        String url = Statics.BASE_URL + "/apiLigneCommandeDAp/all";
 
         request.setUrl(url);
         request.setPost(false);
@@ -75,7 +75,7 @@ public class ServiceLigneCommandeDApprovisionnement {
     }
 
     public boolean deletePerte(LigneCommandeDApprovisionnement l) {
-        String url = Statics.BASE_URL2 + " /apiLigneCommandeDAp/delete?id=" + l.getId();
+        String url = Statics.BASE_URL + " /apiLigneCommandeDAp/delete?id=" + l.getId();
 
         request.setUrl(url);
 
