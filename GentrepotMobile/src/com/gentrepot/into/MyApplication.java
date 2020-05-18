@@ -62,14 +62,7 @@ public class MyApplication {
         hi.show();*/
 
         new AuthentificationForm().show();
-        //new CreerCompteForm().show();
-        // new CreerCompteForm().show();
-        // new AjouterInventaireCaisseForm().show();
-        //   new  MenueAgentCaisseForm().show();
-        //new ModifierProfilForm().show();
-
-        // new ListeLettreDeRelanceForm().show();
-        // new VerifCodeForm().show();
+         
     }
 
     public void stop() {
