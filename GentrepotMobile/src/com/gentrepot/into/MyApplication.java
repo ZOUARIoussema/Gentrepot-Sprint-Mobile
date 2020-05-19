@@ -15,6 +15,7 @@ import com.codename1.io.NetworkEvent;
 import com.entrepot.forms.AjouterInventaireCaisseForm;
 import com.entrepot.forms.AuthentificationForm;
 import com.entrepot.forms.CreerCompteForm;
+import com.entrepot.forms.HomeLogistiqueForm;
 import com.entrepot.forms.ListeLettreDeRelanceForm;
 import com.entrepot.forms.MenueAgentCaisseForm;
 import com.entrepot.forms.ModifierProfilForm;

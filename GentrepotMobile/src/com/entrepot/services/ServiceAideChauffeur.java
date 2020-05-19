@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  *
  * @author oussema
@@ -34,8 +35,7 @@ public class ServiceAideChauffeur {
     }
      public boolean addAideChauffeur(AideChauffeur aide) {
         String url = Statics.BASE_URL + "/apiAchauf/ajout" +"?cin="+ aide.getCin()+ "&nom=" + aide.getNom()+ "&prenom=" + aide.getPrenom() + "&adresse=" + aide.getAdresse();
-
-        
+  
          System.out.println(url);
         
         request.setUrl(url);

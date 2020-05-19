@@ -55,6 +55,7 @@ public class ServiceChauffeur {
 
         request.setUrl(url);
         request.setPost(false);
+       
         request.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
