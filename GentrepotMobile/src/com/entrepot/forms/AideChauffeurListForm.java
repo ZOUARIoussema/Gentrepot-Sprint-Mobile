@@ -8,18 +8,30 @@ package com.entrepot.forms;
 import com.codename1.components.ImageViewer;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.components.SpanLabel;
+import com.codename1.io.ConnectionRequest;
+import com.codename1.io.JSONParser;
+import com.codename1.io.Log;
+import com.codename1.io.NetworkManager;
+import com.codename1.processing.Result;
+import com.codename1.ui.AutoCompleteTextField;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.Display;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
+import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.LayeredLayout;
+import com.codename1.ui.list.DefaultListModel;
 import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.entrepot.models.AideChauffeur;
 import com.entrepot.services.ServiceAideChauffeur;
+import java.io.ByteArrayInputStream;
+import java.io.InputStreamReader;
+import java.util.Map;
 
 
 /**
@@ -29,7 +41,14 @@ import com.entrepot.services.ServiceAideChauffeur;
 public class AideChauffeurListForm extends Form {
     Resources res = UIManager.initFirstTheme("/themeLogistique");
     ServiceAideChauffeur sa = new ServiceAideChauffeur();
+    
+    
+
+    
+    
+    
      public AideChauffeurListForm() {
+         
         super("liste des Aide chauffeurs", BoxLayout.y());
         
         
@@ -70,7 +89,7 @@ public class AideChauffeurListForm extends Form {
             aff
               
         ));
-        
+       
         
         
 
@@ -79,5 +98,7 @@ public class AideChauffeurListForm extends Form {
         this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
              new HomeLogistiqueForm().show();
         });
+        
+      
     }
 }
