@@ -30,7 +30,11 @@ public class Vehicule {
         this.capacite = capacite;
         this.type = type;
     }
+
+    public Vehicule() {
+    }
     
+       
     
      
 

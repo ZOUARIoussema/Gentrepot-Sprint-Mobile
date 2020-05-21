@@ -13,6 +13,8 @@ import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
+import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -39,6 +41,16 @@ public class AjouterInventaireCaisseForm extends Form {
     Resources theme = UIManager.initFirstTheme("/themeTresorerie");
 
     public void CreationMenu() {
+        
+        
+         Image icon = theme.getImage("iconeUser.png").scaled(400, 400);
+        Container topBar = BorderLayout.east(new Label(icon));
+        topBar.add(BorderLayout.SOUTH, new Label("Agent de caisse", "SidemenuTagline"));
+
+        topBar.setUIID("SideCommand");
+        getToolbar().addComponentToSideMenu(topBar);
+
+        this.getToolbar().setUIID("SideCommande");
 
         this.getToolbar().addCommandToOverflowMenu("Modifier Profile", null, (evt) -> {
 

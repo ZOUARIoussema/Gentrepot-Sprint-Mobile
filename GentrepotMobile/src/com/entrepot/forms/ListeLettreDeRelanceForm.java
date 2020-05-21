@@ -11,9 +11,11 @@ import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
@@ -29,88 +31,84 @@ public class ListeLettreDeRelanceForm extends Form {
 
     ServiceLettreDeRelance serviceLettreDeRelance = new ServiceLettreDeRelance();
     Resources theme = UIManager.initFirstTheme("/themeTresorerie");
-    
-     
 
     public ListeLettreDeRelanceForm() {
-        
-       this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
+
+        this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
         CreationMenu();
 
         for (LettreDeRelance l : serviceLettreDeRelance.getAllLettre()) {
 
-            
             Container cGlobal = new Container(BoxLayout.x());
             Container cDetaille = new Container(BoxLayout.y());
 
             Label espace = new Label(" ");
             Label labelNumeo = new Label("Numero: " + l.getId());
-            
+
             //244EFF
-            
             //labelNumeo.getAllStyles().setFgColor(0xFFFFF);
             Label labelDate = new Label("Date creation: " + new SimpleDateFormat("MM-dd-yyyy").format(l.getDate()));
             Label labelF = new Label("Facture: " + l.getFactureVente().getNumeroF());
 
-            
             Button b = new Button("Supprimer");
-            
-              Button bD = new Button("Detail");
-              
-              Container cb = new Container(BoxLayout.x());
-            
-            cb.addAll(bD,b);
-            
-              b.addActionListener(new ActionListener() {
+
+            Button bD = new Button("Detail");
+
+            Container cb = new Container(BoxLayout.x());
+
+            cb.addAll(bD, b);
+
+            b.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-                    
-                       if(  Dialog.show("Comfirmation", "Vouler vous supprimer cette lettre ? ", "oui", "non")){
-                     
-                    serviceLettreDeRelance.deleteLettre(l);
-                    
-                    new ListeLettreDeRelanceForm().showBack();
-                       }
-                    
-                  
+
+                    if (Dialog.show("Comfirmation", "Vouler vous supprimer cette lettre ? ", "oui", "non")) {
+
+                        serviceLettreDeRelance.deleteLettre(l);
+
+                        new ListeLettreDeRelanceForm().showBack();
+                    }
+
                 }
             });
-              
-              bD.addActionListener(new ActionListener() {
+
+            bD.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-                    
+
                     new DetailleLettreDeRelanceForm(l).show();
-               
+
                 }
             });
-            
-            
-            
-            cDetaille.addAll(espace, labelNumeo, labelDate, labelF,cb);
+
+            cDetaille.addAll(espace, labelNumeo, labelDate, labelF, cb);
 
             cGlobal.add(new ImageViewer(theme.getImage("iconLettre.png").scaled(300, 300)));
             cGlobal.add(cDetaille);
-          
+
             this.add(cGlobal);
-            
-             
-          
-              this.setTitle("Liste des lettres de relances");
-            
+
+            this.setTitle("Liste des lettres de relances");
 
         }
 
     }
 
     public void CreationMenu() {
-        
-         this.getToolbar().addCommandToOverflowMenu("Modifier Profile",null,(evt) -> {
-             
-             new ModifierProfilForm().show();
-       });
-         
-           this.getToolbar().addMaterialCommandToSideMenu("Acceuille", FontImage.MATERIAL_HOME, new ActionListener() {
+
+        Image icon = theme.getImage("iconeUser.png");
+        Container topBar = BorderLayout.east(new Label(icon));
+        topBar.add(BorderLayout.SOUTH, new Label("Agent de caisse", "SidemenuTagline"));
+
+        topBar.setUIID("SideCommand");
+        getToolbar().addComponentToSideMenu(topBar);
+
+        this.getToolbar().addCommandToOverflowMenu("Modifier Profile", null, (evt) -> {
+
+            new ModifierProfilForm().show();
+        });
+
+        this.getToolbar().addMaterialCommandToSideMenu("Acceuille", FontImage.MATERIAL_HOME, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
 
@@ -128,7 +126,7 @@ public class ListeLettreDeRelanceForm extends Form {
             }
         });
 
-        this.getToolbar().addMaterialCommandToSideMenu("Liste Inventaire Caisse", FontImage.MATERIAL_ARCHIVE, new ActionListener() {
+        this.getToolbar().addMaterialCommandToSideMenu("Liste Inventaire Caisse", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
 
@@ -144,7 +142,7 @@ public class ListeLettreDeRelanceForm extends Form {
 
             }
         });
-        this.getToolbar().addMaterialCommandToSideMenu("Liste lettre de relance", FontImage.MATERIAL_ARCHIVE, new ActionListener() {
+        this.getToolbar().addMaterialCommandToSideMenu("Liste lettre de relance", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
 

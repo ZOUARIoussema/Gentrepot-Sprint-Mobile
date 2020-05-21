@@ -40,23 +40,20 @@ public class MenueAgentCaisseForm extends Form {
     ServiceLettreDeRelance serviceLettreDeRelance = new ServiceLettreDeRelance();
 
     public void CreationMenu() {
-        
-        
-        
+
+        Image icon = theme.getImage("iconeUser.png").scaled(400, 400);
+        Container topBar = BorderLayout.east(new Label(icon));
+        topBar.add(BorderLayout.SOUTH, new Label("Agent de caisse", "SidemenuTagline"));
+
+        topBar.setUIID("SideCommand");
+        getToolbar().addComponentToSideMenu(topBar);
 
         this.getToolbar().setUIID("SideCommande");
-        
-         Image icon = theme.getImage("resp7.png"); 
 
-        Container topBar = BorderLayout.east(new Label(icon));
-        topBar.add(BorderLayout.SOUTH, new Label("Chef de parc...", "SidemenuTagline"));
-        getToolbar().addComponentToSideMenu(topBar);
-        
         this.getToolbar().addCommandToOverflowMenu("Modifier Profile", null, (evt) -> {
 
             new ModifierProfilForm().show();
         });
-        
 
         this.getToolbar().addMaterialCommandToSideMenu("Ajouter Inventaire Caisse", FontImage.MATERIAL_ADD, new ActionListener() {
             @Override
@@ -67,7 +64,7 @@ public class MenueAgentCaisseForm extends Form {
             }
         });
 
-        this.getToolbar().addMaterialCommandToSideMenu("Liste Inventaire Caisse", FontImage.MATERIAL_ARCHIVE, new ActionListener() {
+        this.getToolbar().addMaterialCommandToSideMenu("Liste Inventaire Caisse", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
 
@@ -83,7 +80,7 @@ public class MenueAgentCaisseForm extends Form {
 
             }
         });
-        this.getToolbar().addMaterialCommandToSideMenu("Liste lettre de relance", FontImage.MATERIAL_ARCHIVE, new ActionListener() {
+        this.getToolbar().addMaterialCommandToSideMenu("Liste lettre de relance", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
 

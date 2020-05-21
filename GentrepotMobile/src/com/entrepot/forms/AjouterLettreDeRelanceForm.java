@@ -12,9 +12,11 @@ import com.codename1.ui.ComboBox;
 import com.codename1.ui.Container;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
@@ -36,8 +38,8 @@ public class AjouterLettreDeRelanceForm extends Form {
     Resources theme = UIManager.initFirstTheme("/themeTresorerie");
 
     public AjouterLettreDeRelanceForm() {
-        
-         this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
+
+        this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
 
         CreationMenu();
 
@@ -61,10 +63,10 @@ public class AjouterLettreDeRelanceForm extends Form {
             Label dateC = new Label("Date creation: " + new SimpleDateFormat("MM-dd-yyyy").format(f.getDateCreation()));
             Label total = new Label("Toatl: " + String.valueOf(f.getTotalTTC()));
             Label etat = new Label("Etat: " + String.valueOf(f.getEtat()));
-            Label dateE = new Label("Date echaillance du paiement: " );
-             Label dateE2 = new Label(new SimpleDateFormat("MM-dd-yyyy").format(f.getDateEchaillancePaiement()));
+            Label dateE = new Label("Date echaillance du paiement: ");
+            Label dateE2 = new Label(new SimpleDateFormat("MM-dd-yyyy").format(f.getDateEchaillancePaiement()));
 
-            cD.addAll(espace, numeroF, dateC, total, etat, dateE,dateE2, cF);
+            cD.addAll(espace, numeroF, dateC, total, etat, dateE, dateE2, cF);
             cG.add(new ImageViewer(theme.getImage("iconLettre.png").scaled(300, 300)));
             cG.add(cD);
 
@@ -95,13 +97,21 @@ public class AjouterLettreDeRelanceForm extends Form {
 
     public void CreationMenu() {
 
+        Image icon = theme.getImage("iconeUser.png").scaled(400, 400);
+        Container topBar = BorderLayout.east(new Label(icon));
+        topBar.add(BorderLayout.CENTER_BEHAVIOR_CENTER, new Label("Agent de caisse", "SidemenuTagline"));
+
+        topBar.setUIID("SideCommand");
+        getToolbar().addComponentToSideMenu(topBar);
+
+        this.getToolbar().setUIID("SideCommande");
+
         this.getToolbar().addCommandToOverflowMenu("Modifier Profile", null, (evt) -> {
 
             new ModifierProfilForm().show();
         });
 
-        
-          this.getToolbar().addMaterialCommandToSideMenu("Acceuille", FontImage.MATERIAL_HOME, new ActionListener() {
+        this.getToolbar().addMaterialCommandToSideMenu("Acceuille", FontImage.MATERIAL_HOME, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
 
