@@ -5,11 +5,20 @@
  */
 package com.entrepot.forms;
 
+import com.codename1.components.ImageViewer;
 import com.codename1.ui.Button;
+import static com.codename1.ui.Component.CENTER;
+import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
+import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
 import com.entrepot.models.AideChauffeur;
 import com.entrepot.services.ServiceAideChauffeur;
 
@@ -18,15 +27,21 @@ import com.entrepot.services.ServiceAideChauffeur;
  * @author Rym
  */
 public class AddAideChauForm extends Form {
+    Resources theme = UIManager.initFirstTheme("/themeLogistique");
     public AddAideChauForm() {
         super("Ajouter AideChauffeur", BoxLayout.y());
+        
+       
+        
+          this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
+       this.setLayout(new FlowLayout(CENTER, CENTER));
         TextField tfCin = new TextField(null, "AideChauffeur cin");
         TextField tfName = new TextField(null, "AideChauffeur name");
         TextField tfPrenom= new TextField(null, "AideChauffeur prenom");
          TextField tfAdresse= new TextField(null, "AideChauffeur adresse");
       
-        Button btn = new Button("Add the Aidechauffeur");
-        
+        Button btn = new Button("AJOUTER");
+         
         ServiceAideChauffeur sc = new ServiceAideChauffeur();
 
         btn.addActionListener((evt) -> {
@@ -35,13 +50,9 @@ public class AddAideChauForm extends Form {
             } else {
                 try {
                    AideChauffeur A = new AideChauffeur(tfCin.getText(),tfName.getText(), tfPrenom.getText(), tfAdresse.getText());
-                   /* if (sc.addChauffeur(ch)) {
-                        Dialog.show("SUCCESS", "chauffeur sent", "OK", null);
-                    } else {
-                        Dialog.show("ERROR", "Server error", "OK", null);
-                   
-                   
-                    } */  sc.addAideChauffeur(A);
+                    if (sc.addAideChauffeur(A)) {
+                        Dialog.show("SUCCESS", " Aide chauffeur sent", "OK", null);
+                    } 
                     
                 } catch (NumberFormatException e) {
                     Dialog.show("ERROR", "cin must be a number", "OK", null);
@@ -56,6 +67,10 @@ public class AddAideChauForm extends Form {
             new HomeLogistiqueForm().show();
             
         });
+       
+
+       
+        
     }
 
 }

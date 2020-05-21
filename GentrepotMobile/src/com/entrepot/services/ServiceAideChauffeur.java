@@ -50,8 +50,10 @@ public class ServiceAideChauffeur {
 
         return responseResult;
     }
- public ArrayList<AideChauffeur> getAllTasks() {
+ public ArrayList<AideChauffeur> getAllAideChauffeur() {
         String url = Statics.BASE_URL + "/apiaide/affiche";
+        
+        System.out.println(url);
 
         request.setUrl(url);
         request.setPost(false);
