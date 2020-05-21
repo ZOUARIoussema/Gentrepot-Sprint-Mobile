@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<resource majorVersion="1" minorVersion="11" useXmlUI="false">
+<resource majorVersion="1" minorVersion="10" useXmlUI="false">
     <image name="adduser.png"  />
     <image name="backroundlist.jpg"  />
     <image name="credit-control.png"  />
@@ -8,6 +8,7 @@
     <image name="entrer.jpg"  />
     <image name="icon.jpg"  />
     <image name="iconeGmail.png"  />
+    <image name="iconeUser.png"  />
     <image name="iconLettre.jpg"  />
     <image name="iconLettre.png"  />
     <image name="imageM.jpg"  />
@@ -22,7 +23,7 @@
         <val key="SideCommand.bgColor" value="557e9b" />
         <border key="SideCommand.border" type="empty" />
         <val key="SideCommand.fgColor" value="ffffff" />
-        <font key="SideCommand.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.0" />
+        <font key="SideCommand.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="4.0" />
         <val key="SideCommand.margin" value="0.0,1.0,0.0,0.0" />
         <val key="SideCommand.padUnit" value="2,2,2,2" />
         <val key="SideCommand.padding" value="3.0,3.0,3.0,3.0" />
