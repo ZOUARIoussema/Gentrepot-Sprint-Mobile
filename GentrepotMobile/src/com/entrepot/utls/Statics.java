@@ -11,6 +11,6 @@ package com.entrepot.utls;
  */
 public class Statics {
 
-    public static final String BASE_URL = "http://localhost/IntegrationFinalSymfonyMaster/PROJET-SYMFONY-GENTREPOT/gentrepot/web/app_dev.php/api\"";
+    public static final String BASE_URL = "http://localhost/IntegrationFinalSymfonyMaster/PROJET-SYMFONY-GENTREPOT/gentrepot/web/app_dev.php/api";
    
 }
