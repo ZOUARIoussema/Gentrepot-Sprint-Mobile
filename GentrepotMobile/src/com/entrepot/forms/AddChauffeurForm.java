@@ -6,10 +6,14 @@
 package com.entrepot.forms;
 
 import com.codename1.ui.Button;
+import static com.codename1.ui.Component.CENTER;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.Form;
 import com.codename1.ui.TextField;
 import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.plaf.UIManager;
+import com.codename1.ui.util.Resources;
 import com.entrepot.models.Chauffeur;
 import com.entrepot.services.ServiceChauffeur;
 
@@ -19,9 +23,12 @@ import com.entrepot.services.ServiceChauffeur;
  */
 public class AddChauffeurForm extends Form{
     
-    
+     Resources theme = UIManager.initFirstTheme("/themeLogistique");
    public AddChauffeurForm() {
         super("Ajouter chauffeur", BoxLayout.y());
+        
+        this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
+        this.setLayout(new FlowLayout(CENTER, CENTER));
         TextField tfCin = new TextField(null, "chauffeur cin");
         TextField tfName = new TextField(null, "chauffeur name");
         TextField tfPrenom= new TextField(null, "chauffeur prenom");
@@ -37,13 +44,9 @@ public class AddChauffeurForm extends Form{
             } else {
                 try {
                    Chauffeur ch = new Chauffeur (tfCin.getText(), tfName.getText(), tfPrenom.getText(), tfAdresse.getText());
-                   /* if (sc.addChauffeur(ch)) {
+                    if (sc.addChauffeur(ch)) {
                         Dialog.show("SUCCESS", "chauffeur sent", "OK", null);
-                    } else {
-                        Dialog.show("ERROR", "Server error", "OK", null);
-                   
-                   
-                    } */  sc.addChauffeur(ch);
+                    }   sc.addChauffeur(ch);
                     
                 } catch (NumberFormatException e) {
                     Dialog.show("ERROR", "cin must be a number", "OK", null);

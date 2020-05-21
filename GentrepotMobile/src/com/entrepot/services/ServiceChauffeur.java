@@ -50,7 +50,7 @@ public class ServiceChauffeur {
 
         return responseResult;
     }
-     public ArrayList<Chauffeur> getAllTasks() {
+     public ArrayList<Chauffeur> getAllChauffeurs() {
         String url = Statics.BASE_URL + "/apichauf/affiche";
 
         request.setUrl(url);

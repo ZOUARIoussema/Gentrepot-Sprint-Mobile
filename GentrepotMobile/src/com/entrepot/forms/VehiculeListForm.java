@@ -42,7 +42,7 @@ public class VehiculeListForm extends Form {
         
         Container aff =new Container(BoxLayout.y());
         
-        for(Vehicule c : sa.getAllTasks()){
+        for(Vehicule c : sa.getAllVehicule()){
              Container cat =new Container(BoxLayout.y());
              Container carte = new Container(BoxLayout.x());
        

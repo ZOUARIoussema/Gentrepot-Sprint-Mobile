@@ -33,72 +33,59 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
 
-
 /**
  *
  * @author Rym
  */
 public class AideChauffeurListForm extends Form {
+
     Resources res = UIManager.initFirstTheme("/themeLogistique");
     ServiceAideChauffeur sa = new ServiceAideChauffeur();
-    
-    
 
-    
-    
-    
-     public AideChauffeurListForm() {
-         
+    Resources theme = UIManager.initFirstTheme("/themeLogistique");
+    Resources theme2 = UIManager.initFirstTheme("/themeTresorerie");
+
+    public AideChauffeurListForm() {
+
         super("liste des Aide chauffeurs", BoxLayout.y());
-        
-        
+        this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
+
         Image img = res.getImage("kashmir.png");
         ScaleImageLabel sl = new ScaleImageLabel(img);
         sl.setUIID("BottomPad");
         sl.setBackgroundType(Style.BACKGROUND_IMAGE_SCALED_FILL);
-        
-        
-        Container aff =new Container(BoxLayout.y());
-        
-        for(AideChauffeur c : sa.getAllTasks()){
-             Container cat =new Container(BoxLayout.y());
-             Container carte = new Container(BoxLayout.x());
-       
-       //      
-             Label cin = new Label(c.getCin());
-             cin.getAllStyles().setFgColor(000000);
-             Label nom = new Label(c.getNom());
-             Label prenom = new Label(c.getPrenom());
-             Label adr = new Label(c.getAdresse());
-            
-             Button books = new Button();
-             cat.addAll(cin,nom,prenom,adr);
-             ImageViewer i = new ImageViewer(res.getImage("round.png").scaled(300, 300));
-          //  ImageViewer i = new ImageViewer(img);
-              carte.addAll(i,cat);
-              aff.add(carte);
-             
-              
-              
-            
-              
-             
-         }
+
+        Container aff = new Container(BoxLayout.y());
+
+        for (AideChauffeur c : sa.getAllAideChauffeur()) {
+            Container cat = new Container(BoxLayout.y());
+            Container carte = new Container(BoxLayout.x());
+
+            //      
+            Label cin = new Label(c.getCin());
+            cin.getAllStyles().setFgColor(000000);
+            Label nom = new Label(c.getNom());
+            Label prenom = new Label(c.getPrenom());
+            Label adr = new Label(c.getAdresse());
+
+            Button books = new Button();
+            cat.addAll(cin, nom, prenom, adr);
+            ImageViewer i = new ImageViewer(theme2.getImage("iconLettre.png").scaled(300, 300));
+
+            //  ImageViewer i = new ImageViewer(img);
+            carte.addAll(i, cat);
+            aff.add(carte);
+
+        }
         // this.setBgImage(img);
-         add(LayeredLayout.encloseIn(
-            aff
-              
+        add(LayeredLayout.encloseIn(
+                aff
         ));
-       
-        
-        
 
-       /* this.add(new SpanLabel(new ServiceAideChauffeur().getAllTasks().toString()));*/
-
+        /* this.add(new SpanLabel(new ServiceAideChauffeur().getAllTasks().toString()));*/
         this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
-             new HomeLogistiqueForm().show();
+            new HomeLogistiqueForm().show();
         });
-        
-      
+
     }
 }

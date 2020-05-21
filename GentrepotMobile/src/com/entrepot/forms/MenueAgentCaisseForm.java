@@ -18,6 +18,7 @@ import com.codename1.ui.Display;
 import com.codename1.ui.Font;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
@@ -35,19 +36,27 @@ import com.entrepot.services.ServiceLettreDeRelance;
 public class MenueAgentCaisseForm extends Form {
 
     Resources theme = UIManager.initFirstTheme("/themeTresorerie");
-    
+
     ServiceLettreDeRelance serviceLettreDeRelance = new ServiceLettreDeRelance();
 
     public void CreationMenu() {
         
+        
+        
+
         this.getToolbar().setUIID("SideCommande");
         
+         Image icon = theme.getImage("resp7.png"); 
+
+        Container topBar = BorderLayout.east(new Label(icon));
+        topBar.add(BorderLayout.SOUTH, new Label("Chef de parc...", "SidemenuTagline"));
+        getToolbar().addComponentToSideMenu(topBar);
         
+        this.getToolbar().addCommandToOverflowMenu("Modifier Profile", null, (evt) -> {
+
+            new ModifierProfilForm().show();
+        });
         
-         this.getToolbar().addCommandToOverflowMenu("Modifier Profile",null,(evt) -> {
-             
-             new ModifierProfilForm().show();
-       });
 
         this.getToolbar().addMaterialCommandToSideMenu("Ajouter Inventaire Caisse", FontImage.MATERIAL_ADD, new ActionListener() {
             @Override
@@ -98,14 +107,12 @@ public class MenueAgentCaisseForm extends Form {
     public MenueAgentCaisseForm() {
 
         this.setTitle("Accueil");
-        
+
         CreationMenu();
-        
-         
-          
-          this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
-          
-           double[] values = new double[]{12, 14, 11, 10, 19};
+
+        this.getStyle().setBgImage(theme.getImage("loginBack.png"), focusScrolling);
+
+        double[] values = new double[]{12, 14, 11, 10, 19};
 
         int[] colors = new int[]{ColorUtil.BLUE, ColorUtil.GREEN, ColorUtil.MAGENTA, ColorUtil.YELLOW, ColorUtil.CYAN};
         DefaultRenderer renderer = buildCategoryRenderer(colors);
@@ -117,11 +124,11 @@ public class MenueAgentCaisseForm extends Form {
         renderer.setLabelsTextSize(40);
         renderer.setLegendTextSize(40);
         renderer.setChartTitle("Statistique recouvrement client");
-        
+
         renderer.setScale((float) 0.75);
-        
+
         renderer.setShowLegend(false);
-        
+
         SimpleSeriesRenderer r = renderer.getSeriesRendererAt(0);
         r.setGradientEnabled(true);
         r.setGradientStart(0, ColorUtil.BLUE);
@@ -137,13 +144,9 @@ public class MenueAgentCaisseForm extends Form {
         co.add(c);
         this.add(co);
 
-          
-          
-          
-
     }
-    
-     private DefaultRenderer buildCategoryRenderer(int[] colors) {
+
+    private DefaultRenderer buildCategoryRenderer(int[] colors) {
         DefaultRenderer renderer = new DefaultRenderer();
         renderer.setLabelsTextSize(15);
         renderer.setLegendTextSize(15);
@@ -158,12 +161,11 @@ public class MenueAgentCaisseForm extends Form {
 
     protected CategorySeries buildCategoryDataset() {
         CategorySeries series = new CategorySeries("Statistique");
-        
+
         series.add("Total vente", serviceLettreDeRelance.totalVente());
         series.add("Total payé", serviceLettreDeRelance.totalPayer());
 
         return series;
     }
-
 
 }

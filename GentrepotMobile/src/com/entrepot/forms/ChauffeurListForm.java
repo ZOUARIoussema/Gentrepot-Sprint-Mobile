@@ -43,7 +43,7 @@ public class ChauffeurListForm extends Form {
         
         Container aff =new Container(BoxLayout.y());
         
-        for(Chauffeur c : sa.getAllTasks()){
+        for(Chauffeur c : sa.getAllChauffeurs()){
              Container cat =new Container(BoxLayout.y());
              Container carte = new Container(BoxLayout.x());
        

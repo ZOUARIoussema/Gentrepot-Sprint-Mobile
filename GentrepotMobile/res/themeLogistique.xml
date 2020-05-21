@@ -128,6 +128,12 @@
         <val key="SidemenuTagline.margin" value="0.0,0.0,0.0,0.0" />
         <val key="SidemenuTagline.padding" value="1.0,0.0,0.0,0.0" />
         <val key="StatusBarSideMenu.padding" value="0.0,0.0,0.0,0.0" />
+        <border key="TextField.border" type="line" millimeters="false" thickness="0.0" color="5602971" />
+        <val key="Toolbar.bgColor" value="92aec3" />
+        <val key="Toolbar.derive" value="Toolbar" />
+        <val key="Toolbar.fgColor" value="ffffff" />
+        <font key="Toolbar.font" type="system" face="0" style="0" size="0" />
+        <val key="Toolbar.transparency" value="255" />
         <val key="sel#bgColor" value="885" />
         <val key="sel#derive" value="SideCommand" />
     </theme>
