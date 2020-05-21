@@ -63,8 +63,8 @@ public class MyApplication {
         hi.add(new Label("Hi World"));
         hi.show();*/
 
-        new HomeLogistiqueForm().show();
-       
+       // new HomeLogistiqueForm().show();
+       new AuthentificationForm().show();
     //  new MenueAgentCaisseForm().show();
          
     }

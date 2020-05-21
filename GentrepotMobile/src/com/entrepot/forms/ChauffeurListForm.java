@@ -29,9 +29,11 @@ import com.entrepot.services.ServiceChauffeur;
 public class ChauffeurListForm extends Form {
      Resources res = UIManager.initFirstTheme("/themeLogistique");
      ServiceChauffeur sa = new ServiceChauffeur();
+       Resources theme = UIManager.initFirstTheme("/themeLogistique");
+        Resources theme2 = UIManager.initFirstTheme("/themeTresorerie");
      public ChauffeurListForm() {
         super("liste des chauffeur ", BoxLayout.y());
-
+ this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
         
         
         
@@ -49,7 +51,7 @@ public class ChauffeurListForm extends Form {
        
        //      
              Label cin = new Label(c.getCin());
-             cin.getAllStyles().setFgColor(000000);
+            // cin.getAllStyles().setFgColor(000000);
              Label nom = new Label(c.getNom());
              Label prenom = new Label(c.getPrenom());
              Label adr = new Label(c.getAdresse());
@@ -58,7 +60,7 @@ public class ChauffeurListForm extends Form {
              Label V = new Label(v.toString());
              Button books = new Button();
              cat.addAll(cin,nom,prenom,adr,etat,V);
-             ImageViewer i = new ImageViewer(res.getImage("round.png").scaled(300, 300));
+               ImageViewer i = new ImageViewer(theme2.getImage("iconLettre.png").scaled(300, 300));
           //  ImageViewer i = new ImageViewer(img);
               carte.addAll(i,cat);
               aff.add(carte);

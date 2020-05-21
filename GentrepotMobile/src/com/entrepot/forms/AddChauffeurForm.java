@@ -46,7 +46,7 @@ public class AddChauffeurForm extends Form{
                    Chauffeur ch = new Chauffeur (tfCin.getText(), tfName.getText(), tfPrenom.getText(), tfAdresse.getText());
                     if (sc.addChauffeur(ch)) {
                         Dialog.show("SUCCESS", "chauffeur sent", "OK", null);
-                    }   sc.addChauffeur(ch);
+                    }  
                     
                 } catch (NumberFormatException e) {
                     Dialog.show("ERROR", "cin must be a number", "OK", null);

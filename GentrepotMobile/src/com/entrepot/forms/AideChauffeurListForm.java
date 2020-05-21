@@ -63,7 +63,7 @@ public class AideChauffeurListForm extends Form {
 
             //      
             Label cin = new Label(c.getCin());
-            cin.getAllStyles().setFgColor(000000);
+            
             Label nom = new Label(c.getNom());
             Label prenom = new Label(c.getPrenom());
             Label adr = new Label(c.getAdresse());

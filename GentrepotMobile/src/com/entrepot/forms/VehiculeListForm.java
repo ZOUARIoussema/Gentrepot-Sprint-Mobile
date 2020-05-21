@@ -30,9 +30,11 @@ import com.entrepot.services.ServiceVehicule;
 public class VehiculeListForm extends Form {
      Resources res = UIManager.initFirstTheme("/themeLogistique");
      ServiceVehicule sa = new ServiceVehicule();
+      Resources theme = UIManager.initFirstTheme("/themeLogistique");
+        Resources theme2 = UIManager.initFirstTheme("/themeTresorerie");
      public VehiculeListForm() {
         super("liste des vehicules ", BoxLayout.y());
-
+this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
         
              Image img = res.getImage("kashmir.png");
         ScaleImageLabel sl = new ScaleImageLabel(img);
@@ -55,16 +57,12 @@ public class VehiculeListForm extends Form {
             
              Button books = new Button();
              cat.addAll(Mat,ca,etat,type);
-             ImageViewer i = new ImageViewer(res.getImage("round.png").scaled(300, 300));
+               ImageViewer i = new ImageViewer(theme2.getImage("iconLettre.png").scaled(300, 300));
           //  ImageViewer i = new ImageViewer(img);
               carte.addAll(i,cat);
               aff.add(carte);
              
-              
-              
-            
-              
-             
+        
          }
         // this.setBgImage(img);
          add(LayeredLayout.encloseIn(
@@ -72,9 +70,6 @@ public class VehiculeListForm extends Form {
               
         ));
         
-        
-        
-
        /* this.add(new SpanLabel(new ServiceAideChauffeur().getAllTasks().toString()));*/
 
        

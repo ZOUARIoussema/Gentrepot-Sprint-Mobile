@@ -50,6 +50,25 @@ public class ServiceChauffeur {
 
         return responseResult;
     }
+    
+    
+    public ArrayList<Chauffeur> getChauf() {
+
+        ArrayList<Chauffeur> list = new ArrayList<>();
+
+        for (Chauffeur ch : this.getAllChauffeurs()) {
+
+            if (ch.getEtat().equals("disponible")) {
+                list.add(ch);
+            }
+        }
+
+        return list;
+
+    }
+    
+    
+    
      public ArrayList<Chauffeur> getAllChauffeurs() {
         String url = Statics.BASE_URL + "/apichauf/affiche";
 

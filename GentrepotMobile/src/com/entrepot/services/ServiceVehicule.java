@@ -16,6 +16,7 @@ import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -103,5 +104,24 @@ public class ServiceVehicule {
 
         return tasks;
     }
+    public Vehicule getVehiculeByMat(int m)
+    {
+       Vehicule v = new Vehicule();
+       boolean t = false;
+       Iterator<Vehicule> it=getAllVehicule().iterator();
+       
+       while ((it.hasNext())&(t==false))
+       {
+           if(it.next().getMatricule()==m)
+           {
+               v=it.next();
+           }
+       }
+  
+       return v;
+              
+       
+    }
+    
 
 }

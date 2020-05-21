@@ -41,7 +41,7 @@ public class AddOrdreForm extends Form {
     ServiceAideChauffeur serviceAideChauffeur = new ServiceAideChauffeur();
 
     List<Vehicule> listeV = serviceVehicule.getAllVehiculeD();
-    List<Chauffeur> listeCh = serviceChauffeur.getAllChauffeurs();
+    List<Chauffeur> listeCh = serviceChauffeur.getChauf();
     List<AideChauffeur> listeAide = serviceAideChauffeur.getAllAideChauffeur();
 
     public AddOrdreForm() {
@@ -103,8 +103,6 @@ public class AddOrdreForm extends Form {
                 OrdreMission ordreMission = new OrdreMission(v, ch, aideChauffeur, new Date(), datePickerS.getDate(), datePickerR.getDate());
 
                  System.out.println(ordreMission);
-                 
-               
             }
         });
 
