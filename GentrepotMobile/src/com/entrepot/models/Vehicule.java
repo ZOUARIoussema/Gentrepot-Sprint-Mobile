@@ -34,10 +34,6 @@ public class Vehicule {
     public Vehicule() {
     }
     
-       
-    
-     
-
     public Vehicule(String etat, int matricule, int capacite, String type) {
         this.etat = etat;
         this.matricule = matricule;
@@ -45,9 +41,7 @@ public class Vehicule {
         this.type = type;
     }
 
-    public Vehicule() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    
 
     public int getId() {
         return id;

@@ -15,13 +15,13 @@ import com.entrepot.services.ServiceOrdreMission;
  * @author Rym
  */
 public class OrdreListForm extends Form{
-     /*public OrdreListForm() {
+     public OrdreListForm() {
         super("liste des chauffeur ", BoxLayout.y());
 
-        this.add(new SpanLabel(new ServiceOrdreMission().getAllTasks().toString()));
+        this.add(new SpanLabel(new ServiceOrdreMission().getAllOrdrer().toString()));
 
         this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
              new HomeLogistiqueForm().show();
         });
-    }*/
+    }
 }

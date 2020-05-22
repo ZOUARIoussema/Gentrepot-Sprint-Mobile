@@ -52,8 +52,8 @@ getToolbar().addMaterialCommandToSideMenu("Ajouter Chauffeur", FontImage.MATERIA
 getToolbar().addMaterialCommandToSideMenu("liste des chauffeurs", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new ChauffeurListForm().show() );
 getToolbar().addMaterialCommandToSideMenu("Ajouter vehicule", FontImage.MATERIAL_ADD_CIRCLE, e -> new AddVehiculeForm().show());
 getToolbar().addMaterialCommandToSideMenu("liste des vehicules", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new VehiculeListForm().show());
-getToolbar().addMaterialCommandToSideMenu("Ajouter Ordre de Mission", FontImage.MATERIAL_POST_ADD, e ->new VehiculeListForm().show());
-getToolbar().addMaterialCommandToSideMenu("liste Ordre de Mission", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new VehiculeListForm().show());
+getToolbar().addMaterialCommandToSideMenu("Ajouter Ordre de Mission", FontImage.MATERIAL_POST_ADD, e ->new AddOrdreForm().show());
+getToolbar().addMaterialCommandToSideMenu("liste Ordre de Mission", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new OrdreListForm().show());
 getToolbar().addMaterialCommandToSideMenu("log-out", FontImage.MATERIAL_INFO, e ->new AuthentificationForm().show());
 
        this.getStyle().setBgImage(theme.getImage("log1.jpg"), focusScrolling);

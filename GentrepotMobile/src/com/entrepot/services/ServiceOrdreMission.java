@@ -12,12 +12,14 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.entrepot.models.AideChauffeur;
+import com.entrepot.models.Chauffeur;
 import com.entrepot.models.OrdreMission;
 import com.entrepot.models.Vehicule;
 import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +33,8 @@ public class ServiceOrdreMission {
     private boolean responseResult;
     public ArrayList<OrdreMission> tasks;
     ServiceVehicule sv = new ServiceVehicule();
-
+    ServiceChauffeur c = new ServiceChauffeur();
+       ServiceAideChauffeur ca = new ServiceAideChauffeur();
     public ServiceOrdreMission () {
         request = DataSource.getInstance().getRequest();
     }
@@ -83,7 +86,15 @@ public class ServiceOrdreMission {
                
                 int mat = Integer.parseInt(obj.get("").toString());
                 Vehicule v = sv.getVehiculeByMat(mat);
-              //  tasks.add(new OrdreMission(v, chauffeur, aideChauffeur, dateCeation, dateSortie, dateRetour);
+                
+                String cin = (obj.get("").toString());
+                Chauffeur ch = c.getChauffeurByCin(cin);
+                
+               String Cin =(obj.get("").toString());
+                AideChauffeur cha = ca.getAideChauffeurByCin(Cin);
+                
+             
+                tasks.add(new OrdreMission(v, ch, cha, new Date(),new Date(), new Date()));
             }
 
         } catch (IOException ex) {
