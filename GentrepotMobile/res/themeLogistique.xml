@@ -109,6 +109,7 @@
     <image name="text-field-underline.png"  />
     <theme name="Theme">
         <val key="@includeNativeBool" value="true" />
+        <val key="Label.fgColor" value="ffffff" />
         <val key="SideCommand.align" value="1" />
         <val key="SideCommand.bgColor" value="557e9b" />
         <border key="SideCommand.border" type="empty" />

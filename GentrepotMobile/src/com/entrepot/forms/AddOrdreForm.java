@@ -20,7 +20,9 @@ import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.spinner.Picker;
+import com.codename1.ui.util.Resources;
 import com.entrepot.models.OrdreMission;
 import com.entrepot.services.ServiceOrdreMission;
 import com.entrepot.services.ServiceVehicule;
@@ -43,15 +45,21 @@ public class AddOrdreForm extends Form {
     List<Vehicule> listeV = serviceVehicule.getAllVehiculeD();
     List<Chauffeur> listeCh = serviceChauffeur.getChauf();
     List<AideChauffeur> listeAide = serviceAideChauffeur.getAllAideChauffeur();
-
+    
+     Resources theme = UIManager.initFirstTheme("/themeLogistique");
+        ServiceOrdreMission sc = new ServiceOrdreMission();
     public AddOrdreForm() {
         super("Ajouter chauffeur", BoxLayout.y());
+        
+        this.setLayout(new FlowLayout(CENTER, CENTER));
+          this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
+           
 
         Label textVehicule = new Label("Vehicule");
         ComboBox<Integer> comboV = new ComboBox();
         ComboBox comboCh = new ComboBox();
         ComboBox comboAide = new ComboBox();
-
+       
         for (Vehicule v : listeV) {
 
             comboV.addItem(v.getMatricule());
@@ -78,17 +86,17 @@ public class AddOrdreForm extends Form {
 
         Container c = new Container(BoxLayout.y());
 
-        Button btnV = new Button("Valider");
+        Button btn = new Button("Ajouter");
 
         Label labelDateSortie = new Label("Date dsortie");
         Picker datePickerS = new Picker();
         datePickerS.setType(Display.PICKER_TYPE_DATE);
-
+          //TextField tfId = new TextField(null, "id");
         Label labelDateRetour = new Label("Date retour");
         Picker datePickerR = new Picker();
         datePickerS.setType(Display.PICKER_TYPE_DATE);
 
-        btnV.addActionListener(new ActionListener() {
+        btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
 
@@ -100,49 +108,25 @@ public class AddOrdreForm extends Form {
                  
                
 
-                OrdreMission ordreMission = new OrdreMission(v, ch, aideChauffeur, new Date(), datePickerS.getDate(), datePickerR.getDate());
+                OrdreMission ordreMission = new OrdreMission( v, ch, aideChauffeur, new Date(), datePickerS.getDate(), datePickerR.getDate());
 
-                 System.out.println(ordreMission);
+                // System.out.println(ordreMission);
+                              sc.addOrdreMission(ordreMission);
             }
+            
         });
 
-        c.addAll(textVehicule, comboV, textChauffeur, comboCh, textAideChauf, comboAide, labelDateSortie, datePickerS, labelDateRetour, datePickerR, btnV);
+        c.addAll(textVehicule, comboV, textChauffeur, comboCh, textAideChauf, comboAide, labelDateSortie, datePickerS, labelDateRetour, datePickerR, btn);
 
         this.add(c);
-
-    }
-}
-
-// TextField tfEtat= new TextField(null, "chauffeur etat");
-// Button btn = new Button("Add the chauffeur");
-//   ServiceOrdreMission sc = new ServiceOrdreMission();
-// btn.addActionListener((evt) -> {
-/* if ((tfName.getText().length() == 0) || (tfCin.getText().length() == 0)) {
-                Dialog.show("Alert", "Please fill all the fields", "OK", null);
-            } else {
-                try {
-                OrdreMission o = new OrdreMission(, chauffeur, aideChauffeur, dateCreation, dateSortie, dateRetour);
-                    if (sc.addChauffeur(ch)) {
-                        Dialog.show("SUCCESS", "chauffeur sent", "OK", null);
-                    } else {
-                        Dialog.show("ERROR", "Server error", "OK", null);
-                   
-                   
-                }  sc.addOrdreMission(o);
-                    
-                } catch (NumberFormatException e) {
-                    Dialog.show("ERROR", "cin must be a number", "OK", null);
-               }
-
-            }
-        });
-
-        this.addAll(tfCin, tfName,tfPrenom,tfAdresse , btn);
-
-        this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
+          this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
          
             new HomeLogistiqueForm().show();
             
         });
-   }*/
-//}
+     
+    }
+   
+}
+
+
