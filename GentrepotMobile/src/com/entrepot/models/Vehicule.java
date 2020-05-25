@@ -34,10 +34,6 @@ public class Vehicule {
     public Vehicule() {
     }
     
-       
-    
-     
-
     public Vehicule(String etat, int matricule, int capacite, String type) {
         this.etat = etat;
         this.matricule = matricule;

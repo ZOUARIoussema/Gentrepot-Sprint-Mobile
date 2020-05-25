@@ -16,6 +16,7 @@ import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -112,5 +113,22 @@ public class ServiceChauffeur {
         return tasks;
     }
 
-    
+     public Chauffeur getChauffeurByCin(String ch1)
+    {
+       Chauffeur ch = new Chauffeur();
+       boolean t = false;
+       Iterator<Chauffeur> it=getAllChauffeurs().iterator();
+       
+       while ((it.hasNext())&(t==false))
+       {
+           if(it.next().getCin()==ch1)
+           {
+               ch=it.next();
+           }
+       }
+  
+       return ch;
+              
+       
+    }
 }

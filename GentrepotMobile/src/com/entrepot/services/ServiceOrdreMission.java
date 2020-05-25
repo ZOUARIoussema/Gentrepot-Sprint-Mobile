@@ -12,12 +12,14 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.entrepot.models.AideChauffeur;
+import com.entrepot.models.Chauffeur;
 import com.entrepot.models.OrdreMission;
 import com.entrepot.models.Vehicule;
 import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,12 +33,13 @@ public class ServiceOrdreMission {
     private boolean responseResult;
     public ArrayList<OrdreMission> tasks;
     ServiceVehicule sv = new ServiceVehicule();
-
+    ServiceChauffeur c = new ServiceChauffeur();
+       ServiceAideChauffeur ca = new ServiceAideChauffeur();
     public ServiceOrdreMission () {
         request = DataSource.getInstance().getRequest();
     }
     public boolean addOrdreMission (OrdreMission o) {
-        String url = Statics.BASE_URL + "/apiordre/ajout" +"?vehicule="+ o.getVehicule()+ "&chauffeur=" + o.getChauffeur()+ "&Aidechauffeur=" + o.getAideChauffeur() + "dateCreation=" +o.getDateCreation() ;
+        String url = Statics.BASE_URL + "/apiordre/ajout"+"?vehicule="+ o.getVehicule()+ "&chauffeur=" + o.getChauffeur()+ "&Aidechauffeur=" + o.getAideChauffeur() + "&dateCreation=" +o.getDateCreation() + "&dateSortie=" +o.getDateSortie() + "&dateRetour=" +o.getDateRetour() ;
   
          System.out.println(url);
         
@@ -80,10 +83,21 @@ public class ServiceOrdreMission {
 
             List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
             for (Map<String, Object> obj : list) {
+                
                
-                int mat = Integer.parseInt(obj.get("").toString());
+                int mat = Integer.parseInt(obj.get("matricule").toString());
                 Vehicule v = sv.getVehiculeByMat(mat);
-              //  tasks.add(new OrdreMission(v, chauffeur, aideChauffeur, dateCeation, dateSortie, dateRetour);
+                
+                String cin = (obj.get("cin").toString());
+                Chauffeur ch = c.getChauffeurByCin(cin);
+                
+               String Cin =(obj.get("cin").toString());
+                AideChauffeur cha = ca.getAideChauffeurByCin(Cin);
+                 Date dateSortie = (Date) (obj.get("datesortie"));
+                  Date dateRetour = (Date) (obj.get("dateretour"));
+                   Date dateCreation = (Date) (obj.get("datecreation"));
+             
+                tasks.add(new OrdreMission(v, ch, cha, dateCreation,dateSortie, dateRetour));
             }
 
         } catch (IOException ex) {
