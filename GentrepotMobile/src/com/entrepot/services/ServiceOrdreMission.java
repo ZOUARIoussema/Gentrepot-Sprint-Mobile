@@ -39,7 +39,7 @@ public class ServiceOrdreMission {
         request = DataSource.getInstance().getRequest();
     }
     public boolean addOrdreMission (OrdreMission o) {
-        String url = Statics.BASE_URL + "/apiordre/ajout" +"?vehicule="+ o.getVehicule()+ "&chauffeur=" + o.getChauffeur()+ "&Aidechauffeur=" + o.getAideChauffeur() + "dateCreation=" +o.getDateCreation() ;
+        String url = Statics.BASE_URL + "/apiordre/ajout"+"?vehicule="+ o.getVehicule()+ "&chauffeur=" + o.getChauffeur()+ "&Aidechauffeur=" + o.getAideChauffeur() + "&dateCreation=" +o.getDateCreation() + "&dateSortie=" +o.getDateSortie() + "&dateRetour=" +o.getDateRetour() ;
   
          System.out.println(url);
         
@@ -83,18 +83,21 @@ public class ServiceOrdreMission {
 
             List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
             for (Map<String, Object> obj : list) {
+                
                
-                int mat = Integer.parseInt(obj.get("").toString());
+                int mat = Integer.parseInt(obj.get("matricule").toString());
                 Vehicule v = sv.getVehiculeByMat(mat);
                 
-                String cin = (obj.get("").toString());
+                String cin = (obj.get("cin").toString());
                 Chauffeur ch = c.getChauffeurByCin(cin);
                 
-               String Cin =(obj.get("").toString());
+               String Cin =(obj.get("cin").toString());
                 AideChauffeur cha = ca.getAideChauffeurByCin(Cin);
-                
+                 Date dateSortie = (Date) (obj.get("datesortie"));
+                  Date dateRetour = (Date) (obj.get("dateretour"));
+                   Date dateCreation = (Date) (obj.get("datecreation"));
              
-                tasks.add(new OrdreMission(v, ch, cha, new Date(),new Date(), new Date()));
+                tasks.add(new OrdreMission(v, ch, cha, dateCreation,dateSortie, dateRetour));
             }
 
         } catch (IOException ex) {

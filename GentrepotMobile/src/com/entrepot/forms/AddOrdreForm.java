@@ -49,7 +49,7 @@ public class AddOrdreForm extends Form {
      Resources theme = UIManager.initFirstTheme("/themeLogistique");
         ServiceOrdreMission sc = new ServiceOrdreMission();
     public AddOrdreForm() {
-        super("Ajouter chauffeur", BoxLayout.y());
+        super("Ajouter ordre", BoxLayout.y());
         
         this.setLayout(new FlowLayout(CENTER, CENTER));
           this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
