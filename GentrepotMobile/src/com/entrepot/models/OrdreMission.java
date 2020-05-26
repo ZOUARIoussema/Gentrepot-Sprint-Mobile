@@ -47,6 +47,13 @@ public class OrdreMission {
         this.dateRetour = dateRetour;
         this.bonLivraisons=new ArrayList<>();
     }
+
+    public OrdreMission(int id, Date dateCreation, Date dateSortie, Date dateRetour) {
+        this.id = id;
+        this.dateCreation = dateCreation;
+        this.dateSortie = dateSortie;
+        this.dateRetour = dateRetour;
+    }
     
     
     
