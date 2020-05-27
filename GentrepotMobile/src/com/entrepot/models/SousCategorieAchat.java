@@ -15,6 +15,9 @@ public class SousCategorieAchat {
         this.id = id;
     }
 
+    public SousCategorieAchat() {
+    }
+
     public SousCategorieAchat(String nom) {
         this.nom = nom;
     }

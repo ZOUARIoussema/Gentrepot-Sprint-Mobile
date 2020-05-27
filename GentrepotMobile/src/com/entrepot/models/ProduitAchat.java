@@ -49,6 +49,36 @@ public class ProduitAchat {
         this.sousCategorieAchat = sousCategorieAchat;
     }
 
+    public ProduitAchat(String reference, String libelle, int quantiteStock, String classe, int quantiteStockSecurite, double dernierPrixAchat, double tva, String description, String typeDeConditionnement, double prixVente, String image) {
+        this.reference = reference;
+        this.libelle = libelle;
+        this.quantiteStock = quantiteStock;
+        this.classe = classe;
+        this.quantiteStockSecurite = quantiteStockSecurite;
+        this.dernierPrixAchat = dernierPrixAchat;
+        this.tva = tva;
+        this.description = description;
+        this.typeDeConditionnement = typeDeConditionnement;
+        this.prixVente = prixVente;
+        this.image = image;
+    }
+
+    public ProduitAchat(String reference, String libelle, int quantiteStock, String classe, int quantiteStockSecurite, double dernierPrixAchat, double tva, double dimension, String description, String typeDeConditionnement, double prixVente, String image, SousCategorieAchat sousCategorieAchat) {
+        this.reference = reference;
+        this.libelle = libelle;
+        this.quantiteStock = quantiteStock;
+        this.classe = classe;
+        this.quantiteStockSecurite = quantiteStockSecurite;
+        this.dernierPrixAchat = dernierPrixAchat;
+        this.tva = tva;
+        this.dimension = dimension;
+        this.description = description;
+        this.typeDeConditionnement = typeDeConditionnement;
+        this.prixVente = prixVente;
+        this.image = image;
+        this.sousCategorieAchat = sousCategorieAchat;
+    }
+
     public ProduitAchat(String reference) {
         this.reference = reference;
     }
