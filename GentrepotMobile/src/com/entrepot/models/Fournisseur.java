@@ -19,6 +19,9 @@ public class Fournisseur {
     private String matriculeFiscale;
     private int codePostale;
 
+    public Fournisseur() {
+    }
+
     public Fournisseur(int id, String raisonSociale, int numeroTelephone, String adresse, String adresseMail, String matriculeFiscale, int codePostale) {
         this.id = id;
         this.raisonSociale = raisonSociale;

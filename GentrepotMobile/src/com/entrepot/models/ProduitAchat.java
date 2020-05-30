@@ -15,6 +15,9 @@ public class ProduitAchat {
     private String libelle;
     private int quantiteStock;
     private String classe;
+
+    public ProduitAchat() {
+    }
     private int quantiteStockSecurite;
     private double dernierPrixAchat;
     private double tva;

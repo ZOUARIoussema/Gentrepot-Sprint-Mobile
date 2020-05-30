@@ -100,7 +100,9 @@ public class AddProduitForm extends Form {
                 try {
                     ProduitAchat ch = new ProduitAchat(tfRef.getText(), tfLib.getText(), Integer.parseInt(tfQ.getText()), tfC.getText(), Integer.parseInt(tfQss.getText()), Double.parseDouble(tfDpa.getText()), Double.parseDouble(tfTva.getText()), Double.parseDouble(tfDim.getText()), tfDes.getText(), tfTc.getText(), Double.parseDouble(tfPv.getText()));
                     ch.setImage(im);
-                    ch.setSousCategorieAchat(listc.get(c.getSelectedIndex()));
+                    SousCategorieAchat sca = new SousCategorieAchat();
+                    sca.setNom(c.getSelectedItem());
+                    ch.setSousCategorieAchat(sca);
                     if (sc.addProduit(ch)) {
                         Dialog.show("SUCCESS", "chauffeur sent", "OK", null);
                     }
@@ -116,7 +118,7 @@ public class AddProduitForm extends Form {
 
         this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
 
-            new HomeLogistiqueForm().show();
+            new HomeAchat().show();
 
         });
 

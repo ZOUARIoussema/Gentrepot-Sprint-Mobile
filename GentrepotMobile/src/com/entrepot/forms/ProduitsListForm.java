@@ -105,6 +105,10 @@ public class ProduitsListForm extends Form {
 }*/
     }
 
+    ProduitsListForm() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public Container AddItems(ProduitAchat p) {
 
         Resources theme = UIManager.initFirstTheme("/themeVente");
@@ -227,4 +231,5 @@ public class ProduitsListForm extends Form {
         s.setBgImage(star);
         s.setBgTransparency(0);
     }
+    
 }
