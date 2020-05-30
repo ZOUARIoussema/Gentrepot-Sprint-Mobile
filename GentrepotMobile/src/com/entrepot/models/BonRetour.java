@@ -14,17 +14,10 @@ import java.util.Date;
 public class BonRetour {
     
     
-    private int id;
-    private Date date;
-    private String motifDeRetour;
-    private CommandeDApprovisionnement commandeDApprovisionnement;
-
-    public BonRetour(int id, Date date, String motifDeRetour, CommandeDApprovisionnement commandeDApprovisionnement) {
-        this.id = id;
-        this.date = date;
-        this.motifDeRetour = motifDeRetour;
-        this.commandeDApprovisionnement = commandeDApprovisionnement;
-    }
+    private int id ; 
+    private String date ;
+    private String motif ; 
+    private int cap ;
 
     public int getId() {
         return id;
@@ -34,32 +27,37 @@ public class BonRetour {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public String getMotifDeRetour() {
-        return motifDeRetour;
+    public String getMotif() {
+        return motif;
     }
 
-    public void setMotifDeRetour(String motifDeRetour) {
-        this.motifDeRetour = motifDeRetour;
+    public void setMotif(String motif) {
+        this.motif = motif;
     }
 
-    public CommandeDApprovisionnement getCommandeDApprovisionnement() {
-        return commandeDApprovisionnement;
+    public int getCap() {
+        return cap;
     }
 
-    public void setCommandeDApprovisionnement(CommandeDApprovisionnement commandeDApprovisionnement) {
-        this.commandeDApprovisionnement = commandeDApprovisionnement;
+    public void setCap(int cap) {
+        this.cap = cap;
     }
-    
-    
-    
+
+    public BonRetour() {
+    }
+
+    @Override
+    public String toString() {
+        return "BonRetour{" + "id=" + id + ", date=" + date + ", motif=" + motif + ", cap=" + cap + '}';
+    }
     
     
     
