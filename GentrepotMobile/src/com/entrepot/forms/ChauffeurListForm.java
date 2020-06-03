@@ -58,7 +58,7 @@ public class ChauffeurListForm extends Form {
              Label etat = new Label(c.getEtat());
              Integer v = c.getVoyage();
              Label V = new Label(v.toString());
-             Button books = new Button();
+          
              cat.addAll(cin,nom,prenom,adr,etat,V);
                ImageViewer i = new ImageViewer(theme2.getImage("iconLettre.png").scaled(300, 300));
           //  ImageViewer i = new ImageViewer(img);
