@@ -15,6 +15,9 @@ public class ProduitAchat {
     private String libelle;
     private int quantiteStock;
     private String classe;
+
+    public ProduitAchat() {
+    }
     private int quantiteStockSecurite;
     private double dernierPrixAchat;
     private double tva;
@@ -46,6 +49,36 @@ public class ProduitAchat {
         this.image2 = image2;
         this.image3 = image3;
         this.image4 = image4;
+        this.sousCategorieAchat = sousCategorieAchat;
+    }
+
+    public ProduitAchat(String reference, String libelle, int quantiteStock, String classe, int quantiteStockSecurite, double dernierPrixAchat, double tva, String description, String typeDeConditionnement, double prixVente, String image) {
+        this.reference = reference;
+        this.libelle = libelle;
+        this.quantiteStock = quantiteStock;
+        this.classe = classe;
+        this.quantiteStockSecurite = quantiteStockSecurite;
+        this.dernierPrixAchat = dernierPrixAchat;
+        this.tva = tva;
+        this.description = description;
+        this.typeDeConditionnement = typeDeConditionnement;
+        this.prixVente = prixVente;
+        this.image = image;
+    }
+
+    public ProduitAchat(String reference, String libelle, int quantiteStock, String classe, int quantiteStockSecurite, double dernierPrixAchat, double tva, double dimension, String description, String typeDeConditionnement, double prixVente, String image, SousCategorieAchat sousCategorieAchat) {
+        this.reference = reference;
+        this.libelle = libelle;
+        this.quantiteStock = quantiteStock;
+        this.classe = classe;
+        this.quantiteStockSecurite = quantiteStockSecurite;
+        this.dernierPrixAchat = dernierPrixAchat;
+        this.tva = tva;
+        this.dimension = dimension;
+        this.description = description;
+        this.typeDeConditionnement = typeDeConditionnement;
+        this.prixVente = prixVente;
+        this.image = image;
         this.sousCategorieAchat = sousCategorieAchat;
     }
 

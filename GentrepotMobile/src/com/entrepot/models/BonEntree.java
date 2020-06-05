@@ -15,19 +15,12 @@ public class BonEntree {
     
     
     
-    private int id;
-    private Date date;
-    private Date dateProduction;
-    private Date dateExpiration;
-    private CommandeDApprovisionnement commandeDApprovisionnement;
-
-    public BonEntree(int id, Date date, Date dateProduction, Date dateExpiration, CommandeDApprovisionnement commandeDApprovisionnement) {
-        this.id = id;
-        this.date = date;
-        this.dateProduction = dateProduction;
-        this.dateExpiration = dateExpiration;
-        this.commandeDApprovisionnement = commandeDApprovisionnement;
-    }
+    private int id ; 
+    private String date ; 
+    private String dateProduction ;
+    private String dateExpiration ;
+    private int cap ;
+    
 
     public int getId() {
         return id;
@@ -37,46 +30,40 @@ public class BonEntree {
         this.id = id;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public Date getDateProduction() {
+    public String getDateProduction() {
         return dateProduction;
     }
 
-    public void setDateProduction(Date dateProduction) {
+    public void setDateProduction(String dateProduction) {
         this.dateProduction = dateProduction;
     }
 
-    public Date getDateExpiration() {
+    public String getDateExpiration() {
         return dateExpiration;
     }
 
-    public void setDateExpiration(Date dateExpiration) {
+    public void setDateExpiration(String dateExpiration) {
         this.dateExpiration = dateExpiration;
     }
-
-    public CommandeDApprovisionnement getCommandeDApprovisionnement() {
-        return commandeDApprovisionnement;
+    public int getCap() {
+        return cap;
     }
-
-    public void setCommandeDApprovisionnement(CommandeDApprovisionnement commandeDApprovisionnement) {
-        this.commandeDApprovisionnement = commandeDApprovisionnement;
+    public void setCap(int cap) {
+        this.cap = cap;
     }
-    
-    
-    
-    
-    
-    
-    
-            
-    
-    
+    public BonEntree() {
+    }
+    @Override
+    public String toString() {
+        return "Bonentree{" + "id=" + id + ", date=" + date + ", dateProduction=" + dateProduction + ", dateExpiration=" + dateExpiration + ", cap=" + cap + '}';
+    }
     
 }
