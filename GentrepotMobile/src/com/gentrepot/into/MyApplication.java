@@ -65,9 +65,10 @@ public class MyApplication {
         hi.show();*/
 
       // new HomeLogistiqueForm().show();
-       new AuthentificationForm().show();
+       //new AuthentificationForm().show();
     //  new MenueAgentCaisseForm().show();
        // new HomeLogistiqueForm().show();
+       new HomeAchat().show();
     }
 
     public void stop() {
