@@ -23,6 +23,8 @@ import com.entrepot.services.ServiceProduitAchat;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+import com.codename1.messaging.Message;
+import com.codename1.ui.Display;
 
 /**
  *
@@ -53,39 +55,55 @@ public class ListeFournisseursForm extends Form {
             Button voir = new Button("Edit");
             Button supp = new Button("Delete");
 
+            Button mail = new Button("Envoyer mail");
+
+            mail.addActionListener(new ActionListener() {
+
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+
+                    Message m = new Message("Body of message");
+
+                    Display.getInstance().sendMessage(new String[]{e.getAdresseMail()}, "Subject of message", m);
+
+                }
+            });
+
+            Container coB = new Container(BoxLayout.x());
+
+            coB.addAll(voir, supp, mail);
+
             cont.add(c);
             cont.add(d);
             cont.add(a);
             cont.add(tlf);
             cont.add(b);
             cont.add(cp);
-            cont.add(voir);
-            cont.add(supp);
-            
+            cont.add(coB);
+
             try {
                 ScaleImageLabel sep = new ScaleImageLabel(Image.createImage("/Separator.png"));
                 cont.add(sep);
             } catch (IOException ex) {
             }
             add(cont);
-            
 
-            b.addPointerPressedListener(new ActionListener(){
+            b.addPointerPressedListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-                    
+
                 }
             });
             voir.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-                   EditFournisseurForm.f = e ;
-                   EditFournisseurForm ef = new EditFournisseurForm();
-                   ef.show();
+                    EditFournisseurForm.f = e;
+                    EditFournisseurForm ef = new EditFournisseurForm();
+                    ef.show();
 
                 }
             });
-            
+
             supp.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
@@ -98,11 +116,10 @@ public class ListeFournisseursForm extends Form {
 
                 }
             });
-            
-            
+
         }
-this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
-             new HomeAchat().showBack();
+        this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
+            new HomeAchat().showBack();
         });
     }
 }

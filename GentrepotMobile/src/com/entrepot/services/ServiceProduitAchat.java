@@ -168,7 +168,7 @@ public class ServiceProduitAchat {
     }
 
     public static Map<String, Object> getResponse(String url) {
-        url = "http://127.0.0.1:8000/" + url;
+        url = Statics.BASE_URL + url;
 
         ConnectionRequest r = new ConnectionRequest();
 
@@ -278,7 +278,7 @@ public class ServiceProduitAchat {
         request.addArgument("typeDeConditionnement", p.getTypeDeConditionnement());
         request.addArgument("prixVente", p.getPrixVente() + "");
         request.addArgument("image", p.getImage());
-        request.addArgument("sousCat", p.getSousCategorieAchat()+"");
+        request.addArgument("sousCat", p.getSousCategorieAchat().getNom()+"");
         request.setPost(true);
         System.out.println(url);
        

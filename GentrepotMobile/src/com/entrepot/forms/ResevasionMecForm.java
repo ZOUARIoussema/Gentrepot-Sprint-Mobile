@@ -46,7 +46,7 @@ import java.util.Random;
 /**
  * Signup UI
  *
- * @author Shai Almog
+ * @author Mohamed
  */
 public class ResevasionMecForm extends Form {
     public static String codex;
@@ -99,7 +99,7 @@ public class ResevasionMecForm extends Form {
                 String saltStr = salt.toString();
                 Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
                 com.twilio.rest.api.v2010.account.Message messages = com.twilio.rest.api.v2010.account.Message.creator(new PhoneNumber("+21625180502"),
-                        new PhoneNumber("+12055257169"), "Votre Code est : " + saltStr).create();
+                        new PhoneNumber("+19286123819"), "Votre Code est : " + saltStr).create();
                 
                 codex = saltStr;
                 System.out.println("======================");

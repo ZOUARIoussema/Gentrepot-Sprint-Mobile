@@ -39,7 +39,7 @@ public class EditProduitForm extends Form{
     Resources theme = UIManager.initFirstTheme("/themeLogistique");
     public static ProduitAchat p ; 
      private String im ;
-    // ComboBox<String> c;
+     ComboBox<String> c;
      
      public EditProduitForm(){
          super("Modifier Produit", BoxLayout.y());
@@ -47,7 +47,7 @@ public class EditProduitForm extends Form{
         this.setLayout(new FlowLayout(CENTER, CENTER));
         Style s = UIManager.getInstance().getComponentStyle("TitleCommand");
         FontImage icone = FontImage.createMaterial(FontImage.MATERIAL_IMAGE, s);
-      //  c = new ComboBox();
+       c = new ComboBox();
         
         
         
@@ -79,18 +79,18 @@ public class EditProduitForm extends Form{
             Button b = new Button("Modifier");
             ServiceProduitAchat ws = new ServiceProduitAchat();
         
-           // Map x = ws.getResponse("api/listSousCat");
+           Map x = ws.getResponse("/listSousCat");
             
-           //ArrayList<SousCategorieAchat> listSouscat = ws.getListSousCategorie(x);
-           //for (SousCategorieAchat e : listSouscat) {
-            //   c.addItem(e.getNom());
-           //}
+           ArrayList<SousCategorieAchat> listSouscat = ws.getListSousCategorie(x);
+           for (SousCategorieAchat e : listSouscat) {
+               c.addItem(e.getNom());
+          }
            
            
             
             Label l = new Label("Sous catégorie : ");
             cont.add(l);
-            //cont.add(c);
+            cont.add(c);
             cont.add(reference);
             cont.add(libelle);
             cont.add(quantiteEnStock);
@@ -118,9 +118,9 @@ public class EditProduitForm extends Form{
                 p.setDescription(description.getText());
                 p.setTypeDeConditionnement(typeConditionnement.getText());
                 p.setPrixVente(Double.parseDouble(prixVente.getText()));
-               // SousCategorieAchat sca = new SousCategorieAchat();
-                 //   sca.setNom(c.getSelectedItem());
-                   // p.setSousCategorieAchat(sca);
+                SousCategorieAchat sca = new SousCategorieAchat();
+                    sca.setNom(c.getSelectedItem());
+                     p.setSousCategorieAchat(sca);
                 if(im != null){
                    p.setImage(im); 
                 }

@@ -64,7 +64,7 @@ public class AddProduitForm extends Form {
 
         Button btn = new Button("Ajouter le produit");
         ServiceProduitAchat ws = new ServiceProduitAchat();
-        Map x = ws.getResponse("api/listSousCat");
+        Map x = ws.getResponse("/listSousCat");
 
         ArrayList<SousCategorieAchat> listc = ws.getListSousCategorie(x);
         for (SousCategorieAchat e : listc) {
