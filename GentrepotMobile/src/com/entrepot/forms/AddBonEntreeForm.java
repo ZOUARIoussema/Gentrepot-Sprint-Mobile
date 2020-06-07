@@ -49,7 +49,7 @@ public class AddBonEntreeForm extends Form {
 
         Container cont = new Container(new BoxLayout(BoxLayout.Y_AXIS));
         ServiceProduitAchat ws = new ServiceProduitAchat();
-        Map x = ws.getResponse("api/listComm");
+        Map x = ws.getResponse("/listComm");
 
         ArrayList<CommandeApp> listeCom = ws.getListcommande(x);
         for (CommandeApp e : listeCom) {

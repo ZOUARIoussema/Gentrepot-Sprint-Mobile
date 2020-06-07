@@ -40,7 +40,7 @@ public class ListeFournisseursForm extends Form {
 
         ServiceProduitAchat sp = new ServiceProduitAchat();
         ServiceFournisseur sf = new ServiceFournisseur();
-        Map x = sp.getResponse("api/apiF/listF");
+        Map x = sp.getResponse("/apiF/listF");
         ArrayList<Fournisseur> listefourniss = sf.getListFournisseurs(x);
         for (Fournisseur e : listefourniss) {
             Container cont = new Container(new BoxLayout(BoxLayout.Y_AXIS));

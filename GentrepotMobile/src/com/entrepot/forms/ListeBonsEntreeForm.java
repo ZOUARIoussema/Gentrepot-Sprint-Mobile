@@ -55,7 +55,7 @@ public class ListeBonsEntreeForm extends Form {
         ServiceProduitAchat sp = new ServiceProduitAchat();
         ServiceBonEntree sbe = new ServiceBonEntree();
 
-        Map x = sp.getResponse("api/apiBE/listBonEntree");
+        Map x = sp.getResponse("/apiBE/listBonEntree");
         ArrayList<BonEntree> listevents = sbe.getListbonEntree(x);
         for (BonEntree e : listevents) {
             Container cont = new Container(new BoxLayout(BoxLayout.Y_AXIS));

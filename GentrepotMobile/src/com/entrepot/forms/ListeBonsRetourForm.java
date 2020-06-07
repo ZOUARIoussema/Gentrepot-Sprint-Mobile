@@ -44,7 +44,7 @@ public class ListeBonsRetourForm extends Form {
         ServiceProduitAchat ws = new ServiceProduitAchat();
         ServiceBonRetour ds = new ServiceBonRetour();
 
-        Map x = ws.getResponse("api/apiBR/listBonretour");
+        Map x = ws.getResponse("/apiBR/listBonretour");
         ArrayList<BonRetour> listevents = ds.getListbonRetour(x);
         for (BonRetour e : listevents) {
             Container photos = new Container(new BoxLayout(BoxLayout.Y_AXIS));
