@@ -18,7 +18,6 @@ public class Statics {
     //oumayma
      //public static final String BASE_URL = "http://127.0.0.1:8000/api";
     //nadia
-  // public static final String BASE_URL = "http://127.0.0.1:8000/api";
-   public static final String BASE_URL = "http://localhost/IntegrationFinalSymfonyMaster/PROJET-SYMFONY-GENTREPOT/gentrepot/web/app_dev.php/api";
+   public static final String BASE_URL = "http://127.0.0.1:8000/api";
    
 }

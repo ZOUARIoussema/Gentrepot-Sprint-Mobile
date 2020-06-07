@@ -115,6 +115,28 @@ public class ServiceFournisseur {
         
     }
     
+    public boolean deleteFournisseur(Fournisseur f) {
+        String url = Statics.BASE_URL + "/apiF/deleteF/" + f.getId();
+                
+        request.setUrl(url);
+
+        System.out.println(url);
+
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+
+                System.out.println(request.getResponseCode());
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return responseResult;
+    }
+    
     
     
 }

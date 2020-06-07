@@ -24,6 +24,7 @@ import com.entrepot.services.ServiceFournisseur;
 public class EditFournisseurForm extends Form {
     Resources theme = UIManager.initFirstTheme("/themeLogistique");
     public static Fournisseur f ;
+   
     public EditFournisseurForm(){
         super("Modifier Fournisseur", BoxLayout.y());
         this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
@@ -53,9 +54,9 @@ public class EditFournisseurForm extends Form {
                 f.setAdresse(adresse.getText());
                 f.setMatriculeFiscale(matriculeFiscale.getText());
                 f.setCodePostale(Integer.parseInt(codePostale.getText()));
-                ws.editFournisseur(f);
+               if(ws.editFournisseur(f)){
                 Dialog.show("SUCCESS", "Fournisseur modifier", "OK", null);
-                
+               }
                 });
             this.addAll(raisonSociale,numeroTelephone,adresse,adresseMail,matriculeFiscale,codePostale,b);
             

@@ -97,4 +97,26 @@ public class ServiceBonEntree {
         return listeBonsEntree;
         
     }
+    
+    public boolean deleteBonEntree(BonEntree be) {
+        String url = Statics.BASE_URL + "/apiBE/deletebonentree/" + be.getId();
+                
+        request.setUrl(url);
+
+        System.out.println(url);
+
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+
+                System.out.println(request.getResponseCode());
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return responseResult;
+    }
 }

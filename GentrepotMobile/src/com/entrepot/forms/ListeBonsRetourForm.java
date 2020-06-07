@@ -10,6 +10,7 @@ import com.codename1.io.FileSystemStorage;
 import com.codename1.io.Log;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
@@ -52,7 +53,7 @@ public class ListeBonsRetourForm extends Form {
             Label d = new Label("Date : " + e.getDate());
             Label p = new Label("Motif : " + e.getMotif());
 
-            Button voir = new Button("Delete");
+            Button supp = new Button("Delete");
 
             try {
                 ScaleImageLabel sep = new ScaleImageLabel(Image.createImage("/Separator.png"));
@@ -73,7 +74,19 @@ public class ListeBonsRetourForm extends Form {
             photos.add(d);
             photos.add(p);
 
-            photos.add(voir);
+            photos.add(supp);
+            supp.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+
+                    if (Dialog.show("Comfirmation", "Vouler vous supprimer ce inventaire ? ", "oui", "non")) {
+
+                        ds.deleteBonRetour(e);
+                        new ListeBonsRetourForm().showBack();
+                    }
+
+                }
+            });
 
         }
         this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {

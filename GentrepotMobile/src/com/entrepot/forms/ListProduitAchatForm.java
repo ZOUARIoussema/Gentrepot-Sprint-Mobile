@@ -52,18 +52,20 @@ public class ListProduitAchatForm extends Form {
      Label b = new Label("Libelle : "+e.getLibelle());
             
            
-           Button voir = new Button("Détails");
+           Button detail = new Button("Détails");
             
             try {
-                encoded = EncodedImage.create("/like.png");
+                encoded = EncodedImage.create("/loading.png");
             } catch (IOException ex) {
             }
+            
             img = URLImage.createToStorage(encoded, e.getImage(), "http://127.0.0.1:8000/uploads/" + e.getImage());
+            //img = URLImage.createToStorage(encoded, e.getImage(), "http://127.0.0.1:8000/uploads/20200604110305.jpg");
             imv = new ImageViewer(img);
             photos.add(imv);
             photos.add(b);
             
-            photos.add(voir);
+            photos.add(detail);
             try {
                 ScaleImageLabel sep = new ScaleImageLabel(Image.createImage("/Separator.png"));
                 photos.add(sep);
@@ -78,14 +80,14 @@ public class ListProduitAchatForm extends Form {
                 }
             });
             
-           /* voir.addActionListener(new ActionListener() {
+            detail.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
-                   ProductDetails.e = e ;
-                   ProductDetails pd = new ProductDetails();
+                   ProduitDetailsForm.e = e ;
+                   ProduitDetailsForm pd = new ProduitDetailsForm();
                    pd.show();
                 }
-            });*/
+            });
         }
         //show();
     

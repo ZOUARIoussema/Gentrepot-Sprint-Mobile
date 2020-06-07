@@ -8,6 +8,7 @@ package com.entrepot.forms;
 import com.codename1.components.ScaleImageLabel;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
 import com.codename1.ui.Label;
@@ -36,9 +37,9 @@ public class ListeFournisseursForm extends Form {
         this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
 
         ServiceProduitAchat sp = new ServiceProduitAchat();
-        ServiceFournisseur ds = new ServiceFournisseur();
+        ServiceFournisseur sf = new ServiceFournisseur();
         Map x = sp.getResponse("api/apiF/listF");
-        ArrayList<Fournisseur> listefourniss = ds.getListFournisseurs(x);
+        ArrayList<Fournisseur> listefourniss = sf.getListFournisseurs(x);
         for (Fournisseur e : listefourniss) {
             Container cont = new Container(new BoxLayout(BoxLayout.Y_AXIS));
 
@@ -50,7 +51,7 @@ public class ListeFournisseursForm extends Form {
             Label cp = new Label("Code Postale : " + e.getCodePostale());
 
             Button voir = new Button("Edit");
-            Button voir1 = new Button("Delete");
+            Button supp = new Button("Delete");
 
             cont.add(c);
             cont.add(d);
@@ -59,7 +60,7 @@ public class ListeFournisseursForm extends Form {
             cont.add(b);
             cont.add(cp);
             cont.add(voir);
-            cont.add(voir1);
+            cont.add(supp);
             
             try {
                 ScaleImageLabel sep = new ScaleImageLabel(Image.createImage("/Separator.png"));
@@ -81,6 +82,19 @@ public class ListeFournisseursForm extends Form {
                    EditFournisseurForm.f = e ;
                    EditFournisseurForm ef = new EditFournisseurForm();
                    ef.show();
+
+                }
+            });
+            
+            supp.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+
+                    if (Dialog.show("Comfirmation", "Vouler vous supprimer ce inventaire ? ", "oui", "non")) {
+
+                        sf.deleteFournisseur(e);
+                        new ListeFournisseursForm().showBack();
+                    }
 
                 }
             });

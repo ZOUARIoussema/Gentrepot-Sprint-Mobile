@@ -158,6 +158,7 @@ public class ServiceProduitAchat {
            SousCategorieAchat sca = new SousCategorieAchat();
           
            sca.setNom((String)map1.get("name"));
+          
             p.setSousCategorieAchat(sca);
            
             listProduit.add(p);  
@@ -258,5 +259,60 @@ public class ServiceProduitAchat {
         }        
         return listcommande;
         
+    }
+    
+    public boolean editProduit(ProduitAchat p) {
+       String url = Statics.BASE_URL + "/apiP/editP" ;
+       request.setUrl(url);
+       request.addRequestHeader("X-Requested-With", "XMLHttpRequest");
+       
+        request.addArgument("ref", p.getReference());
+        request.addArgument("lib", p.getLibelle());
+        request.addArgument("quantiteEnStock", p.getQuantiteStock()+ "");
+        request.addArgument("classe", p.getClasse());
+        request.addArgument("quantiteStockSecurite", p.getQuantiteStockSecurite() + "");
+        request.addArgument("dernierPrixAchat", p.getDernierPrixAchat() + "");
+        request.addArgument("TVA", p.getTva()+ "");
+        request.addArgument("dimension", p.getDimension() + "");
+        request.addArgument("description", p.getDescription());
+        request.addArgument("typeDeConditionnement", p.getTypeDeConditionnement());
+        request.addArgument("prixVente", p.getPrixVente() + "");
+        request.addArgument("image", p.getImage());
+        request.addArgument("sousCat", p.getSousCategorieAchat()+"");
+        request.setPost(true);
+        System.out.println(url);
+       
+       request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return responseResult;
+    }
+    
+    public boolean deleteProd(ProduitAchat p) {
+        String url = Statics.BASE_URL + "/apiP/deleteP/" + p.getReference();
+                
+        request.setUrl(url);
+
+        System.out.println(url);
+
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+
+                System.out.println(request.getResponseCode());
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return responseResult;
     }
 }

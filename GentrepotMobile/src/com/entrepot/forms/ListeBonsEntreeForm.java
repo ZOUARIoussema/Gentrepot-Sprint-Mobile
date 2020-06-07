@@ -10,6 +10,7 @@ import com.codename1.io.FileSystemStorage;
 import com.codename1.io.Log;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Image;
@@ -53,13 +54,13 @@ public class ListeBonsEntreeForm extends Form {
             Label p = new Label("Date de prod : " + e.getDateProduction());
             Label exx = new Label("Date exp : " + e.getDateExpiration());
 
-            Button voir = new Button("Delete");
+            Button supp = new Button("Delete");
 
             cont.add(b);
             cont.add(d);
             cont.add(p);
             cont.add(exx);
-            cont.add(voir);
+            cont.add(supp);
 
             try {
                 ScaleImageLabel sep = new ScaleImageLabel(Image.createImage("/Separator.png"));
@@ -71,6 +72,18 @@ public class ListeBonsEntreeForm extends Form {
             b.addPointerPressedListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
+
+                }
+            });
+            supp.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent evt) {
+
+                    if (Dialog.show("Comfirmation", "Vouler vous supprimer ce inventaire ? ", "oui", "non")) {
+
+                        sbe.deleteBonEntree(e);
+                        new ListeBonsEntreeForm().showBack();
+                    }
 
                 }
             });
