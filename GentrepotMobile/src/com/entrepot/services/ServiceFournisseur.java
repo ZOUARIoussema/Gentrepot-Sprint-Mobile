@@ -8,6 +8,7 @@ package com.entrepot.services;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
+import com.codename1.ui.Dialog;
 import com.codename1.ui.events.ActionListener;
 import com.entrepot.models.Fournisseur;
 import com.entrepot.utls.DataSource;
@@ -29,9 +30,11 @@ public class ServiceFournisseur {
     }
     
     public boolean addFournisseur(Fournisseur fournisseur) {
+        
         String url = Statics.BASE_URL + "/apiF/addF" ;
         request.setUrl(url);
         request.addRequestHeader("X-Requested-With", "XMLHttpRequest");
+        if (!this.verifParMatricule(fournisseur.getMatriculeFiscale())) {
 
         request.addArgument("raisonSociale", fournisseur.getRaisonSociale());
         request.addArgument("numeroTelephone", fournisseur.getNumeroTelephone() + "");
@@ -53,7 +56,12 @@ public class ServiceFournisseur {
         });
         NetworkManager.getInstance().addToQueueAndWait(request);
 
-        return responseResult;
+        
+    }else{
+            responseResult= false;
+            Dialog.show("Alerte", "existe deja", "OK", null);
+        }
+     return responseResult;   
     }
     
     public boolean editFournisseur(Fournisseur f) {
@@ -137,6 +145,21 @@ public class ServiceFournisseur {
         return responseResult;
     }
     
+    public boolean verifParMatricule(String mt) {
+        ServiceProduitAchat sp = new ServiceProduitAchat();
+        Map x = sp.getResponse("/apiF/listF");
+
+        for (Fournisseur f : this.getListFournisseurs(x)) {
+
+            if (f.getMatriculeFiscale().toUpperCase().equals(mt.toUpperCase())) {
+                return true;
+            }
+
+        }
+
+        return false;
+    }
     
+   
     
 }
