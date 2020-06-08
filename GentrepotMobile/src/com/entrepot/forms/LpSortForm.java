@@ -29,11 +29,11 @@ import java.util.Map;
  *
  * @author Mohamed
  */
-public class ListProduitAchatForm extends Form {
+public class LpSortForm extends Form {
     Resources theme = UIManager.initFirstTheme("/themeLogistique");
     
     
-    public ListProduitAchatForm(){
+    public LpSortForm(){
         super("liste des produits ", BoxLayout.y());
         this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
         
@@ -42,7 +42,7 @@ public class ListProduitAchatForm extends Form {
         ServiceProduitAchat ws = new ServiceProduitAchat();
     
     Map x = ws.getResponse("/apiP/listP");
-    ArrayList<ProduitAchat> listevents = ws.getAffProduits(x);
+    ArrayList<ProduitAchat> listevents = ws.getAffProduitsSorted(x);
              for (ProduitAchat e : listevents) {
             Container photos = new Container(new BoxLayout(BoxLayout.Y_AXIS));
             ImageViewer imv = null;
@@ -94,8 +94,8 @@ public class ListProduitAchatForm extends Form {
     this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
              new HomeAchat().showBack();
         });
-    this.getToolbar().addCommandToRightBar("sort", null, (evt) -> {
-            new LpSortForm().show();
+    this.getToolbar().addCommandToRightBar("unsort", null, (evt) -> {
+            new ListProduitAchatForm().showBack();
         });
 }
 }

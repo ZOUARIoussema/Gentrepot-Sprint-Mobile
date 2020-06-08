@@ -33,11 +33,11 @@ import java.util.Map;
  *
  * @author Mohamed
  */
-public class ListeBonsRetourForm extends Form {
+public class LbrSortForm extends Form {
 
     Resources theme = UIManager.initFirstTheme("/themeLogistique");
 
-    public ListeBonsRetourForm() {
+    public LbrSortForm() {
         super("Les bons de retour ", BoxLayout.y());
         this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
        
@@ -45,7 +45,7 @@ public class ListeBonsRetourForm extends Form {
         ServiceBonRetour ds = new ServiceBonRetour();
 
         Map x = ws.getResponse("/apiBR/listBonretour");
-        ArrayList<BonRetour> listevents = ds.getListbonRetour(x);
+        ArrayList<BonRetour> listevents = ds.getListbonRetourSorted(x);
         for (BonRetour e : listevents) {
             Container photos = new Container(new BoxLayout(BoxLayout.Y_AXIS));
 
@@ -92,8 +92,8 @@ public class ListeBonsRetourForm extends Form {
         this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
             new HomeAchat().showBack();
         });
-        this.getToolbar().addCommandToRightBar("sort", null, (evt) -> {
-            new LbrSortForm().show();
+        this.getToolbar().addCommandToRightBar("unsort", null, (evt) -> {
+            new ListeBonsRetourForm().showBack();
         });
         
         this.getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_CAMERA, e->{

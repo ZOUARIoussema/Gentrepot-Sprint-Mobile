@@ -9,7 +9,7 @@ package com.entrepot.models;
  *
  * @author oussema
  */
-public class Fournisseur {
+public class Fournisseur implements Comparable<Fournisseur>{
     
     private int id;
     private String raisonSociale;
@@ -115,6 +115,11 @@ public class Fournisseur {
     public String toString() {
         return "Fournisseur{" + "id=" + id + ", raisonSociale=" + raisonSociale + ", numeroTelephone=" + numeroTelephone + ", adresse=" + adresse + ", adresseMail=" + adresseMail + ", matriculeFiscale=" + matriculeFiscale + ", codePostale=" + codePostale + '}';
     }
+
+    @Override
+    public int compareTo(Fournisseur o) {
+        return this.getRaisonSociale().toUpperCase().compareTo(o.getRaisonSociale().toUpperCase());
+         }
     
     
     

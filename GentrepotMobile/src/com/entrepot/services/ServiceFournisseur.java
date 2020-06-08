@@ -14,6 +14,7 @@ import com.entrepot.models.Fournisseur;
 import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 
 /**
@@ -119,6 +120,39 @@ public class ServiceFournisseur {
           
             listFournisseur.add(p);  
         }        
+        return listFournisseur;
+        
+    }
+    
+    public  ArrayList<Fournisseur> getListFournisseursSorted(Map m){
+        ArrayList<Fournisseur> listFournisseur = new ArrayList<>();
+        ArrayList d = (ArrayList)m.get("fournisseur");
+        
+       
+        for(int i = 0; i<d.size();i++){
+            Map f =  (Map) d.get(i);
+            Fournisseur p = new Fournisseur();
+            Double id = (Double) f.get("id");
+            
+            p.setId(id.intValue());
+            
+            p.setRaisonSociale((String)f.get("raisonSociale"));
+            Double numtlf = (Double) f.get("numeroTelephone");
+            p.setNumeroTelephone(numtlf.intValue());
+           
+            p.setAdresse((String) f.get("adresse"));
+            p.setAdresseMail((String) f.get("adresseMail"));
+            Double ll = (Double) f.get("codePostale");
+            p.setCodePostale(ll.intValue());
+            p.setMatriculeFiscale((String) f.get("matriculeFiscale"));
+          
+          
+            listFournisseur.add(p);  
+            
+	   
+        }   
+        Collections.sort(listFournisseur);
+        
         return listFournisseur;
         
     }

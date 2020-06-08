@@ -39,7 +39,7 @@ import java.util.Random;
  *
  * @author Mohamed
  */
-public class ListeBonsEntreeForm extends Form {
+public class LbeSort extends Form {
 
     public static String codex;
     public static final String ACCOUNT_SID = "AC259bf45943274ddfdde68e37a8ad9a13";
@@ -48,7 +48,7 @@ public class ListeBonsEntreeForm extends Form {
 
     Resources theme = UIManager.initFirstTheme("/themeLogistique");
 
-    public ListeBonsEntreeForm() {
+    public LbeSort() {
         super("Les bons d'entree ", BoxLayout.y());
         this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
 
@@ -56,7 +56,7 @@ public class ListeBonsEntreeForm extends Form {
         ServiceBonEntree sbe = new ServiceBonEntree();
 
         Map x = sp.getResponse("/apiBE/listBonEntree");
-        ArrayList<BonEntree> listevents = sbe.getListbonEntree(x);
+        ArrayList<BonEntree> listevents = sbe.getListbonEntreesorted(x);
         for (BonEntree e : listevents) {
             Container cont = new Container(new BoxLayout(BoxLayout.Y_AXIS));
 
@@ -132,7 +132,7 @@ public class ListeBonsEntreeForm extends Form {
             new HomeAchat().showBack();
         });
         this.getToolbar().addCommandToRightBar("sort", null, (evt) -> {
-            new LbeSort().show();
+            new ListeBonsEntreeForm().showBack();
         });
 
         this.getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_CAMERA, e -> {

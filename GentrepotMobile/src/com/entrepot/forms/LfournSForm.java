@@ -30,18 +30,18 @@ import com.codename1.ui.Display;
  *
  * @author Mohamed
  */
-public class ListeFournisseursForm extends Form {
+public class LfournSForm extends Form {
 
     Resources theme = UIManager.initFirstTheme("/themeLogistique");
 
-    public ListeFournisseursForm() {
+    public LfournSForm() {
         super("liste des fournisseur ", BoxLayout.y());
         this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
 
         ServiceProduitAchat sp = new ServiceProduitAchat();
         ServiceFournisseur sf = new ServiceFournisseur();
         Map x = sp.getResponse("/apiF/listF");
-        ArrayList<Fournisseur> listefourniss = sf.getListFournisseurs(x);
+        ArrayList<Fournisseur> listefourniss = sf.getListFournisseursSorted(x);
         for (Fournisseur e : listefourniss) {
             Container cont = new Container(new BoxLayout(BoxLayout.Y_AXIS));
 
@@ -122,8 +122,8 @@ public class ListeFournisseursForm extends Form {
             new HomeAchat().showBack();
         });
         
-        this.getToolbar().addCommandToRightBar("sort", null, (evt) -> {
-            new LfournSForm().show();
+       this.getToolbar().addCommandToRightBar("unsort", null, (evt) -> {
+            new ListeFournisseursForm().showBack();
         });
     }
 }

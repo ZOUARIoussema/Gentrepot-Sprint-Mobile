@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author oussema
  */
-public class BonRetour {
+public class BonRetour implements Comparable<BonRetour>{
     
     
     private int id ; 
@@ -57,6 +57,11 @@ public class BonRetour {
     @Override
     public String toString() {
         return "BonRetour{" + "id=" + id + ", date=" + date + ", motif=" + motif + ", cap=" + cap + '}';
+    }
+
+    @Override
+    public int compareTo(BonRetour o) {
+        return this.getDate().compareTo(o.getDate()); 
     }
     
     

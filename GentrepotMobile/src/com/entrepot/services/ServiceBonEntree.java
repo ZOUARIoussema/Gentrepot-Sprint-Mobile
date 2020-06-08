@@ -15,6 +15,7 @@ import com.entrepot.utls.Statics;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
 
@@ -94,6 +95,47 @@ public class ServiceBonEntree {
            
             listeBonsEntree.add(p);  
         }        
+        return listeBonsEntree;
+        
+    }
+    
+    
+    public  ArrayList<BonEntree> getListbonEntreesorted(Map m){
+        ArrayList<BonEntree> listeBonsEntree = new ArrayList<>();
+        ArrayList d = (ArrayList)m.get("bonEntree");
+       
+
+        for(int i = 0; i<d.size();i++){
+            Map f =  (Map) d.get(i);
+            BonEntree p = new BonEntree();
+            Double id = (Double) f.get("id");
+            
+            p.setId(id.intValue());
+           
+            Map map1 = ((Map) f.get("date"));
+            Map map2 = ((Map) f.get("dateProduction"));
+            Map map3 = ((Map) f.get("dateExpiration"));
+            Date date1 = new Date((((Double)map1.get("timestamp")).longValue()*1000)); 
+            Date date2 = new Date((((Double)map2.get("timestamp")).longValue()*1000));
+            Date date3 = new Date((((Double)map3.get("timestamp")).longValue()*1000));
+            Format formatter = new SimpleDateFormat("yyyy-MM-dd");
+            String s1 = formatter.format(date1);
+            String s2 = formatter.format(date2);
+            String s3 = formatter.format(date3);
+            p.setDate(s1);
+            p.setDateExpiration(s3);
+            p.setDateProduction(s2);
+            
+            Map map4 = ((Map) f.get("numeroCCommandeAp"));
+             
+            Double idd = (Double) map4.get("numeroC");
+            
+           
+            p.setCap(idd.intValue());
+           
+            listeBonsEntree.add(p);  
+        }  
+        Collections.sort(listeBonsEntree);
         return listeBonsEntree;
         
     }

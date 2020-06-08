@@ -27,6 +27,7 @@ import java.io.Reader;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -163,6 +164,51 @@ public class ServiceProduitAchat {
            
             listProduit.add(p);  
         }        
+        return listProduit;
+        
+    }
+    
+    public  ArrayList<ProduitAchat> getAffProduitsSorted(Map m){
+        ArrayList<ProduitAchat> listProduit = new ArrayList<>();
+        ArrayList d = (ArrayList)m.get("produit");
+      
+
+        for(int i = 0; i<d.size();i++){
+            Map f =  (Map) d.get(i);
+            ProduitAchat p = new ProduitAchat();
+            
+            
+            
+            p.setReference((String)f.get("reference"));
+            p.setLibelle((String)f.get("libelle"));
+            Double ld = (Double) f.get("quantiteEnStock");
+            p.setQuantiteStock(ld.intValue());
+            p.setClasse((String) f.get("classe"));
+            Double ll = (Double) f.get("quantiteStockSecurite");
+            p.setQuantiteStockSecurite(ll.intValue());
+            p.setDernierPrixAchat((Double) f.get("dernierPrixAchat"));
+            p.setTva((Double) f.get("tVA"));
+            p.setDimension((Double) f.get("dimension"));
+            p.setDescription((String) f.get("description"));
+            p.setTypeDeConditionnement((String) f.get("typeDeConditionnement"));
+            p.setPrixVente((Double) f.get("prixVente"));
+            p.setImage((String)f.get("image"));
+            p.setImage1((String) f.get("image1"));
+            p.setImage2((String) f.get("image2"));
+            p.setImage3((String) f.get("image3"));
+            p.setImage4((String) f.get("image4"));
+            Map map1 = ((Map) f.get("sousCategorie"));
+            
+           
+           SousCategorieAchat sca = new SousCategorieAchat();
+          
+           sca.setNom((String)map1.get("name"));
+          
+            p.setSousCategorieAchat(sca);
+           
+            listProduit.add(p);  
+        }        
+        Collections.sort(listProduit);
         return listProduit;
         
     }
