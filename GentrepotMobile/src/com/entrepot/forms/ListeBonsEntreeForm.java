@@ -131,7 +131,15 @@ public class ListeBonsEntreeForm extends Form {
         this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
             new HomeAchat().showBack();
         });
-        this.getToolbar().addCommandToRightBar("sort", null, (evt) -> {
+        //this.getToolbar().addCommandToRightBar("sort", null, (evt) -> {
+         //   new LbeSort().show();
+      //  });
+        this.getToolbar().addCommandToOverflowMenu("sort", null, (evt) -> {
+
+            new LbeSort().show();
+        });
+        this.getToolbar().addCommandToOverflowMenu("sort", null, (evt) -> {
+
             new LbeSort().show();
         });
 

@@ -42,8 +42,8 @@ public class ListProduitAchatForm extends Form {
         ServiceProduitAchat ws = new ServiceProduitAchat();
     
     Map x = ws.getResponse("/apiP/listP");
-    ArrayList<ProduitAchat> listevents = ws.getAffProduits(x);
-             for (ProduitAchat e : listevents) {
+    ArrayList<ProduitAchat> listeprod = ws.getAffProduits(x);
+             for (ProduitAchat e : listeprod) {
             Container photos = new Container(new BoxLayout(BoxLayout.Y_AXIS));
             ImageViewer imv = null;
             Image img;
@@ -94,8 +94,15 @@ public class ListProduitAchatForm extends Form {
     this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
              new HomeAchat().showBack();
         });
-    this.getToolbar().addCommandToRightBar("sort", null, (evt) -> {
+    
+    this.getToolbar().addCommandToOverflowMenu("sort", null, (evt) -> {
+
             new LpSortForm().show();
         });
+    this.getToolbar().addCommandToOverflowMenu("statistique", null, (evt) -> {
+
+            new statForm().show();
+        });
+    
 }
 }

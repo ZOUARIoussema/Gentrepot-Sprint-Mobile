@@ -29,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -241,7 +242,7 @@ public class ServiceProduitAchat {
     }
     
     public  ArrayList<SousCategorieAchat> getListSousCategorie(Map m){
-        ArrayList<SousCategorieAchat> listDisponibilite = new ArrayList<>();
+        ArrayList<SousCategorieAchat> listSousCat = new ArrayList<>();
         ArrayList d = (ArrayList)m.get("sousCategorie");
         System.out.println("roooooooooot "+d);
         //Map f =  (Map) d.get(0);
@@ -256,9 +257,9 @@ public class ServiceProduitAchat {
             
             p.setNom((String)f.get("name"));
             
-            listDisponibilite.add(p);  
+            listSousCat.add(p);  
         }        
-        return listDisponibilite;
+        return listSousCat;
         
     }
     
@@ -360,5 +361,31 @@ public class ServiceProduitAchat {
         NetworkManager.getInstance().addToQueueAndWait(request);
 
         return responseResult;
+    }
+    
+    public Map<String, Integer> SousCatStat(){
+        HashMap<String, Integer> m = new HashMap<String, Integer>();
+
+       
+        Map x = this.getResponse("/listSousCat");
+
+        ArrayList<SousCategorieAchat> listc = this.getListSousCategorie(x);
+        for (SousCategorieAchat e : listc) {
+            int t = 0;
+            Map y = this.getResponse("/apiP/listP");
+            ArrayList<ProduitAchat> listeprod = this.getAffProduits(y);
+             for (ProduitAchat p : listeprod) {
+                 if(e.getNom().equals(p.getSousCategorieAchat().getNom())){
+                     t=t+1;
+                     
+                 }
+                 
+             }
+             m.put(e.getNom(), t);
+        }
+       
+        
+        
+        return m;
     }
 }
