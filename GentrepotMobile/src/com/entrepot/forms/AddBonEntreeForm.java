@@ -89,6 +89,10 @@ public class AddBonEntreeForm extends Form {
             String st1 = df.format(da);
             String st2 = df.format(da1);
             String st3 = df.format(da2);
+            
+            CommandeApp ca = new CommandeApp();
+            ca.setNumeroC(Integer.parseInt(c.getSelectedItem()));
+            
             be.setCap(Integer.parseInt(c.getSelectedItem()));
             be.setDate(st1);
             be.setDateExpiration(st3);
@@ -101,7 +105,9 @@ public class AddBonEntreeForm extends Form {
             // ListBonRetour lb = new ListBonRetour();
             // lb.show();
             
-
+else {
+                Dialog.show("Erreur", "Vérifiez vos informations", "Ok", null);
+            }
             
         });
         this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {

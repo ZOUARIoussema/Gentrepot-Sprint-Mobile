@@ -122,7 +122,9 @@ public class ListeFournisseursForm extends Form {
             new HomeAchat().showBack();
         });
         
-        this.getToolbar().addCommandToRightBar("sort", null, (evt) -> {
+        
+        this.getToolbar().addCommandToOverflowMenu("sort", null, (evt) -> {
+
             new LfournSForm().show();
         });
     }

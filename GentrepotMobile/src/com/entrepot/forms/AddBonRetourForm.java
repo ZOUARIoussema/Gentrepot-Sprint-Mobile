@@ -82,8 +82,10 @@ public class AddBonRetourForm extends Form {
                 Date da = datePicker.getDate();
 
                 String st1 = df.format(da);
+                
                 CommandeApp ca = new CommandeApp();
                 ca.setNumeroC(Integer.parseInt(c.getSelectedItem()));
+                
                 be.setCap(Integer.parseInt(c.getSelectedItem()));
                 be.setDate(st1);
                 be.setMotif(t.getText());

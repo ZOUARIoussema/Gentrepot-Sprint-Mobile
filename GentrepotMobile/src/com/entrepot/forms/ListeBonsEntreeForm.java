@@ -138,10 +138,7 @@ public class ListeBonsEntreeForm extends Form {
 
             new LbeSort().show();
         });
-        this.getToolbar().addCommandToOverflowMenu("sort", null, (evt) -> {
-
-            new LbeSort().show();
-        });
+        
 
         this.getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_CAMERA, e -> {
             Image screenshot = Image.createImage(getWidth(), getHeight());

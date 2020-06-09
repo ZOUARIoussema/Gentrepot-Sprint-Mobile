@@ -94,7 +94,9 @@ public class LpSortForm extends Form {
     this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
              new HomeAchat().showBack();
         });
-    this.getToolbar().addCommandToRightBar("unsort", null, (evt) -> {
+    
+    this.getToolbar().addCommandToOverflowMenu("unsort", null, (evt) -> {
+
             new ListProduitAchatForm().showBack();
         });
 }
