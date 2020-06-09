@@ -126,7 +126,9 @@ public class EditProduitForm extends Form{
                 }
                 
                 if(ws.editProduit(p)){
-                Dialog.show("SUCCESS", "Produit modifier", "OK", null);
+                Dialog.show("SUCCESS", "Produit modifié", "OK", null);
+                ListProduitAchatForm lp = new ListProduitAchatForm();
+                lp.showBack();
                 
                 }
           

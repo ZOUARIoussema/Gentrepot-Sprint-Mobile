@@ -6,9 +6,14 @@
 package com.entrepot.forms;
 
 import com.codename1.ui.Button;
+import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
+import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.UIManager;
@@ -28,6 +33,7 @@ public class AddFournisseurForm extends Form {
         super("Ajouter Fournisseur", BoxLayout.y());
         
         this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
+        CreationMenu();
         this.setLayout(new FlowLayout(CENTER, CENTER));
         TextField tfRais = new TextField(null, "Raison Sociale");
         TextField tfNum = new TextField(null, "Numero De Telephone");
@@ -57,7 +63,9 @@ public class AddFournisseurForm extends Form {
                     if (verifCode(tfCode.getText()) && verifNumerotel(tfNum.getText())) {
                    Fournisseur ch = new Fournisseur (tfRais.getText(), Integer.parseInt(tfNum.getText()), tfAd.getText(), tfAdM.getText(), tfMat.getText(),Integer.parseInt(tfCode.getText()) );
                     if (sc.addFournisseur(ch)) {
-                        Dialog.show("SUCCESS", "Fournisseur ajouté", "OK", null);
+                        Dialog.show("SUCCESS", "Fournisseur ajouté !", "OK", null);
+                        ListeFournisseursForm ls = new ListeFournisseursForm();
+                        ls.showBack();
                     }  }
                     
                 } catch (NumberFormatException e) {
@@ -69,11 +77,11 @@ public class AddFournisseurForm extends Form {
 
         this.addAll(tfRais, tfNum,tfAd,tfAdM ,tfMat,tfCode, btn);
 
-        this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
+      //  this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
          
-            new HomeAchat().showBack();
+       //     new HomeAchat().showBack();
             
-        });
+      //  });
         
         
     }
@@ -123,5 +131,27 @@ Dialog.show("Alerte", "code postal incorrecte", "OK", null);
         }
 
         return true;
+    }
+    public void CreationMenu() {
+
+        Image icon = theme.getImage("resp7.png");
+        Container topBar = BorderLayout.east(new Label(icon));
+        topBar.add(BorderLayout.SOUTH, new Label("Responsable Achat...", "SidemenuTagline"));
+
+        topBar.setUIID("SideCommand");
+        getToolbar().addComponentToSideMenu(topBar);
+        getToolbar().addMaterialCommandToSideMenu("Ajouter Produit", FontImage.MATERIAL_ADD_CIRCLE, e -> new AddProduitForm().show()); 
+getToolbar().addMaterialCommandToSideMenu("liste des Produits", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e -> new ListProduitAchatForm().show());
+getToolbar().addMaterialCommandToSideMenu("Ajouter Fournisseur", FontImage.MATERIAL_GROUP_ADD, e -> new AddFournisseurForm().show());
+getToolbar().addMaterialCommandToSideMenu("liste des Fournisseurs", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new ListeFournisseursForm().show() );
+getToolbar().addMaterialCommandToSideMenu("Ajouter Bon D'entree", FontImage.MATERIAL_POST_ADD, e -> new AddBonEntreeForm().show());
+getToolbar().addMaterialCommandToSideMenu("liste des Bons D'entree", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new ListeBonsEntreeForm().show());
+getToolbar().addMaterialCommandToSideMenu("Ajouter Bon De retour", FontImage.MATERIAL_POST_ADD, e ->new AddBonRetourForm().show());
+getToolbar().addMaterialCommandToSideMenu("liste Bons De retour", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new ListeBonsRetourForm().show());
+getToolbar().addMaterialCommandToSideMenu("log-out", FontImage.MATERIAL_INFO, e ->new AuthentificationForm().show());
+
+
+     
+
     }
 }

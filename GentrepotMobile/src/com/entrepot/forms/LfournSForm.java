@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import com.codename1.messaging.Message;
 import com.codename1.ui.Display;
+import com.codename1.ui.FontImage;
+import com.codename1.ui.layouts.BorderLayout;
 
 /**
  *
@@ -37,6 +39,7 @@ public class LfournSForm extends Form {
     public LfournSForm() {
         super("liste des fournisseur ", BoxLayout.y());
         this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
+         CreationMenu();
 
         ServiceProduitAchat sp = new ServiceProduitAchat();
         ServiceFournisseur sf = new ServiceFournisseur();
@@ -118,14 +121,36 @@ public class LfournSForm extends Form {
             });
 
         }
-        this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
-            new HomeAchat().showBack();
-        });
+        // this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
+  //           new HomeAchat().showBack();
+    //    });
         
        
        this.getToolbar().addCommandToOverflowMenu("unsort", null, (evt) -> {
 
             new ListeFournisseursForm().showBack();
         });
+    }
+    public void CreationMenu() {
+
+        Image icon = theme.getImage("resp7.png");
+        Container topBar = BorderLayout.east(new Label(icon));
+        topBar.add(BorderLayout.SOUTH, new Label("Responsable Achat...", "SidemenuTagline"));
+
+        topBar.setUIID("SideCommand");
+        getToolbar().addComponentToSideMenu(topBar);
+        getToolbar().addMaterialCommandToSideMenu("Ajouter Produit", FontImage.MATERIAL_ADD_CIRCLE, e -> new AddProduitForm().show()); 
+getToolbar().addMaterialCommandToSideMenu("liste des Produits", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e -> new ListProduitAchatForm().show());
+getToolbar().addMaterialCommandToSideMenu("Ajouter Fournisseur", FontImage.MATERIAL_GROUP_ADD, e -> new AddFournisseurForm().show());
+getToolbar().addMaterialCommandToSideMenu("liste des Fournisseurs", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new ListeFournisseursForm().show() );
+getToolbar().addMaterialCommandToSideMenu("Ajouter Bon D'entree", FontImage.MATERIAL_POST_ADD, e -> new AddBonEntreeForm().show());
+getToolbar().addMaterialCommandToSideMenu("liste des Bons D'entree", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new ListeBonsEntreeForm().show());
+getToolbar().addMaterialCommandToSideMenu("Ajouter Bon De retour", FontImage.MATERIAL_POST_ADD, e ->new AddBonRetourForm().show());
+getToolbar().addMaterialCommandToSideMenu("liste Bons De retour", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new ListeBonsRetourForm().show());
+getToolbar().addMaterialCommandToSideMenu("log-out", FontImage.MATERIAL_INFO, e ->new AuthentificationForm().show());
+
+
+     
+
     }
 }

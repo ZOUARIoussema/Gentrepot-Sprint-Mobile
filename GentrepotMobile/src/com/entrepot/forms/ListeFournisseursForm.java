@@ -25,6 +25,8 @@ import java.util.ArrayList;
 import java.util.Map;
 import com.codename1.messaging.Message;
 import com.codename1.ui.Display;
+import com.codename1.ui.FontImage;
+import com.codename1.ui.layouts.BorderLayout;
 
 /**
  *
@@ -35,8 +37,9 @@ public class ListeFournisseursForm extends Form {
     Resources theme = UIManager.initFirstTheme("/themeLogistique");
 
     public ListeFournisseursForm() {
-        super("liste des fournisseur ", BoxLayout.y());
+        super("liste des fournisseurs ", BoxLayout.y());
         this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
+        CreationMenu();
 
         ServiceProduitAchat sp = new ServiceProduitAchat();
         ServiceFournisseur sf = new ServiceFournisseur();
@@ -118,14 +121,88 @@ public class ListeFournisseursForm extends Form {
             });
 
         }
-        this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
-            new HomeAchat().showBack();
-        });
+       // this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
+      //      new HomeAchat().showBack();
+      //  });
         
         
         this.getToolbar().addCommandToOverflowMenu("sort", null, (evt) -> {
 
             new LfournSForm().show();
         });
+    }
+    
+    public void CreationMenu() {
+
+        Image icon = theme.getImage("resp7.png");
+        Container topBar = BorderLayout.east(new Label(icon));
+        topBar.add(BorderLayout.SOUTH, new Label("Responsable Achat...", "SidemenuTagline"));
+
+        topBar.setUIID("SideCommand");
+        getToolbar().addComponentToSideMenu(topBar);
+        getToolbar().addMaterialCommandToSideMenu("Ajouter Produit", FontImage.MATERIAL_ADD_CIRCLE, e -> new AddProduitForm().show()); 
+getToolbar().addMaterialCommandToSideMenu("liste des Produits", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e -> new ListProduitAchatForm().show());
+getToolbar().addMaterialCommandToSideMenu("Ajouter Fournisseur", FontImage.MATERIAL_GROUP_ADD, e -> new AddFournisseurForm().show());
+getToolbar().addMaterialCommandToSideMenu("liste des Fournisseurs", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new ListeFournisseursForm().show() );
+getToolbar().addMaterialCommandToSideMenu("Ajouter Bon D'entree", FontImage.MATERIAL_POST_ADD, e -> new AddBonEntreeForm().show());
+getToolbar().addMaterialCommandToSideMenu("liste des Bons D'entree", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new ListeBonsEntreeForm().show());
+getToolbar().addMaterialCommandToSideMenu("Ajouter Bon De retour", FontImage.MATERIAL_POST_ADD, e ->new AddBonRetourForm().show());
+getToolbar().addMaterialCommandToSideMenu("liste Bons De retour", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new ListeBonsRetourForm().show());
+getToolbar().addMaterialCommandToSideMenu("log-out", FontImage.MATERIAL_INFO, e ->new AuthentificationForm().show());
+
+
+        
+      /*  this.getToolbar().addMaterialCommandToSideMenu("Acceuille", FontImage.MATERIAL_HOME, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new MenueAgentCaisseForm().show();
+
+            }
+        });
+
+        this.getToolbar().addMaterialCommandToSideMenu("Ajouter Inventaire Caisse", FontImage.MATERIAL_ADD, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new AjouterInventaireCaisseForm().show();
+
+            }
+        });
+
+        this.getToolbar().addMaterialCommandToSideMenu("Liste Inventaire Caisse", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new ListeInventaireCaisseForm().show();
+
+            }
+        });
+        this.getToolbar().addMaterialCommandToSideMenu("Ajouter Lettre de relance", FontImage.MATERIAL_ADD, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new AjouterLettreDeRelanceForm().show();
+
+            }
+        });
+        this.getToolbar().addMaterialCommandToSideMenu("Liste lettre de relance", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new ListeLettreDeRelanceForm().show();
+
+            }
+        });
+
+        this.getToolbar().addMaterialCommandToSideMenu("Deconnecter", FontImage.MATERIAL_EXIT_TO_APP, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+
+                new AuthentificationForm().show();
+
+            }
+        });*/
+
     }
 }

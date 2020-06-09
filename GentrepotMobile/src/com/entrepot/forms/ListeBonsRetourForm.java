@@ -17,6 +17,7 @@ import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.ImageIO;
@@ -40,6 +41,7 @@ public class ListeBonsRetourForm extends Form {
     public ListeBonsRetourForm() {
         super("Les bons de retour ", BoxLayout.y());
         this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
+        CreationMenu();
        
         ServiceProduitAchat ws = new ServiceProduitAchat();
         ServiceBonRetour ds = new ServiceBonRetour();
@@ -89,9 +91,9 @@ public class ListeBonsRetourForm extends Form {
             });
 
         }
-        this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
-            new HomeAchat().showBack();
-        });
+     //   this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
+    //        new HomeAchat().showBack();
+     //   });
         
         this.getToolbar().addCommandToOverflowMenu("sort", null, (evt) -> {
 
@@ -112,6 +114,28 @@ public class ListeBonsRetourForm extends Form {
             Log.e(err);
         }
            });
+    }
+    public void CreationMenu() {
+
+        Image icon = theme.getImage("resp7.png");
+        Container topBar = BorderLayout.east(new Label(icon));
+        topBar.add(BorderLayout.SOUTH, new Label("Responsable Achat...", "SidemenuTagline"));
+
+        topBar.setUIID("SideCommand");
+        getToolbar().addComponentToSideMenu(topBar);
+        getToolbar().addMaterialCommandToSideMenu("Ajouter Produit", FontImage.MATERIAL_ADD_CIRCLE, e -> new AddProduitForm().show()); 
+getToolbar().addMaterialCommandToSideMenu("liste des Produits", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e -> new ListProduitAchatForm().show());
+getToolbar().addMaterialCommandToSideMenu("Ajouter Fournisseur", FontImage.MATERIAL_GROUP_ADD, e -> new AddFournisseurForm().show());
+getToolbar().addMaterialCommandToSideMenu("liste des Fournisseurs", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new ListeFournisseursForm().show() );
+getToolbar().addMaterialCommandToSideMenu("Ajouter Bon D'entree", FontImage.MATERIAL_POST_ADD, e -> new AddBonEntreeForm().show());
+getToolbar().addMaterialCommandToSideMenu("liste des Bons D'entree", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new ListeBonsEntreeForm().show());
+getToolbar().addMaterialCommandToSideMenu("Ajouter Bon De retour", FontImage.MATERIAL_POST_ADD, e ->new AddBonRetourForm().show());
+getToolbar().addMaterialCommandToSideMenu("liste Bons De retour", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new ListeBonsRetourForm().show());
+getToolbar().addMaterialCommandToSideMenu("log-out", FontImage.MATERIAL_INFO, e ->new AuthentificationForm().show());
+
+
+     
+
     }
 
 }

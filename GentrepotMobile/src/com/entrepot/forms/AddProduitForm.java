@@ -16,8 +16,10 @@ import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
+import com.codename1.ui.Image;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.Style;
@@ -45,6 +47,7 @@ public class AddProduitForm extends Form {
         super("Ajouter Produit", BoxLayout.y());
         c = new ComboBox();
         Style s = UIManager.getInstance().getComponentStyle("TitleCommand");
+        CreationMenu();
         FontImage icone = FontImage.createMaterial(FontImage.MATERIAL_IMAGE, s);
 
         this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
@@ -104,7 +107,9 @@ public class AddProduitForm extends Form {
                     sca.setNom(c.getSelectedItem());
                     ch.setSousCategorieAchat(sca);
                     if (sc.addProduit(ch)) {
-                        Dialog.show("SUCCESS", "chauffeur sent", "OK", null);
+                        Dialog.show("SUCCESS", "Produit ajouté !", "OK", null);
+                        ListProduitAchatForm lp = new ListProduitAchatForm();
+                        lp.showBack();
                     }
 
                 } catch (NumberFormatException e) {
@@ -116,11 +121,11 @@ public class AddProduitForm extends Form {
 
         this.addAll(tfRef, tfLib, tfQ, tfC, tfQss, tfDpa, tfTva, tfDim, tfDes, tfTc, tfPv, c, img, btn);
 
-        this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
+      //  this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
 
-            new HomeAchat().show();
+       //     new HomeAchat().show();
 
-        });
+       // });
 
         img.addActionListener(e -> {
 
@@ -147,6 +152,28 @@ public class AddProduitForm extends Form {
         });
 
        // show();
+
+    }
+    public void CreationMenu() {
+
+        Image icon = theme.getImage("resp7.png");
+        Container topBar = BorderLayout.east(new Label(icon));
+        topBar.add(BorderLayout.SOUTH, new Label("Responsable Achat...", "SidemenuTagline"));
+
+        topBar.setUIID("SideCommand");
+        getToolbar().addComponentToSideMenu(topBar);
+        getToolbar().addMaterialCommandToSideMenu("Ajouter Produit", FontImage.MATERIAL_ADD_CIRCLE, e -> new AddProduitForm().show()); 
+getToolbar().addMaterialCommandToSideMenu("liste des Produits", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e -> new ListProduitAchatForm().show());
+getToolbar().addMaterialCommandToSideMenu("Ajouter Fournisseur", FontImage.MATERIAL_GROUP_ADD, e -> new AddFournisseurForm().show());
+getToolbar().addMaterialCommandToSideMenu("liste des Fournisseurs", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new ListeFournisseursForm().show() );
+getToolbar().addMaterialCommandToSideMenu("Ajouter Bon D'entree", FontImage.MATERIAL_POST_ADD, e -> new AddBonEntreeForm().show());
+getToolbar().addMaterialCommandToSideMenu("liste des Bons D'entree", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new ListeBonsEntreeForm().show());
+getToolbar().addMaterialCommandToSideMenu("Ajouter Bon De retour", FontImage.MATERIAL_POST_ADD, e ->new AddBonRetourForm().show());
+getToolbar().addMaterialCommandToSideMenu("liste Bons De retour", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, e ->new ListeBonsRetourForm().show());
+getToolbar().addMaterialCommandToSideMenu("log-out", FontImage.MATERIAL_INFO, e ->new AuthentificationForm().show());
+
+
+     
 
     }
 
