@@ -95,6 +95,9 @@ public class AddOrdreForm extends Form {
         Label labelDateRetour = new Label("Date retour");
         Picker datePickerR = new Picker();
         datePickerS.setType(Display.PICKER_TYPE_DATE);
+        
+        Label lid = new Label("numero ordre");
+        TextField textId = new TextField("");
 
         btn.addActionListener(new ActionListener() {
             @Override
@@ -110,13 +113,19 @@ public class AddOrdreForm extends Form {
 
                 OrdreMission ordreMission = new OrdreMission( v, ch, aideChauffeur, new Date(), datePickerS.getDate(), datePickerR.getDate());
 
+                ordreMission.setId(Integer.parseInt(textId.getText()));
+                
                 // System.out.println(ordreMission);
                               sc.addOrdreMission(ordreMission);
             }
             
         });
+        
+        
+        
+                
 
-        c.addAll(textVehicule, comboV, textChauffeur, comboCh, textAideChauf, comboAide, labelDateSortie, datePickerS, labelDateRetour, datePickerR, btn);
+        c.addAll(lid,textId,textVehicule, comboV, textChauffeur, comboCh, textAideChauf, comboAide, labelDateSortie, datePickerS, labelDateRetour, datePickerR, btn);
 
         this.add(c);
           this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {

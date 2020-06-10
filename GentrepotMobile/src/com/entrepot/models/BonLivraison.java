@@ -39,6 +39,12 @@ public class BonLivraison {
 
     public BonLivraison() {
     }
+
+    public BonLivraison(int id) {
+        this.id = id;
+    }
+
+   
     
     
     

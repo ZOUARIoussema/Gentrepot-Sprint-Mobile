@@ -96,7 +96,12 @@ public class ServiceVehicule {
                 String etat = obj.get("etat").toString();
                 int capacite = (int) Float.parseFloat(obj.get("capacite").toString());
                 int matricule = (int) Float.parseFloat(obj.get("matricule").toString());
-                tasks.add(new Vehicule(etat, matricule, capacite, type));
+                int id = (int) Float.parseFloat(obj.get("id").toString());
+                
+                Vehicule v =new Vehicule(etat, matricule, capacite, type);
+                v.setId(id);
+                
+                tasks.add(v);
             }
 
         } catch (IOException ex) {
