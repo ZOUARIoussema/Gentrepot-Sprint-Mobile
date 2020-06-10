@@ -10,14 +10,17 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
+
 import com.codename1.ui.events.ActionListener;
 import com.entrepot.models.AideChauffeur;
+import com.entrepot.models.BonLivraison;
 import com.entrepot.models.Chauffeur;
 import com.entrepot.models.OrdreMission;
 import com.entrepot.models.Vehicule;
 import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -39,7 +42,20 @@ public class ServiceOrdreMission {
         request = DataSource.getInstance().getRequest();
     }
     public boolean addOrdreMission (OrdreMission o) {
-        String url = Statics.BASE_URL + "/apiordre/ajout"+"?vehicule="+ o.getVehicule()+ "&chauffeur=" + o.getChauffeur()+ "&Aidechauffeur=" + o.getAideChauffeur() + "&dateCreation=" +o.getDateCreation() + "&dateSortie=" +o.getDateSortie() + "&dateRetour=" +o.getDateRetour() ;
+        
+        
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        
+        String dateRString = format.format(o.getDateRetour());
+        
+          String dateSString = format.format(o.getDateSortie());
+        
+        
+        
+        
+        String url = Statics.BASE_URL + "/apiordre/ajout"+"?vehicule="+ o.getVehicule().getId()+ "&chauffeur=" + o.getChauffeur().getCin()+ "&Aidechauffeur=" + o.getAideChauffeur().getCin()
+                + "&dateCreation=" +o.getDateCreation() + "&dateSortie=" +dateSString + "&dateRetour=" +dateRString
+                +"&id="+o.getId();
   
          System.out.println(url);
         
@@ -80,24 +96,48 @@ public class ServiceOrdreMission {
 
             JSONParser jp = new JSONParser();
             Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
-
             List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
             for (Map<String, Object> obj : list) {
                 
                
-                int mat = Integer.parseInt(obj.get("matricule").toString());
+               /* int mat = Integer.parseInt(obj.get("matricule").toString());
                 Vehicule v = sv.getVehiculeByMat(mat);
                 
                 String cin = (obj.get("cin").toString());
                 Chauffeur ch = c.getChauffeurByCin(cin);
                 
                String Cin =(obj.get("cin").toString());
-                AideChauffeur cha = ca.getAideChauffeurByCin(Cin);
-                 Date dateSortie = (Date) (obj.get("datesortie"));
+                AideChauffeur cha = ca.getAideChauffeurByCin(Cin);*/
+               
+                Map<String, Object> b = (Map<String, Object>) obj.get("bondelivraison ");
+                int BonLiv = (int) Float.parseFloat(b.get("id").toString());
+                
+                  Map<String, Object> bl = (Map<String, Object>) obj.get("AideChauffeur ");
+                String aide = (bl.get("cin").toString());
+               
+                 Map<String, Object> bliv = (Map<String, Object>) obj.get("Chauffeur ");
+                String chauff= (bliv.get("cin").toString());
+                
+               Map<String, Object> bli = (Map<String, Object>) obj.get("vehicule ");
+                int v = (int) Float.parseFloat(bli.get("id").toString());
+                
+                 /*Date dateSortie = (Date) (obj.get("datesortie"));
                   Date dateRetour = (Date) (obj.get("dateretour"));
-                   Date dateCreation = (Date) (obj.get("datecreation"));
-             
-                tasks.add(new OrdreMission(v, ch, cha, dateCreation,dateSortie, dateRetour));
+                   Date dateCreation = (Date) (obj.get("datecreation"));*/
+                 
+                  Map<String, Object> dated = (Map<String, Object>) obj.get("datecreation");
+                float da = Float.parseFloat(dated.get("timestamp").toString());
+                Date dateCreation = new Date((long) (da - 3600) * 1000);
+                
+             Map<String, Object> date = (Map<String, Object>) obj.get("datesortie");
+                float dat = Float.parseFloat(date.get("timestamp").toString());
+                 Date dateSortie = new Date((long) (dat - 3600) * 1000);
+                 
+                   Map<String, Object> d= (Map<String, Object>) obj.get("dateretour"); 
+                 float datr = Float.parseFloat(d.get("timestamp").toString());
+                 Date dateRetour = new Date((long) (datr - 3600) * 1000);
+                
+                tasks.add(new OrdreMission(new Vehicule(v), new Chauffeur(chauff), new AideChauffeur(aide), dateCreation, dateSortie, dateRetour, (List<BonLivraison>) new BonLivraison(BonLiv)));
             }
 
         } catch (IOException ex) {
