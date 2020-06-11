@@ -52,6 +52,11 @@ public class BonLivraison {
         this.prenom = prenom;
         this.commandeVente = commandeVente;
     }
+    public BonLivraison(int id) {
+        this.id = id;
+    }
+
+   
     
     
     

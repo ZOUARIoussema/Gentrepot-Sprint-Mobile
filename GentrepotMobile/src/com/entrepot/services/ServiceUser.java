@@ -19,8 +19,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
- 
-
 
 /**
  *
@@ -38,10 +36,12 @@ public class ServiceUser {
     }
 
     public boolean addUser(User user) {
-        String url = Statics.BASE_URL + "/apiUser/add?username=" + user.getUsername() + "&email=" + user.getEmail()
-                + "&password=" +Password.hashPassword(user.getPassword())+"&role="+user.getRole() ;
-        request.setUrl(url);
         
+       
+        String url = Statics.BASE_URL + "/apiUser/add?username=" + user.getUsername() + "&email=" + user.getEmail()
+                + "&password=" + Password.hashPassword(user.getPassword()) + "&role=" + user.getRole();
+        request.setUrl(url);
+
         System.out.println(url);
 
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -57,15 +57,15 @@ public class ServiceUser {
         NetworkManager.getInstance().addToQueueAndWait(request);
 
         return responseResult;
-    }
-    
-    
-    
-     public boolean modifierUser(User user) {
-        String url = Statics.BASE_URL + "/apiUser/update?id=" + user.getId() + "&paswd=" + Password.hashPassword(user.getPassword());
-             
-        request.setUrl(url);
         
+       
+    }
+
+    public boolean modifierUser(User user) {
+        String url = Statics.BASE_URL + "/apiUser/update?id=" + user.getId() + "&paswd=" + Password.hashPassword(user.getPassword());
+
+        request.setUrl(url);
+
         System.out.println(url);
 
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -118,7 +118,7 @@ public class ServiceUser {
                 //String emailCanonical = obj.get("emailCanonical").toString();
                 String password = obj.get("password").toString();
                 String roles = obj.get("roles").toString();
-                users.add(new User(id, username, email, username, email,password, roles));
+                users.add(new User(id, username, email, username, email, password, roles));
             }
 
         } catch (IOException ex) {
@@ -130,50 +130,52 @@ public class ServiceUser {
     public User findUser(String login, String password) {
 
         User u = null;
-          
-            
-        for(User us :this.getAllUsers() ){
-            
-             
-            
-           if( us.getUsername().equals(login)&&Password.checkPassword(password, us.getPassword()))
-           {
-               u=us;
-               return u;
-           }           
+
+        for (User us : this.getAllUsers()) {
+
+            if (us.getUsername().equals(login) && Password.checkPassword(password, us.getPassword())) {
+                u = us;
+                return u;
+            }
         }
-                
+
         return u;
 
     }
-    
-    
+
     public User findUserLoginMail(String login, String adresseMail) {
 
         User u = null;
-          
-            
-        for(User us :this.getAllUsers() ){
-            
-             
-            
-           if( us.getUsername().equals(login)&&us.getEmail().equals(adresseMail))
-           {
-               u=us;
-               return u;
-           }           
+
+        for (User us : this.getAllUsers()) {
+
+            if (us.getUsername().equals(login) && us.getEmail().equals(adresseMail)) {
+                u = us;
+                return u;
+            }
         }
-                
+
         return u;
 
     }
-    
-    
-    
-     
 
-    
-    
-    
+    public boolean verifUserLoginMail(User u) {
+
+        for (User user : this.getAllUsers()) {
+
+            if (user.getEmail().equals(u.getEmail())) {
+                Dialog.show("Erreur", "adresse mail déjà existe  ! ", "cancel", "ok");
+                return false;
+            }
+
+            if (user.getUsername().equals(u.getUsername())) {
+                Dialog.show("Erreur", "non d'utilisateur déjà existe  ! ", "cancel", "ok");
+                return false;
+            }
+
+        }
+
+        return true;
+    }
 
 }
