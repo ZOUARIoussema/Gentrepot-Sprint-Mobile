@@ -48,13 +48,13 @@ import java.util.Random;
  *
  * @author Mohamed
  */
-public class ResevasionMecForm extends Form {
+public class SMSForm extends Form {
     public static String codex;
     public static final String ACCOUNT_SID = "AC259bf45943274ddfdde68e37a8ad9a13";
-    public static final String AUTH_TOKEN = "0d2eedce28c022d4431bdb73bf253155";
+    public static final String AUTH_TOKEN = "4abfada1bfe1402fde7e64cf13d1c81e";
 
 
-    public ResevasionMecForm(Resources res) {
+    public SMSForm(Resources res) {
         super(new BorderLayout());
         Toolbar tb = new Toolbar(true);
         setToolbar(tb);

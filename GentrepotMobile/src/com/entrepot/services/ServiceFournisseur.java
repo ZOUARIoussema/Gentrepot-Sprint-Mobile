@@ -60,7 +60,7 @@ public class ServiceFournisseur {
         
     }else{
             responseResult= false;
-            Dialog.show("Alerte", "existe deja", "OK", null);
+            Dialog.show("Alerte", "Ce fournisseur existe deja !", "OK", null);
         }
      return responseResult;   
     }

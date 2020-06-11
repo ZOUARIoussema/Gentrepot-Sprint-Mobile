@@ -55,7 +55,7 @@ public class EditFournisseurForm extends Form {
                 f.setMatriculeFiscale(matriculeFiscale.getText());
                 f.setCodePostale(Integer.parseInt(codePostale.getText()));
                if(ws.editFournisseur(f)){
-                Dialog.show("SUCCESS", "Fournisseur modifié", "OK", null);
+                Dialog.show("SUCCESS", "Fournisseur modifié !", "OK", null);
                 ListeFournisseursForm lf = new ListeFournisseursForm();
                 lf.showBack();
                }

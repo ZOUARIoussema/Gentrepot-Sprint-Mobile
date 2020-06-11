@@ -42,66 +42,10 @@ public class statForm extends Form{
 
     public void CreationMenu() {
 
-        Image icon = theme.getImage("iconeUser.png").scaled(400, 400);
-        Container topBar = BorderLayout.east(new Label(icon));
-        topBar.add(BorderLayout.SOUTH, new Label("Agent de caisse", "SidemenuTagline"));
-
-        topBar.setUIID("SideCommand");
-        getToolbar().addComponentToSideMenu(topBar);
-
-        this.getToolbar().setUIID("SideCommande");
-
-       /* this.getToolbar().addCommandToOverflowMenu("Modifier Profile", null, (evt) -> {
-
-            new ModifierProfilForm().show();
-        });
-
-        this.getToolbar().addMaterialCommandToSideMenu("Ajouter Inventaire Caisse", FontImage.MATERIAL_ADD, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-
-                new AjouterInventaireCaisseForm().show();
-
-            }
-        });
-
-        this.getToolbar().addMaterialCommandToSideMenu("Liste Inventaire Caisse", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-
-                new ListeInventaireCaisseForm().show();
-
-            }
-        });
-        this.getToolbar().addMaterialCommandToSideMenu("Ajouter Lettre de relance", FontImage.MATERIAL_ADD, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-
-                new AjouterLettreDeRelanceForm().show();
-
-            }
-        });
-        this.getToolbar().addMaterialCommandToSideMenu("Liste lettre de relance", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-
-                new ListeLettreDeRelanceForm().show();
-
-            }
-        });
-
-        this.getToolbar().addMaterialCommandToSideMenu("Deconnecter", FontImage.MATERIAL_EXIT_TO_APP, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-
-                new AuthentificationForm().show();
-
-            }
-        });*/
         this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
              new ListProduitAchatForm().showBack();
         });
-        //this.getToolbar().getStyle().setBgColor(0xD3D3D3);
+        
 
     }
 
@@ -124,7 +68,7 @@ public class statForm extends Form{
         renderer.setShowLabels(true);
         renderer.setLabelsTextSize(40);
         renderer.setLegendTextSize(40);
-        renderer.setChartTitle("Statistique quantite produit");
+        renderer.setChartTitle("Statistique produits par categorie");
 
         renderer.setScale((float) 0.75);
 

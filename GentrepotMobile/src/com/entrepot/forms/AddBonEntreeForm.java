@@ -26,17 +26,24 @@ import com.entrepot.models.BonRetour;
 import com.entrepot.models.CommandeApp;
 import com.entrepot.services.ServiceBonEntree;
 import com.entrepot.services.ServiceProduitAchat;
+import com.twilio.Twilio;
+import com.twilio.type.PhoneNumber;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
+import java.util.Random;
 
 /**
  *
  * @author Mohamed
  */
 public class AddBonEntreeForm extends Form {
+    public static String codex;
+    public static final String ACCOUNT_SID = "AC259bf45943274ddfdde68e37a8ad9a13";
+    public static final String AUTH_TOKEN = "4abfada1bfe1402fde7e64cf13d1c81e";
+    String phonenumber = "+21625180502";
 
     Resources theme = UIManager.initFirstTheme("/themeLogistique");
     ComboBox<String> c;
@@ -90,6 +97,18 @@ public class AddBonEntreeForm extends Form {
             Date da = datePicker.getDate();
             Date da1 = datePicker1.getDate();
             Date da2 = datePicker2.getDate();
+            
+            
+            if ( da.getTime()>da2.getTime() ){
+                System.out.println("mmmmmmm");
+            
+           }
+            
+            if ( da1.getTime()>da.getTime() ){
+                System.out.println("ffffff");
+            
+           }
+             
             String st1 = df.format(da);
             String st2 = df.format(da1);
             String st3 = df.format(da2);
@@ -98,19 +117,62 @@ public class AddBonEntreeForm extends Form {
             ca.setNumeroC(Integer.parseInt(c.getSelectedItem()));
             
             be.setCap(Integer.parseInt(c.getSelectedItem()));
+            System.out.println(Integer.parseInt(c.getSelectedItem())+"***"+st1+"***"+st3+"***"+st2);
+            
+            
             be.setDate(st1);
             be.setDateExpiration(st3);
-            be.setDateExpiration(st2);
+            be.setDateProduction(st2);
             ServiceBonEntree sc = new ServiceBonEntree();
             
+            System.out.println(be.getCap()+"***"+be.getDate()+"***"+be.getDateProduction()+"***"+be.getDateExpiration());
+            
+            if ( da1.getTime()>da.getTime() ){
+                System.out.println("ffffff");
+                Dialog.show("ERROR", "verifier la date de production !", "OK", null);
+            
+           }
+            
+            else if ( da.getTime()>da2.getTime() ){
+                System.out.println("mmmmmmm");
+                Dialog.show("ERROR", "verifier la date d'expiration !", "OK", null);
+            
+           }
+            else{
             if (sc.addBonEntree(be)) {
+                
                         Dialog.show("SUCCESS", "Bon d'entree ajouté !", "OK", null);
+                        
+                        System.out.println("=========================");
+                String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+                StringBuilder salt = new StringBuilder();
+                Random rnd = new Random();
+                while (salt.length() < 5) { // length of the random string.
+                    int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+                    salt.append(SALTCHARS.charAt(index));
+                }
+                String saltStr = salt.toString();
+                Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+                com.twilio.rest.api.v2010.account.Message messages = com.twilio.rest.api.v2010.account.Message.creator(new PhoneNumber(phonenumber),
+                        new PhoneNumber("+19286123819"),"Un bon d'entree correspondand à la commande d'approvisionnement numero: "+be.getCap()+" a ete cree le "+be.getDate()).create();
+                //"un client veux de contacter : " + phonenumber + "," + saltStr
+                codex = saltStr;
+                System.out.println("======================");
+                System.out.println("======================");
+                System.out.println("======================");
+                System.out.println(codex);
+                Dialog.show("succes", "Un sms a bien éte envoyer !", "ok", null);
+                
+                        
+                        
+                       
             
              ListeBonsEntreeForm lb = new ListeBonsEntreeForm();
              lb.showBack();}
             
 else {
                 Dialog.show("Erreur", "Vérifiez vos informations", "Ok", null);
+            }
             }
             
         });
