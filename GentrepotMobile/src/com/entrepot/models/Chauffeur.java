@@ -29,6 +29,10 @@ public class Chauffeur {
         this.voyage = voyage;
         this.etat = etat;
     }
+
+    public Chauffeur() {
+    }
+    
     
      public Chauffeur(String cin, String nom, String prenom, String adresse) {
         this.cin = cin;

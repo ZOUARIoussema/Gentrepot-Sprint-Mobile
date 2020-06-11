@@ -5,6 +5,7 @@
  */
 package com.entrepot.forms;
 
+import com.codename1.components.InfiniteProgress;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.FontImage;
@@ -41,19 +42,24 @@ public class FormStockageHome extends Form{
         });
         
         getToolbar().addMaterialCommandToLeftSideMenu("Gestion commandes d'approvisionnement", FontImage.MATERIAL_LOCAL_SHIPPING, ev->{
+            Dialog ip = new InfiniteProgress().showInifiniteBlocking();
             new FormMenuCommandeApprovisionnement(this).show();
         });
         
         getToolbar().addMaterialCommandToLeftSideMenu("Gestion emplacements", FontImage.MATERIAL_ROOM, ev->{
+            Dialog ip = new InfiniteProgress().showInifiniteBlocking();
             new FormMenuEmplacement(this).show();
         });
         
         getToolbar().addMaterialCommandToLeftSideMenu("Gestion inventaires", FontImage.MATERIAL_ADD, ev->{
+            Dialog ip = new InfiniteProgress().showInifiniteBlocking();
             new FormMenuInventaire(this).show();
         });
         
-        getToolbar().addMaterialCommandToLeftSideMenu("Gestion pertes", FontImage.MATERIAL_TRENDING_DOWN, ev->{
-            new FormMenuPerte(this).show();
+        getToolbar().addMaterialCommandToLeftSideMenu("Gestion pertes", FontImage.MATERIAL_TRENDING_DOWN, ev->{                        
+            Dialog ip = new InfiniteProgress().showInifiniteBlocking();
+               new FormMenuPerte(this).show();            
+                       
         });
                 
         getToolbar().addCommandToRightBar("Logout", null, ev->{

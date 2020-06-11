@@ -5,18 +5,28 @@
  */
 package com.entrepot.forms;
 
+import com.codename1.charts.ChartComponent;
+import com.codename1.charts.models.CategorySeries;
+import com.codename1.charts.renderers.DefaultRenderer;
+import com.codename1.charts.renderers.SimpleSeriesRenderer;
+import com.codename1.charts.util.ColorUtil;
+import com.codename1.charts.views.PieChart;
+import com.codename1.components.InfiniteProgress;
 import com.codename1.components.MultiButton;
 import com.codename1.components.SpanLabel;
 import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.Button;
 import com.codename1.ui.ComboBox;
 import static com.codename1.ui.Component.CENTER;
+import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import static com.codename1.ui.layouts.BoxLayout.y;
 import com.codename1.ui.layouts.FlowLayout;
@@ -37,153 +47,131 @@ import java.util.Map;
  * @author guiforodrigue
  */
 public class FormMenuPerte extends Form{
-    
-     Resources theme = UIManager.initFirstTheme("/themeStockage");
+    ServiceLignePerte slp = new ServiceLignePerte();
+    ArrayList<LignePerte> llp = new ArrayList<>();
+    Resources theme = UIManager.initFirstTheme("/themeStockage");
     
     static int i = 0;
     public FormMenuPerte(Form previous){
         setTitle("GESTION DES PERTES");
-        setLayout(new FlowLayout(CENTER, CENTER));
+        setLayout(new BorderLayout());
         
-        
-        Form ajout = new Form("PASSER EN PERTE", BoxLayout.y());
-        Form liste = new Form("LISTE DES PERTES", BoxLayout.y());
-        Form filtre = new Form("FILTREZ LES PERTE", BoxLayout.y());
+        Container menu = new Container(BoxLayout.y());
+        //menu.add(new InfiniteProgress());                      
         Button btnAjout = new Button("PASSER EN PERTE");
+        
         Button btnLister = new Button("LISTEZ LES PERTES");
         Button btnFiltre = new Button("FILTREZ LES PERTES");
-        this.add(btnAjout);
-        this.add(btnLister);
-        this.add(btnFiltre);
+        Label lv = new Label("");
+        menu.add(lv);
+        menu.add(btnAjout);
+        menu.add(btnLister);
+        menu.add(btnFiltre);
         btnAjout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-               ajout.show();
+               new FormPasserEnPerte().show();
                
             }
         });
         getToolbar().addCommandToLeftBar("Back", null, ev->{
-            previous.showBack();
+            new FormStockageHome().show();
+            //previous.showBack();
         });
-        ajout.getToolbar().addCommandToLeftBar("Back", null, ev->{
-            this.showBack();
-        });
-        liste.getToolbar().addCommandToLeftBar("Back", null, ev->{
-            this.showBack();
-        });
+        
+        
         btnLister.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-               liste.show();
+               new FormListePerte().show();
                
             }
         });
         btnFiltre.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-               filtre.show();
+               new FormFiltrePerte().show();
                
             }
         });
+        Label l = new Label("Vue Glogale Sur Les pertes");
+        this.addComponent(BorderLayout.NORTH, menu);
         
-        String[] produits = { "Laptop", "Usb", "smartphone"};
-        MultiButton p = new MultiButton("Quelle produit...");
-        p.addActionListener(e -> {
-            Dialog d = new Dialog();
-            d.setLayout(BoxLayout.y());
-            d.getContentPane().setScrollableY(true);
-            for(int iter = 0 ; iter < produits.length ; iter++) {
-                MultiButton mb = new MultiButton(produits[iter]);
-                d.add(mb);
-                mb.addActionListener(ee -> {
-                    p.setTextLine1(mb.getTextLine1());
-                    d.dispose();
-                    p.revalidate();
-                });
-            }
-            d.showPopupDialog(p);
-        });
-        TextField txt1 = new TextField("","Qté");
-        String[] characters = { "Vol", "Hors usage", "Inconue"};
-        MultiButton b = new MultiButton("Quelle raison...");
-        b.addActionListener(e -> {
-            Dialog d = new Dialog();
-            d.setLayout(BoxLayout.y());
-            d.getContentPane().setScrollableY(true);
-            for(int iter = 0 ; iter < characters.length ; iter++) {
-                MultiButton mb = new MultiButton(characters[iter]);
-                d.add(mb);
-                mb.addActionListener(ee -> {
-                    b.setTextLine1(mb.getTextLine1());
-                    d.dispose();
-                    b.revalidate();
-                });
-            }
-            d.showPopupDialog(b);
-        });
-        Button btnAdd = new Button("Corbeille");
-        Button btnV = new Button("Valider");
-        ajout.add(p);
-        ajout.add(txt1);
-        ajout.add(b);
-        ajout.add(btnAdd);
+        this.addComponent(BorderLayout.SOUTH, this.createPieChartForm());
         
+    }    
+     
+    /**
+     * Creates a renderer for the specified colors.
+     * @param colors the colors
+     * @return
+     */
+    private DefaultRenderer buildCategoryRenderer(int[] colors) {
+          DefaultRenderer renderer = new DefaultRenderer();
+          renderer.setLabelsTextSize(50);
+          renderer.setLegendTextSize(50);
+          renderer.setMargins(new int[]{20, 30, 15, 0});
+          for (int color : colors) {
+          SimpleSeriesRenderer r = new SimpleSeriesRenderer();
+          r.setColor(color);
+          renderer.addSeriesRenderer(r);
+          }
+          return renderer;
+        }
+        /**
+         * Builds a category series using the provided values.
+         *
+         * @param titles the series titles
+         * @param values the values
+         * @return the category series
+         */
+        protected CategorySeries buildCategoryDataset(String title, int[] values) {
+          CategorySeries series = new CategorySeries(title);
+          
+          for (int i=0;i<values.length;i++) {
+              if (i==0) series.add("INCONNU: "+values[i]+"  " ,values[i]);
+              if (i==1) series.add("HORS USAGE: "+values[i]+"  " ,values[i]);
+              if (i==2) series.add("VOL: "+values[i] ,values[i]);
+          }
+          
+          return series;
+        }
+        public ChartComponent createPieChartForm() {
+          // Générer les valeurs
+          int vol = 0;
+          int inconnu = 0;
+          int horsUsage = 0;
+          llp = slp.getAllLPertes();
+          for(int i=0; i<llp.size();i++){
+              if(llp.get(i).getRaisonPerte().equals("Vol")) vol += llp.get(i).getQuantite();
+              if(llp.get(i).getRaisonPerte().equals("Hors usage")) horsUsage += llp.get(i).getQuantite();
+              if(llp.get(i).getRaisonPerte().equals("Inconue")) inconnu += llp.get(i).getQuantite();
+          }
+          int[] values = new int[]{inconnu, horsUsage, vol};
+          // Mettre le rendu en place
+          int[] colors = new int[]{ColorUtil.BLUE, ColorUtil.YELLOW, ColorUtil.rgb(255,0,0)};
+          DefaultRenderer renderer = buildCategoryRenderer(colors);
+          renderer.setZoomButtonsVisible(true);
+          renderer.setZoomEnabled(true);
+          renderer.setChartTitleTextSize(50);//20
+          renderer.setDisplayValues(true);
+          renderer.setShowLabels(true);
+          SimpleSeriesRenderer r = renderer.getSeriesRendererAt(0);
+          r.setGradientEnabled(true);
+          r.setGradientStart(0, ColorUtil.BLUE);
+          r.setGradientStop(0, ColorUtil.GREEN);
+          r.setHighlighted(true);
+          Label l = new Label("Vue Glogale Sur Les pertes");
+          
+          // Create the chart ... pass the values and renderer to the chart object.
+          PieChart chart = new PieChart(buildCategoryDataset("VUE GLOBALE SUR LES PERTE", values), renderer);
+          
+          // Wrap the chart in a Component so we can add it to a form
+          ChartComponent c = new ChartComponent(chart);
+          
+          return c;
+                   
+       }    
         
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");  
-        Date date = new Date();  
-        Perte pert = new Perte(formatter.format(date));
-        
-        btnAdd.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-               pert.getLignePertes().add(new LignePerte(pert,new ProduitAchat("C14"),Integer.valueOf(txt1.getText()),b.getTextLine1()));
-               i += 1;
-               ajout.add(new Label(i + "-" + pert.getLignePertes().get(i-1).getProduitAchat().getReference() + "->" + pert.getLignePertes().get(i-1).getRaisonPerte()));
-               p.setTextLine1("Quelle produit...");
-               txt1.setText("");
-               b.setTextLine1("Quelle raison...");
-               ajout.removeComponent(btnV);
-               ajout.add(btnV);
-            }
-        });
-        btnV.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-               ServicePerte sp = new ServicePerte();
-               ServiceLignePerte slp = new ServiceLignePerte();
-               boolean addsp = sp.addPerte(pert);
-               pert.setId(sp.getAllPertes().get(sp.getAllPertes().size()-1).getId());
-               for(int i=0;i<pert.getLignePertes().size();i++){
-                   boolean addslp = slp.addLPerte(pert.getLignePertes().get(i));
-               }
-               if (addsp) {
-                  Dialog.show("Info", "Perte enregistrée!", "OK", null); 
-               }
-               
-               
-            }
-        });
-        
-            ServicePerte sp = new ServicePerte();
-            ArrayList<Perte> lp = new ArrayList<>();
-            lp = sp.getAllPertes();
-            ServiceLignePerte slp = new ServiceLignePerte();
-            ArrayList<LignePerte> llp = new ArrayList<>();
-            llp = slp.getAllLPertes();
-            for(int i=0;i<lp.size();i++){
-                for(int j=0;j<llp.size();j++){
-                    if(lp.get(i).getId()==llp.get(j).getPerte().getId()){
-                        lp.get(i).getLignePertes().add(llp.get(j));
-                    }
-                }
-
-            }
-            for(int i=0;i<lp.size();i++){
-                liste.add(new Label(i+1 + "Perte du " + lp.get(i).getDate()));
-                for(int j=0;j<lp.get(i).getLignePertes().size();j++){
-                    liste.add(new Label(j+1 + "-" + lp.get(i).getLignePertes().get(j).getProduitAchat().getLibelle()) + " ," + lp.get(i).getLignePertes().get(j).getQuantite() + " ," + lp.get(i).getLignePertes().get(j).getRaisonPerte());
-                }
-            }
-             
-    }
+          
 }

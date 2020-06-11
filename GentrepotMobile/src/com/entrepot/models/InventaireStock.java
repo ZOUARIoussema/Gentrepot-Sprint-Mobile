@@ -17,12 +17,12 @@ public class InventaireStock {
     private int id;
     private ProduitAchat produitAchat;
     private Emplacement emplacement;
-    private String dateCreation;
+    private Date dateCreation;
     private int qunatiteInventiare;
     private int ecart;
     private int quantiteTheorique;
 
-   public InventaireStock(int id, ProduitAchat produitAchat, Emplacement emplacement, String dateCreation, int qunatiteInventiare, int ecart, int quantiteTheorique) {
+   public InventaireStock(int id, ProduitAchat produitAchat, Emplacement emplacement, Date dateCreation, int qunatiteInventiare, int ecart, int quantiteTheorique) {
         this.id = id;
         this.produitAchat = produitAchat;
         this.emplacement = emplacement;
@@ -38,7 +38,7 @@ public class InventaireStock {
         this.qunatiteInventiare = qunatiteInventiare;
     }
     
-    public InventaireStock(ProduitAchat produitAchat, Emplacement emplacement, String dateCreation, int qunatiteInventiare, int ecart, int quantiteTheorique) {
+    public InventaireStock(ProduitAchat produitAchat, Emplacement emplacement, Date dateCreation, int qunatiteInventiare, int ecart, int quantiteTheorique) {
         
         this.produitAchat = produitAchat;
         this.emplacement = emplacement;
@@ -72,11 +72,11 @@ public class InventaireStock {
         this.emplacement = emplacement;
     }
 
-    public String getDateCreation() {
+    public Date getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(String dateCreation) {
+    public void setDateCreation(Date dateCreation) {
         this.dateCreation = dateCreation;
     }
 

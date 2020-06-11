@@ -12,9 +12,12 @@ import com.codename1.ui.Toolbar;
 import java.io.IOException;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.io.NetworkEvent;
+import com.entrepot.forms.AddOrdreForm;
 import com.entrepot.forms.AjouterInventaireCaisseForm;
 import com.entrepot.forms.AuthentificationForm;
 import com.entrepot.forms.CreerCompteForm;
+import com.entrepot.forms.FormStockageHome;
+import com.entrepot.forms.HomeAchat;
 import com.entrepot.forms.HomeLogistiqueForm;
 import com.entrepot.forms.ListeLettreDeRelanceForm;
 import com.entrepot.forms.MenueAgentCaisseForm;
@@ -62,8 +65,10 @@ public class MyApplication {
         hi.add(new Label("Hi World"));
         hi.show();*/
 
-        new AuthentificationForm().show();
-         
+
+        //new AuthentificationForm().show();
+        new FormStockageHome().show();
+
     }
 
     public void stop() {

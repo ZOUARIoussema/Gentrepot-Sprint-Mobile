@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource majorVersion="1" minorVersion="11" useXmlUI="false">
+    <theme name="Theme">
+        <val key="@includeNativeBool" value="true" />
+        <val key="Button.bgColor" value="2a3d51" />
+        <border key="Button.border" type="empty" />
+        <val key="Button.fgColor" value="ffffff" />
+        <val key="Button.marUnit" value="2,2,2,2" />
+        <val key="Button.margin" value="1.0,1.0,1.0,1.0" />
+        <val key="Button.padUnit" value="2,2,2,2" />
+        <val key="Button.padding" value="1.0,1.0,1.0,1.0" />
+        <val key="Button.transparency" value="255" />
+        <val key="ChartComponent.bgColor" value="2a3d51" />
+        <border key="ChartComponent.border" type="empty" />
+        <val key="ChartComponent.fgColor" value="ffffff" />
+        <val key="ChartComponent.transparency" value="255" />
+        <val key="SideCommand.align" value="1" />
+        <val key="SideCommand.bgColor" value="2a3d51" />
+        <border key="SideCommand.border" type="empty" />
+        <val key="SideCommand.fgColor" value="ffffff" />
+        <val key="SideCommand.marUnit" value="2,2,2,2" />
+        <val key="SideCommand.margin" value="3.0,3.0,3.0,3.0" />
+        <val key="SideCommand.transparency" value="255" />
+        <val key="SideNavigationPanel.bgColor" value="2a3d51" />
+        <border key="SideNavigationPanel.border" type="empty" />
+        <val key="SideNavigationPanel.fgColor" value="ffffff" />
+        <val key="SideNavigationPanel.transparency" value="255" />
+        <border key="SignatureButton.border" type="empty" />
+        <val key="SignatureButton.fgColor" value="0" />
+        <val key="Title.fgColor" value="ffffff" />
+        <font key="Title.font" type="system" face="0" style="1" size="0" />
+        <val key="Title.textDecoration" value="16" />
+        <val key="Toolbar.bgColor" value="2a3d51" />
+        <border key="Toolbar.border" type="empty" />
+        <val key="Toolbar.fgColor" value="ffffff" />
+        <val key="Toolbar.transparency" value="255" />
+    </theme>
+</resource>

@@ -4,14 +4,11 @@
  * and open the template in the editor.
  */
 package com.entrepot.services;
-import org.json.JSONObject;
 import com.codename1.io.CharArrayReader;
 import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
-import com.codename1.l10n.DateFormat;
-import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.events.ActionListener;
 import com.entrepot.models.Perte;
 import com.entrepot.models.LignePerte;
@@ -19,12 +16,10 @@ import com.entrepot.models.ProduitAchat;
 import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import org.json.JSONArray;
 /**
  *
  * @author oussema
@@ -40,7 +35,7 @@ public class ServiceLignePerte {
     }
 
     public boolean addLPerte(LignePerte lpert) {
-        String url = Statics.BASE_URL + "/apiLignePerte/new?" + "refPro=" +lpert.getProduitAchat().getReference() + "&id=" +lpert.getPerte().getId() + "&quantite=" +lpert.getQuantite() + "&raisonPerte=" + lpert.getRaisonPerte();
+        String url = Statics.BASE_URL + "/apiLignePerte/new?refPro=" +lpert.getProduitAchat().getReference() + "&id=" +lpert.getPerte().getId() + "&quantite=" +lpert.getQuantite() + "&raisonPerte=" + lpert.getRaisonPerte();
 
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -57,7 +52,7 @@ public class ServiceLignePerte {
 
     public ArrayList<LignePerte> getAllLPertes() {
         String url = Statics.BASE_URL + "/apiLignePerte/all";
-
+                                          
         request.setUrl(url);
         request.setPost(false);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -73,7 +68,7 @@ public class ServiceLignePerte {
     }
 
     public boolean deleteLPerte(LignePerte l) {
-        String url = Statics.BASE_URL + " /apiLignePerte/delete?id=" + l.getId();
+        String url = Statics.BASE_URL + "/apiLignePerte/delete?id=" + l.getId();
 
         request.setUrl(url);
 
@@ -94,33 +89,40 @@ public class ServiceLignePerte {
         return responseResult;
     }
     public ArrayList<LignePerte> parseLComs(String jsonText) {
-        
+        try {
             lperts = new ArrayList<>();
 
-             JSONArray jsonArray = new JSONArray(jsonText);      
-             for(int i=0;i<jsonArray.length();i++)
-             {
-                JSONObject ob = jsonArray.getJSONObject(i);
-                int id = (int)Float.parseFloat(ob.get("id").toString());
-                
+            JSONParser jp = new JSONParser();
+            Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            for (Map<String, Object> ob : list) {
+
+                int id = (int) Float.parseFloat(ob.get("id").toString());
                 String raisonPerte = ob.get("raisonPerte").toString();
                 int quantite = (int)Float.parseFloat(ob.get("quantite").toString());
-                System.out.println(id); 
-                JSONObject produit  = new JSONObject(ob.get("produitAchat").toString());
-                ProduitAchat produitAchat = new ProduitAchat(produit.get("reference").toString());                
-                JSONObject pert  = new JSONObject(ob.get("perte").toString());
-                int idp = (int)Float.parseFloat(pert.get("id").toString());
                 
-                JSONObject dateCreation  = new JSONObject(pert.get("dateCreation").toString());                
-                float da = Float.parseFloat(dateCreation.get("timestamp").toString()); 
-                Date dCeation = new Date((long) (da - 3600) * 1000);                
-                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-                String dp = df.format(dCeation);
-                System.out.println(dp);
+                Map<String, Object> f = (Map<String, Object>) ob.get("produit");
+                String ref = f.get("reference").toString();
+                String libelle = f.get("libelle").toString();
+                ProduitAchat produitAchat = new ProduitAchat(ref, libelle);
+                Map<String, Object> p = (Map<String, Object>) ob.get("perte");
+                int idp = (int)Float.parseFloat(p.get("id").toString());
+                
+                Map<String, Object> dated = (Map<String, Object>) p.get("dateCreation");
+                float da = Float.parseFloat(dated.get("timestamp").toString());
+                Date dp = new Date((long) (da - 3600) * 1000);
                 Perte perte = new Perte(idp,dp);
+                
                 lperts.add(new LignePerte(id, perte, produitAchat, quantite, raisonPerte));
+                
             }
 
+        } catch (IOException ex) {
+        }
+
         return lperts;
+        
+        
     }
 }

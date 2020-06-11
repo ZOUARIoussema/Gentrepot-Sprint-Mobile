@@ -16,6 +16,7 @@ import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +51,26 @@ public class ServiceChauffeur {
 
         return responseResult;
     }
-     public ArrayList<Chauffeur> getAllTasks() {
+    
+    
+    public ArrayList<Chauffeur> getChauf() {
+
+        ArrayList<Chauffeur> list = new ArrayList<>();
+
+        for (Chauffeur ch : this.getAllChauffeurs()) {
+
+            if (ch.getEtat().equals("disponible")) {
+                list.add(ch);
+            }
+        }
+
+        return list;
+
+    }
+    
+    
+    
+     public ArrayList<Chauffeur> getAllChauffeurs() {
         String url = Statics.BASE_URL + "/apichauf/affiche";
 
         request.setUrl(url);
@@ -93,5 +113,22 @@ public class ServiceChauffeur {
         return tasks;
     }
 
-    
+     public Chauffeur getChauffeurByCin(String ch1)
+    {
+       Chauffeur ch = new Chauffeur();
+       boolean t = false;
+       Iterator<Chauffeur> it=getAllChauffeurs().iterator();
+       
+       while ((it.hasNext())&(t==false))
+       {
+           if(it.next().getCin()==ch1)
+           {
+               ch=it.next();
+           }
+       }
+  
+       return ch;
+              
+       
+    }
 }

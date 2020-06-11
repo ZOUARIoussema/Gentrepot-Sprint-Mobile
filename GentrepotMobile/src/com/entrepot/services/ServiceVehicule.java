@@ -16,6 +16,7 @@ import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -24,16 +25,18 @@ import java.util.Map;
  * @author oussema
  */
 public class ServiceVehicule {
-     private ConnectionRequest request;
+
+    private ConnectionRequest request;
 
     private boolean responseResult;
     public ArrayList<Vehicule> tasks;
 
-    public ServiceVehicule () {
+    public ServiceVehicule() {
         request = DataSource.getInstance().getRequest();
     }
+
     public boolean addVehicule(Vehicule v) {
-        String url = Statics.BASE_URL + "/apiv/ajout" +"?matricule="+v.getMatricule()+ "&capacite=" + v.getCapacite()+ "&type=" + v.getType();
+        String url = Statics.BASE_URL + "/apiv/ajout" + "?matricule=" + v.getMatricule() + "&capacite=" + v.getCapacite() + "&type=" + v.getType();
         System.out.println(url);
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -47,9 +50,24 @@ public class ServiceVehicule {
 
         return responseResult;
     }
-    
-    public ArrayList<Vehicule> getAllTasks() {
-        String url = Statics. BASE_URL + "/apiv/affiche";
+
+    public ArrayList<Vehicule> getAllVehiculeD() {
+
+        ArrayList<Vehicule> list = new ArrayList<>();
+
+        for (Vehicule v : this.getAllVehicule()) {
+
+            if (v.getEtat().equals("disponible")) {
+                list.add(v);
+            }
+        }
+
+        return list;
+
+    }
+
+    public ArrayList<Vehicule> getAllVehicule() {
+        String url = Statics.BASE_URL + "/apiv/affiche";
 
         request.setUrl(url);
         request.setPost(false);
@@ -76,8 +94,8 @@ public class ServiceVehicule {
             for (Map<String, Object> obj : list) {
                 String type = obj.get("type").toString();
                 String etat = obj.get("etat").toString();
-                int capacite = (int)Float.parseFloat(obj.get("capacite").toString());
-                int matricule = (int)Float.parseFloat(obj.get("matricule").toString());
+                int capacite = (int) Float.parseFloat(obj.get("capacite").toString());
+                int matricule = (int) Float.parseFloat(obj.get("matricule").toString());
                 tasks.add(new Vehicule(etat, matricule, capacite, type));
             }
 
@@ -86,5 +104,24 @@ public class ServiceVehicule {
 
         return tasks;
     }
+    public Vehicule getVehiculeByMat(int m)
+    {
+       Vehicule v = new Vehicule();
+       boolean t = false;
+       Iterator<Vehicule> it=getAllVehicule().iterator();
+       
+       while ((it.hasNext())&(t==false))
+       {
+           if(it.next().getMatricule()==m)
+           {
+               v=it.next();
+           }
+       }
+  
+       return v;
+              
+       
+    }
     
+
 }

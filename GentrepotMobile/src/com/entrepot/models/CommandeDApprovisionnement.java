@@ -6,6 +6,7 @@
 package com.entrepot.models;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ public class CommandeDApprovisionnement {
     
     private int numeroC;
     private double totalC;
-    private String dateCreation;
+    private Date dateCreation;
     private String etat;
     private double tauxRemise;
     private double totalTva;
@@ -28,15 +29,19 @@ public class CommandeDApprovisionnement {
     
     
     
-     public CommandeDApprovisionnement(String dateCreation) {
+    public CommandeDApprovisionnement(Date dateCreation) {
         this.dateCreation = dateCreation;
+        this.ligneCommandeDApprovisionnements= new ArrayList<>();
     }
-  
     
-    
-    
+    public CommandeDApprovisionnement(int nc, Date dateCreation, Fournisseur fournisseur) {
+        this.numeroC = nc;
+        this.dateCreation = dateCreation;
+        this.fournisseur = fournisseur;
+    }
+       
 
-    public CommandeDApprovisionnement(int numeroC, double totalC, String dateCreation, String etat, double tauxRemise, double totalTva, Fournisseur fournisseur) {
+    public CommandeDApprovisionnement(int numeroC, double totalC, Date dateCreation, String etat, double tauxRemise, double totalTva, Fournisseur fournisseur) {
         this.numeroC = numeroC;
         this.totalC = totalC;
         this.dateCreation = dateCreation;
@@ -55,7 +60,7 @@ public class CommandeDApprovisionnement {
     
     
      
-    public CommandeDApprovisionnement(double totalC, String dateCreation, String etat, double tauxRemise, double totalTva, Fournisseur fournisseur) {
+    public CommandeDApprovisionnement(double totalC, Date dateCreation, String etat, double tauxRemise, double totalTva, Fournisseur fournisseur) {
         this.totalC = totalC;
         this.dateCreation = dateCreation;
         this.etat = etat;
@@ -63,6 +68,10 @@ public class CommandeDApprovisionnement {
         this.totalTva = totalTva;
         this.fournisseur = fournisseur;
         this.ligneCommandeDApprovisionnements= new ArrayList<>();
+    }
+
+    public CommandeDApprovisionnement() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
        
     
@@ -84,11 +93,11 @@ public class CommandeDApprovisionnement {
         this.totalC = totalC;
     }
 
-    public String getDateCreation() {
+    public Date getDateCreation() {
         return dateCreation;
     }
 
-    public void setDateCreation(String dateCreation) {
+    public void setDateCreation(Date dateCreation) {
         this.dateCreation = dateCreation;
     }
 

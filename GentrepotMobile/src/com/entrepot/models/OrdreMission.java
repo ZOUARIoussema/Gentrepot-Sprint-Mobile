@@ -37,6 +37,24 @@ public class OrdreMission {
         this.bonLivraisons=new ArrayList<>();
     }
     
+      public OrdreMission( Vehicule vehicule, Chauffeur chauffeur, AideChauffeur aideChauffeur, Date dateCeation, Date dateSortie, Date dateRetour) {
+      
+        this.vehicule = vehicule;
+        this.chauffeur = chauffeur;
+        this.aideChauffeur = aideChauffeur;
+        this.dateCreation = dateCeation;
+        this.dateSortie = dateSortie;
+        this.dateRetour = dateRetour;
+        this.bonLivraisons=new ArrayList<>();
+    }
+
+    public OrdreMission(int id, Date dateCreation, Date dateSortie, Date dateRetour) {
+        this.id = id;
+        this.dateCreation = dateCreation;
+        this.dateSortie = dateSortie;
+        this.dateRetour = dateRetour;
+    }
+    
     
     
      public OrdreMission(int id, Vehicule vehicule, Chauffeur chauffeur, AideChauffeur aideChauffeur, Date dateCreation, Date dateSortie, Date dateRetour, List<BonLivraison> bonLivraisons) {
@@ -133,6 +151,11 @@ public class OrdreMission {
 
     public void setBonLivraisons(List<BonLivraison> bonLivraisons) {
         this.bonLivraisons = bonLivraisons;
+    }
+
+    @Override
+    public String toString() {
+        return "OrdreMission{" + "id=" + id + ", vehicule=" + vehicule + ", chauffeur=" + chauffeur + ", aideChauffeur=" + aideChauffeur + ", dateCreation=" + dateCreation + ", dateSortie=" + dateSortie + ", dateRetour=" + dateRetour + ", bonLivraisons=" + bonLivraisons + '}';
     }
     
     
