@@ -40,6 +40,18 @@ public class BonLivraison {
     public BonLivraison() {
     }
 
+    @Override
+    public String toString() {
+        return "BonLivraison{" + "id=" + id + ", ordreMission=" + ordreMission + ", adresseLivraison=" + adresseLivraison + ", etat=" + etat + ", dateCreation=" + dateCreation + ", dateSortie=" + dateSortie + ", nom=" + nom + ", prenom=" + prenom + ", commandeVente=" + commandeVente + '}';
+    }
+
+    public BonLivraison(String adresseLivraison, String etat, String nom, String prenom, CommandeVente commandeVente) {
+        this.adresseLivraison = adresseLivraison;
+        this.etat = etat;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.commandeVente = commandeVente;
+    }
     public BonLivraison(int id) {
         this.id = id;
     }
