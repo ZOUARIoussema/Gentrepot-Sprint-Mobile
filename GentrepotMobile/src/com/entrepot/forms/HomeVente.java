@@ -28,10 +28,10 @@ import com.codename1.ui.util.Resources;
  */
 public class HomeVente extends Form{
     
-      Resources theme = UIManager.initFirstTheme("/themeVente");
-    
+      private Resources theme ;
      public HomeVente( Form previous ) {
-         
+        theme = UIManager.initFirstTheme("/themeVente");
+
          setTitle("Gentrepot shop");
          setLayout(new FlowLayout (CENTER));
          
@@ -64,6 +64,12 @@ public class HomeVente extends Form{
             getToolbar().addCommandToLeftSideMenu("Commandes", null,ev->{
                 
                new CommandeForm(this).show();
+             
+         });
+            
+            getToolbar().addCommandToLeftSideMenu("Favories", null,ev->{
+                
+               new FavoriesForm(this).show();
              
          });
      }

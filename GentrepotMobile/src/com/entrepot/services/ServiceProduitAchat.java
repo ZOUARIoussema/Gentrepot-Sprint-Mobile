@@ -27,7 +27,9 @@ import java.io.Reader;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,9 +48,41 @@ public class ServiceProduitAchat {
         request = DataSource.getInstance().getRequest();
     }
 
-     
-      public ArrayList<ProduitAchat> getAllProduits() {
-        String url = Statics.BASE_URL+ "/apiProduit/affiche";
+    public boolean addProduit(ProduitAchat p) {
+        String url = Statics.BASE_URL + "/apiP/addP";
+        request.setUrl(url);
+        request.addRequestHeader("X-Requested-With", "XMLHttpRequest");
+
+        request.addArgument("ref", p.getReference());
+        request.addArgument("lib", p.getLibelle());
+        request.addArgument("quantiteEnStock", p.getQuantiteStock() + "");
+        request.addArgument("classe", p.getClasse());
+        request.addArgument("quantiteStockSecurite", p.getQuantiteStockSecurite() + "");
+        request.addArgument("dernierPrixAchat", p.getDernierPrixAchat() + "");
+        request.addArgument("TVA", p.getTva() + "");
+        request.addArgument("dimension", p.getDimension() + "");
+        request.addArgument("description", p.getDescription());
+        request.addArgument("typeDeConditionnement", p.getTypeDeConditionnement());
+        request.addArgument("prixVente", p.getPrixVente() + "");
+        request.addArgument("image", p.getImage());
+        request.addArgument("sousCat",p.getSousCategorieAchat().getNom());
+        request.setPost(true);
+
+        System.out.println(url);
+
+         request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+        return responseResult;
+    }
+
+    public ArrayList<ProduitAchat> getAllProduits() {
+        String url = Statics.BASE_URL + "/apiProduit/affiche";
 
         request.setUrl(url);
         request.setPost(false);
@@ -126,6 +160,7 @@ public class ServiceProduitAchat {
            SousCategorieAchat sca = new SousCategorieAchat();
           
            sca.setNom((String)map1.get("name"));
+          
             p.setSousCategorieAchat(sca);
            
             listProduit.add(p);  
@@ -133,9 +168,54 @@ public class ServiceProduitAchat {
         return listProduit;
         
     }
+    
+    public  ArrayList<ProduitAchat> getAffProduitsSorted(Map m){
+        ArrayList<ProduitAchat> listProduit = new ArrayList<>();
+        ArrayList d = (ArrayList)m.get("produit");
+      
+
+        for(int i = 0; i<d.size();i++){
+            Map f =  (Map) d.get(i);
+            ProduitAchat p = new ProduitAchat();
+            
+            
+            
+            p.setReference((String)f.get("reference"));
+            p.setLibelle((String)f.get("libelle"));
+            Double ld = (Double) f.get("quantiteEnStock");
+            p.setQuantiteStock(ld.intValue());
+            p.setClasse((String) f.get("classe"));
+            Double ll = (Double) f.get("quantiteStockSecurite");
+            p.setQuantiteStockSecurite(ll.intValue());
+            p.setDernierPrixAchat((Double) f.get("dernierPrixAchat"));
+            p.setTva((Double) f.get("tVA"));
+            p.setDimension((Double) f.get("dimension"));
+            p.setDescription((String) f.get("description"));
+            p.setTypeDeConditionnement((String) f.get("typeDeConditionnement"));
+            p.setPrixVente((Double) f.get("prixVente"));
+            p.setImage((String)f.get("image"));
+            p.setImage1((String) f.get("image1"));
+            p.setImage2((String) f.get("image2"));
+            p.setImage3((String) f.get("image3"));
+            p.setImage4((String) f.get("image4"));
+            Map map1 = ((Map) f.get("sousCategorie"));
+            
+           
+           SousCategorieAchat sca = new SousCategorieAchat();
+          
+           sca.setNom((String)map1.get("name"));
+          
+            p.setSousCategorieAchat(sca);
+           
+            listProduit.add(p);  
+        }        
+        Collections.sort(listProduit);
+        return listProduit;
+        
+    }
 
     public static Map<String, Object> getResponse(String url) {
-        url = "http://127.0.0.1:8000/" + url;
+        url = Statics.BASE_URL + url;
 
         ConnectionRequest r = new ConnectionRequest();
 
@@ -162,7 +242,7 @@ public class ServiceProduitAchat {
     }
     
     public  ArrayList<SousCategorieAchat> getListSousCategorie(Map m){
-        ArrayList<SousCategorieAchat> listDisponibilite = new ArrayList<>();
+        ArrayList<SousCategorieAchat> listSousCat = new ArrayList<>();
         ArrayList d = (ArrayList)m.get("sousCategorie");
         System.out.println("roooooooooot "+d);
         //Map f =  (Map) d.get(0);
@@ -177,9 +257,9 @@ public class ServiceProduitAchat {
             
             p.setNom((String)f.get("name"));
             
-            listDisponibilite.add(p);  
+            listSousCat.add(p);  
         }        
-        return listDisponibilite;
+        return listSousCat;
         
     }
     
@@ -226,5 +306,86 @@ public class ServiceProduitAchat {
         }        
         return listcommande;
         
+    }
+    
+    public boolean editProduit(ProduitAchat p) {
+       String url = Statics.BASE_URL + "/apiP/editP" ;
+       request.setUrl(url);
+       request.addRequestHeader("X-Requested-With", "XMLHttpRequest");
+       
+        request.addArgument("ref", p.getReference());
+        request.addArgument("lib", p.getLibelle());
+        request.addArgument("quantiteEnStock", p.getQuantiteStock()+ "");
+        request.addArgument("classe", p.getClasse());
+        request.addArgument("quantiteStockSecurite", p.getQuantiteStockSecurite() + "");
+        request.addArgument("dernierPrixAchat", p.getDernierPrixAchat() + "");
+        request.addArgument("TVA", p.getTva()+ "");
+        request.addArgument("dimension", p.getDimension() + "");
+        request.addArgument("description", p.getDescription());
+        request.addArgument("typeDeConditionnement", p.getTypeDeConditionnement());
+        request.addArgument("prixVente", p.getPrixVente() + "");
+        request.addArgument("image", p.getImage());
+        request.addArgument("sousCat", p.getSousCategorieAchat().getNom()+"");
+        request.setPost(true);
+        System.out.println(url);
+       
+       request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return responseResult;
+    }
+    
+    public boolean deleteProd(ProduitAchat p) {
+        String url = Statics.BASE_URL + "/apiP/deleteP/" + p.getReference();
+                
+        request.setUrl(url);
+
+        System.out.println(url);
+
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+
+                System.out.println(request.getResponseCode());
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return responseResult;
+    }
+    
+    public Map<String, Integer> SousCatStat(){
+        HashMap<String, Integer> m = new HashMap<String, Integer>();
+
+       
+        Map x = this.getResponse("/listSousCat");
+
+        ArrayList<SousCategorieAchat> listc = this.getListSousCategorie(x);
+        for (SousCategorieAchat e : listc) {
+            int t = 0;
+            Map y = this.getResponse("/apiP/listP");
+            ArrayList<ProduitAchat> listeprod = this.getAffProduits(y);
+             for (ProduitAchat p : listeprod) {
+                 if(e.getNom().equals(p.getSousCategorieAchat().getNom())){
+                     t=t+1;
+                     
+                 }
+                 
+             }
+             m.put(e.getNom(), t);
+        }
+       
+        
+        
+        return m;
     }
 }

@@ -133,10 +133,14 @@ public class AuthentificationForm extends Form {
                     } else if (user.getRole().equals("[ROLE_RACHA, ROLE_USER]")) {
 
                         ToastBar.showMessage("Responsable achat connecter", FontImage.MATERIAL_STAR, 30000);
+                        new HomeAchat().show();
 
                     } else if (user.getRole().equals("[ROLE_RVENT, ROLE_USER]")) {
 
                         ToastBar.showMessage("Responsable vente connecter", FontImage.MATERIAL_STAR, 30000);
+                        
+                        
+                        
 
                     }
 

@@ -26,12 +26,12 @@ public class SingletonDataBase {
         
         try{
             
-            base = Database.openOrCreate("CartDB");
+            base = Database.openOrCreate("FavDB");
             
-            base.execute("Create Table if not exists cart("
+            base.execute("Create Table if not exists fav("
                     + "id text PRIMARY_KEY ,"
                     + "produit text,"
-                    + "quantite Integer,"
+                    
                     + "prix REAL,"
 
                     + "image text)" );

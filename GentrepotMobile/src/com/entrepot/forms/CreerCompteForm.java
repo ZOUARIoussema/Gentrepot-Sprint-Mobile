@@ -34,8 +34,7 @@ public class CreerCompteForm extends Form {
     Resources theme = UIManager.initFirstTheme("/themeTresorerie");
 
     public CreerCompteForm() {
-        
-        
+
         this.getToolbar().addCommandToLeftBar("Retour", null, (ev) -> {
             new AuthentificationForm().show();
 
@@ -50,43 +49,30 @@ public class CreerCompteForm extends Form {
         Button bValider = new Button("Valider");
 
         Validator v = new Validator();
-        
+
         v.setShowErrorMessageForFocusedComponent(true);
-      
+
         v.addConstraint(login, new LengthConstraint(1, "champ vide"));
         v.addConstraint(motPasse, new LengthConstraint(6, "longeur inferieur a six caractre"));
         v.addConstraint(adresseMail, RegexConstraint.validEmail("adreese mail invalide"));
-               
-        
-        
-       
 
         //RegexConstraint emailConstraint = new RegexConstraint("^[(a-zA-Z-0-9-\\_\\+\\.)]+@[(a-z-A-z)]+\\.[(a-zA-z)]{2,3}$", "Invalid Email Address");
         v.addSubmitButtons(bValider);
-       // v.setShowErrorMessageForFocusedComponent(true);
+        // v.setShowErrorMessageForFocusedComponent(true);
 
         this.setLayout(BoxLayout.y());
 
         this.setTitle("Creer compte");
-       
-        
-        
-        
-         this.setLayout(new FlowLayout(CENTER, CENTER));
-         
-         Container c  = new Container(BoxLayout.y());
-         
-         
-         ImageViewer image =  new ImageViewer(theme.getImage("adduser.png"));
-         
-         c.addAll(image,login, adresseMail, motPasse, bValider);
-      
-         
-         this.add(c);
-         
-         
-        
-        
+
+        this.setLayout(new FlowLayout(CENTER, CENTER));
+
+        Container c = new Container(BoxLayout.y());
+
+        ImageViewer image = new ImageViewer(theme.getImage("adduser.png"));
+
+        c.addAll(image, login, adresseMail, motPasse, bValider);
+
+        this.add(c);
 
         bValider.addActionListener(new ActionListener() {
             @Override
@@ -108,9 +94,12 @@ public class CreerCompteForm extends Form {
 
                 User u = new User(0, login.getText(), adresseMail.getText(), login.getText(), adresseMail.getText(), motPasse.getText(), "client");
 
-                if (serviceUser.addUser(u)) {
+                if (serviceUser.verifUserLoginMail(u)) {
 
-                    new AuthentificationForm().show();
+                    if (serviceUser.addUser(u)) {
+
+                        new AuthentificationForm().show();
+                    }
                 }
 
             }
