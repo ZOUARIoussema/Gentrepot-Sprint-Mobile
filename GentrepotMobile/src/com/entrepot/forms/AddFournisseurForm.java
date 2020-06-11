@@ -113,7 +113,7 @@ public class AddFournisseurForm extends Form {
         
          if (a.length() != 4) {
 
-            Dialog.show("Alerte", "Code postal comporte  chiffres", "OK", null);
+            Dialog.show("Alerte", "Code postal comporte 4 chiffres", "OK", null);
 
             return false;
         }
