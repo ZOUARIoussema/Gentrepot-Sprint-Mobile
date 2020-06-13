@@ -12,10 +12,12 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.events.ActionListener;
 import com.entrepot.models.CommandeVente;
+import com.entrepot.models.ProduitAchat;
 import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +26,8 @@ import java.util.Map;
  * @author oussema
  */
 public class ServiceCommandeVente {
-    private ConnectionRequest request;
+    
+  private ConnectionRequest request;
   private boolean responseResult;
     public ArrayList<CommandeVente> commande;
     public int id_commande;
@@ -35,7 +38,7 @@ public class ServiceCommandeVente {
     }
     public boolean ajoutercom(CommandeVente v){
         
-        String url = Statics.BASE_URL+ "/apiCommandeVente/ajout?totalC="+v.getTotalC()+"&etat="+v.getEtat()+"&dateC="+v.getDateC()+"&tauxRemise="+v.getTauxRemise()+"&ligneCommande="+v.getLigneCommande(); 
+        String url = Statics.BASE_URL+"/apiCommandeVente/ajout?totalC="+v.getTotalC()+"&etat="+v.getEtat()+"&dateC="+v.getDateC()+"&tauxRemise="+v.getTauxRemise()+"&ligneCommande="+v.getLigneCommande(); 
              System.out.println(url);
 
         request.setUrl(url);
@@ -62,7 +65,7 @@ public class ServiceCommandeVente {
      
      
       public ArrayList<CommandeVente> getAllCommandes() {
-        String url = Statics.BASE_URL+"/apiCommandeVente/affiche";
+        String url = "http://localhost/PROJET-SYMFONY-GENTREPOT/Gentrepot/web/app_dev.php/api/apiCommandeVente/affiche";
 
         request.setUrl(url);
         request.setPost(false);
@@ -87,13 +90,13 @@ public class ServiceCommandeVente {
 
             List<Map<String, Object>> list = (List<Map<String, Object>>)commandeListJson.get("root");
             for (Map<String, Object> obj : list) {
-                Double totalC = (double)Float.parseFloat(obj.get("1").toString());
+               // Double totalC = (double)Float.parseFloat(obj.get("1").toString());
 
                 String etat = obj.get("2").toString();
-
+                Integer id = (Integer)Integer.parseInt(obj.get("3").toString());
                
 
-                commande.add(new CommandeVente(totalC,etat));
+                commande.add(new CommandeVente(id,etat));
             }
 
         } catch (IOException ex) { 
@@ -104,7 +107,7 @@ public class ServiceCommandeVente {
     }
    
    public int getMaxIdCommnde() {
-        String url = Statics.BASE_URL+"/apiCommandeVente/max";
+        String url = "http://localhost/PROJET-SYMFONY-GENTREPOT/Gentrepot/web/app_dev.php/api/apiCommandeVente/max";
         request.setUrl(url);
         System.out.println(url);
         request.setPost(false);
@@ -137,5 +140,4 @@ public class ServiceCommandeVente {
 
         return id_commande;
     }
-    
 }

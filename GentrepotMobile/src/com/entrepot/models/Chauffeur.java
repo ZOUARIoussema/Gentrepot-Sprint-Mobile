@@ -32,6 +32,10 @@ public class Chauffeur {
 
     public Chauffeur() {
     }
+
+    public Chauffeur(String cin) {
+        this.cin = cin;
+    }
     
     
      public Chauffeur(String cin, String nom, String prenom, String adresse) {

@@ -14,6 +14,7 @@ import java.util.ArrayList;
  * @author oussema
  */
 public class LigneCommande {
+    
     public static ArrayList<ProduitAchat> pan ;
     
     private int id;
@@ -159,6 +160,7 @@ public class LigneCommande {
     }
 
      
+    
     
     
     

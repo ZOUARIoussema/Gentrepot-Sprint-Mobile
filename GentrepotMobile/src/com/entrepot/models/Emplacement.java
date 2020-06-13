@@ -40,7 +40,7 @@ public class Emplacement {
         
     }
     
-      public Emplacement(String adresse, int capaciteStockage, int quantiteStocker, String classe) {
+    public Emplacement(String adresse, int capaciteStockage, int quantiteStocker, String classe) {
         
         this.adresse = adresse;
         this.capaciteStockage = capaciteStockage;
@@ -49,9 +49,15 @@ public class Emplacement {
         
         
     }
+    public Emplacement(int id ,String adresse) {
+        
+        this.adresse = adresse;
+        this.id = id;
+               
+    }
       
       
-       public Emplacement(int id) {
+    public Emplacement(int id) {
         
         this.id = id;
        

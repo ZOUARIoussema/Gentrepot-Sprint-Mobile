@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author oussema
  */
-public class BonEntree {
+public class BonEntree implements Comparable<BonEntree>{
     
     
     
@@ -65,5 +65,11 @@ public class BonEntree {
     public String toString() {
         return "Bonentree{" + "id=" + id + ", date=" + date + ", dateProduction=" + dateProduction + ", dateExpiration=" + dateExpiration + ", cap=" + cap + '}';
     }
+
+    
+
+    @Override
+    public int compareTo(BonEntree o) {
+        return this.getDate().compareTo(o.getDate()); }
     
 }

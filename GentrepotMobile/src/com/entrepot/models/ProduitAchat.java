@@ -4,12 +4,13 @@
  * and open the template in the editor.
  */
 package com.entrepot.models;
+import java.lang.Math;
 
 /**
  *
  * @author oussema
  */
-public class ProduitAchat {
+public class ProduitAchat implements Comparable<ProduitAchat>{
 
     private String reference;
     private String libelle;
@@ -85,7 +86,10 @@ public class ProduitAchat {
     public ProduitAchat(String reference) {
         this.reference = reference;
     }
-    
+    public ProduitAchat(String reference, String libelle) {
+        this.reference = reference;
+        this.libelle = libelle;
+    }
      
     public ProduitAchat(String reference, String libelle, int quantiteStock,double prix) {
         this.reference = reference;
@@ -120,11 +124,6 @@ public class ProduitAchat {
         this.image = image;
     }
 
-
-    public ProduitAchat(String reference, String libelle) {
-        this.reference = reference;
-        this.libelle = libelle;
-    }
     
 
     public String getReference() {
@@ -261,6 +260,16 @@ public class ProduitAchat {
 
     public void setSousCategorieAchat(SousCategorieAchat sousCategorieAchat) {
         this.sousCategorieAchat = sousCategorieAchat;
+    }
+
+    @Override
+    public int compareTo(ProduitAchat o) {
+        if(this.prixVente < o.getPrixVente())
+          return -1;
+    else if(o.prixVente < this.prixVente)
+          return 1;
+    return 0; 
+   
     }
     
     

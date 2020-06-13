@@ -28,6 +28,10 @@ public class AideChauffeur {
 
     public AideChauffeur() {
     }
+
+    public AideChauffeur(String cin) {
+        this.cin = cin;
+    }
     
     
     

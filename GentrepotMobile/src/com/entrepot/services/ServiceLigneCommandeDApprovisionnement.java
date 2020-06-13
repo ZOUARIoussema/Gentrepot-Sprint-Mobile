@@ -10,13 +10,10 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
-import com.codename1.l10n.DateFormat;
-import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.events.ActionListener;
 import com.entrepot.models.CommandeDApprovisionnement;
+import com.entrepot.models.Fournisseur;
 import com.entrepot.models.LigneCommandeDApprovisionnement;
-import com.entrepot.models.LignePerte;
-import com.entrepot.models.Perte;
 import com.entrepot.models.ProduitAchat;
 import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
@@ -25,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import org.json.JSONArray;
 import org.json.JSONObject;
 /**
  *
@@ -74,7 +70,7 @@ public class ServiceLigneCommandeDApprovisionnement {
         return lcoms;
     }
 
-    public boolean deletePerte(LigneCommandeDApprovisionnement l) {
+    public boolean deleteCom(LigneCommandeDApprovisionnement l) {
         String url = Statics.BASE_URL + " /apiLigneCommandeDAp/delete?id=" + l.getId();
 
         request.setUrl(url);
@@ -96,32 +92,40 @@ public class ServiceLigneCommandeDApprovisionnement {
         return responseResult;
     }
     public ArrayList<LigneCommandeDApprovisionnement> parseLComs(String jsonText) {
-        lcoms = new ArrayList<>();
+        try {
+            lcoms = new ArrayList<>();
 
-             JSONArray jsonArray = new JSONArray(jsonText);      
-             for(int i=0;i<jsonArray.length();i++)
-             {
-                JSONObject ob = jsonArray.getJSONObject(i);
+            JSONParser jp = new JSONParser();
+            Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            for (Map<String, Object> ob : list) {
+
                 int id = (int)Float.parseFloat(ob.get("id").toString());
                 double prix = (double)Float.parseFloat(ob.get("prix").toString());
                 double tva = (double)Float.parseFloat(ob.get("tva").toString());
                 double total = (double)Float.parseFloat(ob.get("total").toString());
                 int quantite = (int)Float.parseFloat(ob.get("quantite").toString()); 
-                JSONObject produit  = new JSONObject(ob.get("produitAchat").toString());
-                ProduitAchat produitAchat = new ProduitAchat(produit.get("reference").toString());                
-                JSONObject com  = new JSONObject(ob.get("commandeDApprovisionnement").toString());
+                Map<String, Object> f = (Map<String, Object>) ob.get("produit");
+                String ref = f.get("reference").toString();
+                String libelle = f.get("libelle").toString();
+                ProduitAchat produitAchat = new ProduitAchat(ref, libelle); 
+                Map<String, Object> com = (Map<String, Object>) ob.get("commande");
                 int numeroC = (int)Float.parseFloat(com.get("numeroC").toString());
+                Map<String, Object> fo = (Map<String, Object>) com.get("fournisseur");
+                int idf = (int)Float.parseFloat(fo.get("id").toString());
+                String adrf = fo.get("adresseMail").toString();
+                Map<String, Object> dated = (Map<String, Object>) com.get("dateCreation");
+                float da = Float.parseFloat(dated.get("timestamp").toString());
+                Date dp = new Date((long) (da - 3600) * 1000);
+                //JSONObject dateCreation  = new JSONObject(ob.get("dateCreation").toString());                
                 
-                JSONObject dateCreation  = new JSONObject(ob.get("dateCreation").toString());                
-                float da = Float.parseFloat(dateCreation.get("timestamp").toString()); 
-                Date dCeation = new Date((long) (da - 3600) * 1000);                
-                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-                String dp = df.format(dCeation);
-                System.out.println(dp);
-                CommandeDApprovisionnement commandeDApprovisionnement = new CommandeDApprovisionnement(numeroC);
+                CommandeDApprovisionnement commandeDApprovisionnement = new CommandeDApprovisionnement(numeroC,dp,new Fournisseur(idf,adrf));
                 lcoms.add(new LigneCommandeDApprovisionnement( id, commandeDApprovisionnement, produitAchat, prix, quantite,  total, tva));
-
             }
+
+        } catch (IOException ex) {
+        }
 
         return lcoms;
        
