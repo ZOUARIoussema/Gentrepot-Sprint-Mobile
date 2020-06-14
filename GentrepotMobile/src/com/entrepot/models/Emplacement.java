@@ -26,7 +26,14 @@ public class Emplacement {
         this.classe = classe;
         this.entrepot = entrepot;
     }
-    
+    public Emplacement(int id, String adresse, int capaciteStockage, int quantiteStocker, String classe) {
+        this.id = id;
+        this.adresse = adresse;
+        this.capaciteStockage = capaciteStockage;
+        this.quantiteStocker = quantiteStocker;
+        this.classe = classe;
+        
+    }
     
     
       

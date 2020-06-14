@@ -117,20 +117,19 @@ public class FormMenuInventaire extends Form{
         }
         public ChartComponent createPieChartForm() {
           // Générer les valeurs
-          int A = 0;
+          int M = 0;
           int B = 0;
-          int C = 0;
           ServiceInventaireStock si = new ServiceInventaireStock();
           ArrayList<InventaireStock> s = new ArrayList<>();
+          
           s = si.getAllInvs();
           for(int i=0; i<s.size();i++){
-              if(s.get(i).getEmplacement().getClasse().equals("A")) A += s.get(i).getEcart();
-              if(s.get(i).getEmplacement().getClasse().equals("B")) B += s.get(i).getEcart();
-              if(s.get(i).getEmplacement().getClasse().equals("C")) C += s.get(i).getEcart();
+              if(s.get(i).getEcart() == 0) B++;
+              if(s.get(i).getEcart() != 0) M++;
           }
-          int[] values = new int[]{A, B, C};
+          int[] values = new int[]{B, M};
           // Mettre le rendu en place
-          int[] colors = new int[]{ColorUtil.GREEN, ColorUtil.YELLOW, ColorUtil.rgb(255,0,0)};
+          int[] colors = new int[]{ColorUtil.GREEN, ColorUtil.rgb(255,0,0)};
           DefaultRenderer renderer = buildCategoryRenderer(colors);
           renderer.setZoomButtonsVisible(true);
           renderer.setZoomEnabled(true);

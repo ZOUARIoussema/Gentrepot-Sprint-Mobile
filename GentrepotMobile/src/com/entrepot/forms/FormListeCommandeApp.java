@@ -6,9 +6,11 @@
 package com.entrepot.forms;
 
 import com.codename1.components.InfiniteProgress;
+import com.codename1.messaging.Message;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.Display;
 import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
@@ -74,7 +76,7 @@ public class FormListeCommandeApp extends Form{
            Button delete = new Button();           
            FontImage.setMaterialIcon(delete, FontImage.MATERIAL_DELETE);
            Button updat = new Button();
-           FontImage.setMaterialIcon(updat, FontImage.MATERIAL_UPDATE);
+           FontImage.setMaterialIcon(updat, FontImage.MATERIAL_EMAIL);
            Container content = BorderLayout.center(lgComField);
            
            content.add(BorderLayout.EAST, BoxLayout.encloseX(delete, updat));
@@ -89,7 +91,10 @@ public class FormListeCommandeApp extends Form{
                //ip.dispose();
            });
            updat.addActionListener(e -> {
-               
+                Message m = new Message(j+1 + "- " +lp.get(i).getLigneCommandeDApprovisionnements().get(j).getQuantite()+" "+ lp.get(i).getLigneCommandeDApprovisionnements().get(j).getProduitAchat().getLibelle());
+                //m.getAttachments().put(textAttachmentUri, "text/plain");
+                //m.getAttachments().put(imageAttachmentUri, "image/png");
+                Display.getInstance().sendMessage(new String[] {lp.get(i).getFournisseur().getAdresseMail()}, "COMMANDE D'APPROVISIONNEMENT", m);
            });
            hi.add(content);
     }

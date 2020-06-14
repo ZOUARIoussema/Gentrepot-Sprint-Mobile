@@ -30,7 +30,7 @@ import java.util.Map;
 public class ServiceFournisseur {
     private ConnectionRequest request;
     private boolean responseResult;
-    public ArrayList<Fournisseur> tasks;
+    public ArrayList<Fournisseur> fours;
     
     public ServiceFournisseur () {
         request = DataSource.getInstance().getRequest();
@@ -210,21 +210,26 @@ public class ServiceFournisseur {
         request.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
             public void actionPerformed(NetworkEvent evt) {
-                tasks = parseFours(new String(request.getResponseData()));
+                fours = parseFours(new String(request.getResponseData()));
                 request.removeResponseListener(this);
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(request);
 
-        return tasks;
+        return fours;
     }
     
-  
+    public Fournisseur chercherFour(ArrayList<Fournisseur> l, String m){
+        for(int i=0;i < l.size();i++){
+            if(l.get(i).getAdresseMail().equals(m)) return l.get(i);
+        }
+        return null;
+    }
     
-    
+   
     public ArrayList<Fournisseur> parseFours(String jsonText) {
         try {
-            tasks = new ArrayList<>();
+            fours = new ArrayList<>();
 
             JSONParser jp = new JSONParser();
             Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
@@ -239,13 +244,12 @@ public class ServiceFournisseur {
                 int tel = (int)Double.parseDouble(obj.get("numeroTelephone").toString());
                 int code = (int)Double.parseDouble(obj.get("codePostale").toString());
                 String matri = obj.get("matriculeFiscale").toString();
-                tasks.add(new Fournisseur(idp,rs,tel,adr,adrmail,matri,code));
+                fours.add(new Fournisseur(idp,rs,tel,adr,adrmail,matri,code));
             }
-
         } catch (IOException ex) {
         }
 
-        return tasks;
+        return fours;
        
     }
     

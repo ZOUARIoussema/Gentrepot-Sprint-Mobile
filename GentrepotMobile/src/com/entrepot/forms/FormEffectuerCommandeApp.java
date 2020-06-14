@@ -7,9 +7,11 @@ package com.entrepot.forms;
 
 import com.codename1.components.InfiniteProgress;
 import com.codename1.components.MultiButton;
+import com.codename1.components.ToastBar;
 import com.codename1.ui.Button;
 import com.codename1.ui.Container;
 import com.codename1.ui.Dialog;
+import com.codename1.ui.FontImage;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextArea;
@@ -21,13 +23,17 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.entrepot.models.CommandeDApprovisionnement;
+import com.entrepot.models.Fournisseur;
 import com.entrepot.models.LigneCommandeDApprovisionnement;
 import com.entrepot.models.ProduitAchat;
+import com.entrepot.services.MailService;
 import com.entrepot.services.ServiceCommandeDApprovisionnment;
 import com.entrepot.services.ServiceLigneCommandeDApprovisionnement;
 import com.entrepot.services.ServiceProduitAchat;
 import com.entrepot.services.ServiceFournisseur;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 /**
  *
@@ -51,16 +57,19 @@ public class FormEffectuerCommandeApp extends Form{
         getToolbar().addCommandToLeftBar("Back", null, ev->{
             new FormMenuCommandeApprovisionnement(this).show();
         });
-        
+        ServiceProduitAchat spf = new ServiceProduitAchat();
+        ServiceFournisseur sff = new ServiceFournisseur();
+        Map x = spf.getResponse("/apiF/listF");
+        ArrayList<Fournisseur> lis = sff.getListFournisseurs(x);
         //String[] fournisseurs = { "Intel", "Samsun", "Cisco"};
         MultiButton f = new MultiButton("A Quel fournisseur...");
         f.addActionListener(e -> {
             Dialog d = new Dialog();
             d.setLayout(BoxLayout.y());
             d.getContentPane().setScrollableY(true);
-            System.out.println(sf.getAllFournisseurs().size());
-            for(int iter = 0 ; iter < sf.getAllFournisseurs().size() ; iter++) {
-                MultiButton mb = new MultiButton(sf.getAllFournisseurs().get(iter).getAdresseMail());
+            System.out.println(lis.size());
+            for(int iter = 0 ; iter < lis.size() ; iter++) {
+                MultiButton mb = new MultiButton(lis.get(iter).getAdresseMail());
                 d.add(mb);
                 mb.addActionListener(ee -> {
                     f.setTextLine1(mb.getTextLine1());
@@ -112,6 +121,7 @@ public class FormEffectuerCommandeApp extends Form{
         this.addComponent(BorderLayout.NORTH, formul);
         this.addComponent(BorderLayout.CENTER, bin);
         Date date = new Date();  
+        ServiceFournisseur sf = new ServiceFournisseur();
         CommandeDApprovisionnement com = new CommandeDApprovisionnement(date);
         
         btnAdd.addActionListener(new ActionListener() {
@@ -150,9 +160,16 @@ public class FormEffectuerCommandeApp extends Form{
                            Dialog ip = new InfiniteProgress().showInifiniteBlocking();
                            boolean addsp = sp.addCom(com);
                            com.setNumeroC(sp.getAllComs().get(sp.getAllComs().size()-1).getNumeroC());
+                           String body = " ";
+                           
                            for(int i=0;i<com.getLigneCommandeDApprovisionnements().size();i++){
+                               
                                boolean addslp = slp.addLCom(com.getLigneCommandeDApprovisionnements().get(i));
+                               body = body +"\n"+com.getLigneCommandeDApprovisionnements().get(i).getQuantite()+" "+com.getLigneCommandeDApprovisionnements().get(i).getProduitAchat().getLibelle();
                            }
+                           
+                           MailService.EnvoyerMail(com.getFournisseur().getAdresseMail(), "COMMANDE D'APPROVISIONNEMENT N°" + com.getNumeroC()+"\n",body);
+                           ToastBar.showMessage("Mail envoyé automatiquement au Fournisseur", FontImage.MATERIAL_STAR, 30000);
                            if (addsp) {
                                Dialog.show("Info", "Commande enregistrée!", "OK", null); 
                                p.setTextLine1("Quelle produit...");

@@ -45,9 +45,10 @@ public class FormCreerEmplacement extends Form{
         Container formul = new Container(BoxLayout.y());
         
         getToolbar().addCommandToLeftBar("Back", null, ev->{
-            new FormMenuInventaire(this).show();
+            new FormMenuEmplacement(this).show();
             //this.showBack();
-    });
+        });
+        
     TextField adr = new TextField("","Adresse",6 ,TextArea.ANY);    
     TextField txt1 = new TextField("","Adresse");
     String[] classe = { "A", "B", "C"};

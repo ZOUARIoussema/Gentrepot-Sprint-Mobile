@@ -32,7 +32,7 @@ public class FormListeEmplacement extends Form{
         setLayout(new BoxLayout(BoxLayout.Y_AXIS));
         
         getToolbar().addCommandToLeftBar("Back", null, ev->{           
-            new FormMenuPerte(this).show();
+            new FormMenuEmplacement(this).show();
            
         });
         Dialog ip = new InfiniteProgress().showInifiniteBlocking();

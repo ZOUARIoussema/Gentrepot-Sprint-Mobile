@@ -102,7 +102,7 @@ public class ServiceInventaireStock {
             for (Map<String, Object> ob : list) {
 
                 int id = (int)Float.parseFloat(ob.get("id").toString());
-                int qunatiteInventiare = (int)Float.parseFloat(ob.get("qunatiteInventiare").toString());
+                int qunatiteInventiare = (int)Float.parseFloat(ob.get("quantiteInventaire").toString());
                 int ecart = (int)Float.parseFloat(ob.get("ecart").toString());
                 int quantiteTheorique = (int)Float.parseFloat(ob.get("quantiteTheorique").toString());
                 Map<String, Object> dated = (Map<String, Object>) ob.get("dateCreation");
@@ -114,9 +114,11 @@ public class ServiceInventaireStock {
                 ProduitAchat produitAchat = new ProduitAchat(ref, libelle);
                 Map<String, Object> e = (Map<String, Object>) ob.get("emplacement");
                 String adr = e.get("adresse").toString();
+                String cl = e.get("classe").toString();
+                int qt = (int)Float.parseFloat(e.get("quantiteStocker").toString());        
+                int cp = (int)Float.parseFloat(e.get("capaciteStockage").toString());        
                 int ide = (int)Float.parseFloat(e.get("id").toString());
-                Emplacement emplacement = new Emplacement(ide,adr);
-                
+                Emplacement emplacement = new Emplacement(ide,adr,cp,qt,cl);               
                 invs.add(new InventaireStock( id, produitAchat, emplacement, dp, qunatiteInventiare, ecart, quantiteTheorique));
                         }
 

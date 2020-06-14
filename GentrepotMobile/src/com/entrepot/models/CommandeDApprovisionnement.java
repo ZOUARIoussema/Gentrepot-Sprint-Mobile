@@ -38,6 +38,13 @@ public class CommandeDApprovisionnement {
         this.numeroC = nc;
         this.dateCreation = dateCreation;
         this.fournisseur = fournisseur;
+        
+    }
+    public CommandeDApprovisionnement(Date dateCreation, Fournisseur fournisseur,double tauxRemise) {
+        this.ligneCommandeDApprovisionnements= new ArrayList<>();
+        this.dateCreation = dateCreation;
+        this.fournisseur = fournisseur;
+        this.tauxRemise = tauxRemise;
     }
        
 

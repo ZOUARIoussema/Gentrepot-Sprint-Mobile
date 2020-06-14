@@ -39,7 +39,7 @@ public class FormFiltreEmplacement extends Form{
             new FormFiltreEmplacement().show();           
         });
         getToolbar().addCommandToLeftBar("Back", null, ev->{
-            new FormMenuInventaire(this).show();
+            new FormMenuEmplacement(this).show();
            
         });
         Label r1 = new Label("TRI PAR CLASSE DE PRODUIT");

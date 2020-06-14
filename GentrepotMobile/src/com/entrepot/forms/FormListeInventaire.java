@@ -32,7 +32,7 @@ public class FormListeInventaire extends Form{
         setLayout(new BoxLayout(BoxLayout.Y_AXIS));
         
         getToolbar().addCommandToLeftBar("Back", null, ev->{           
-            new FormMenuPerte(this).show();
+            new FormMenuInventaire(this).show();
            
         });
         Dialog ip = new InfiniteProgress().showInifiniteBlocking();
@@ -42,21 +42,16 @@ public class FormListeInventaire extends Form{
     public void creerListeInventaire(){
         ServiceInventaireStock si = new ServiceInventaireStock();
         ArrayList<InventaireStock> li = new ArrayList<>();
-        ServiceEmplacement se = new ServiceEmplacement();
-        ArrayList<Emplacement> le = new ArrayList<>();
-        ServiceProduitAchat sp = new ServiceProduitAchat();
-        ArrayList<ProduitAchat> lp = new ArrayList<>();
+        
         li = si.getAllInvs();           
-          
-        if(lp.get(0) == null){
+        if(li.get(0) == null){
             Dialog.show("Info", "Aucun inventaire!", "OK", null);    
         }
         else{
-            for(int i=0;i<lp.size();i++){
+            for(int i=0;i<li.size();i++){
                 this.add(new Label("----------------------------------------------------------"));
                 this.add(new Label(" Inventaire du " + new java.text.SimpleDateFormat("MM-dd-yyyy").format(li.get(i).getDateCreation())));
                 this.createLigneInventaireEntry(this,li,i);
-
             }
         }
     } 
