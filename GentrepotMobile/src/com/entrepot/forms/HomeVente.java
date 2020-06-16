@@ -30,7 +30,9 @@ public class HomeVente extends Form{
     
       private Resources theme ;
      public HomeVente( Form previous ) {
-        theme = UIManager.initFirstTheme("/themeVente");
+        theme = UIManager.initFirstTheme("/themeLogistique");
+        
+        this.getToolbar().setUIID("SideCommand");
 
          setTitle("Gentrepot shop");
          setLayout(new FlowLayout (CENTER));

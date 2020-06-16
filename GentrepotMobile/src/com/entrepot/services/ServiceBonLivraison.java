@@ -99,19 +99,13 @@ public class ServiceBonLivraison {
 
         return tasks;
     } 
+     
+     
+      
     
-}
-   
-    
-    
-     private ConnectionRequest request;
-  private boolean responseResult;
  
     
-    
-    public ServiceBonLivraison() {
-        request = DataSource.getInstance().getRequest();
-    }
+   
     public boolean ajouterBon(BonLivraison v){
         
         //String url = "http://localhost/PROJET-SYMFONY-GENTREPOT/Gentrepot/web/app_dev.php/api/apiCommandeVente/ajout?totalC="+v.getTotalC()+"&etat="+v.getEtat()+"&dateC="+v.getDateC()+"&tauxRemise="+v.getTauxRemise()+"&ligneCommande="+v.getLigneCommande(); 
@@ -135,4 +129,12 @@ public class ServiceBonLivraison {
      
         
     }
+     
+     
+     
+    
 }
+   
+    
+   
+
