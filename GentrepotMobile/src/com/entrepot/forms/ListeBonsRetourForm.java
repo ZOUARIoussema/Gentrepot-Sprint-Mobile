@@ -49,7 +49,7 @@ public class ListeBonsRetourForm extends Form {
         Map x = ws.getResponse("/apiBR/listBonretour");
         ArrayList<BonRetour> listevents = ds.getListbonRetour(x);
         for (BonRetour e : listevents) {
-            Container photos = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+            Container cont = new Container(new BoxLayout(BoxLayout.Y_AXIS));
 
             Label b = new Label("Commande numéro : " + e.getCap());
             Label d = new Label("Date : " + e.getDate());
@@ -59,10 +59,10 @@ public class ListeBonsRetourForm extends Form {
 
             try {
                 ScaleImageLabel sep = new ScaleImageLabel(Image.createImage("/Separator.png"));
-                photos.add(sep);
+                cont.add(sep);
             } catch (IOException ex) {
             }
-            add(photos);
+            add(cont);
 
            /* b.addPointerPressedListener(new ActionListener() {
                 @Override
@@ -72,16 +72,16 @@ public class ListeBonsRetourForm extends Form {
                 }
             });*/
 
-            photos.add(b);
-            photos.add(d);
-            photos.add(p);
+            cont.add(b);
+            cont.add(d);
+            cont.add(p);
 
-            photos.add(supp);
+            cont.add(supp);
             supp.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
 
-                    if (Dialog.show("Comfirmation", "Vouler vous supprimer ce inventaire ? ", "oui", "non")) {
+                    if (Dialog.show("Comfirmation", "Vouler vous supprimer ce bon ? ", "oui", "non")) {
 
                         ds.deleteBonRetour(e);
                         new ListeBonsRetourForm().showBack();
@@ -100,20 +100,19 @@ public class ListeBonsRetourForm extends Form {
             new LbrSortForm().show();
         });
         
-        this.getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_CAMERA, e->{
+       /* this.getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_CAMERA, e->{
                Image screenshot = Image.createImage(getWidth(), getHeight());
         revalidate();
         setVisible(true);
         paintComponent(screenshot.getGraphics(), true);
-
-        String imageFile = FileSystemStorage.getInstance().getAppHomePath() + "screenshot.png";
+      String imageFile = FileSystemStorage.getInstance().getAppHomePath() + "screenshot.png";
                System.out.println(imageFile);
         try(OutputStream os = FileSystemStorage.getInstance().openOutputStream(imageFile)) {
             ImageIO.getImageIO().save(screenshot, os, ImageIO.FORMAT_PNG, 1);
         } catch(IOException err) {
             Log.e(err);
         }
-           });
+           });*/
     }
     public void CreationMenu() {
 

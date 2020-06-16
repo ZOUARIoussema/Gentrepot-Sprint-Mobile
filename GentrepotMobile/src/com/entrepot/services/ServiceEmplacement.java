@@ -37,7 +37,7 @@ public class ServiceEmplacement {
     }
 
     public boolean addEmplas(Emplacement lpert) {
-        String url = Statics.BASE_URL + "/apiEmp/new?adresse=" + lpert.getAdresse() + "&capaciteStockage=" + lpert.getCapaciteStockage() + "&quantiteStocker" + lpert.getQuantiteStocker() + "&classe=" + lpert.getClasse() + "&matriculeFiscal=oo";
+        String url = Statics.BASE_URL + "/apiEmp/new?adresse=" + lpert.getAdresse() + "&capaciteStockage=" + lpert.getCapaciteStockage() + "&quantiteStocker=" + lpert.getQuantiteStocker() + "&classe=" + lpert.getClasse();
         
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
@@ -91,12 +91,15 @@ public class ServiceEmplacement {
         return responseResult;
     }
     public ArrayList<Emplacement> parseEmpls(String jsonText) {
-        
-             empls = new ArrayList<>();
-             JSONArray jsonArray = new JSONArray(jsonText);      
-             for(int i=0;i<jsonArray.length();i++)
-             {
-                JSONObject ob = jsonArray.getJSONObject(i);
+        try {
+            empls = new ArrayList<>();
+
+            JSONParser jp = new JSONParser();
+            Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            for (Map<String, Object> ob : list) {
+
                 int id = (int)Float.parseFloat(ob.get("id").toString());               
                 String adresse = ob.get("adresse").toString();
                 String classe = ob.get("classe").toString();
@@ -108,9 +111,12 @@ public class ServiceEmplacement {
                 Emplacement e = new Emplacement( id, adresse, capaciteStockage, quantiteStocker, classe, entrepot);
                 
                 empls.add(new Emplacement( id, adresse, capaciteStockage, quantiteStocker, classe, entrepot));
-            
-             }
+                
+            }
+        } catch (IOException ex) {
+        }
 
         return empls;
+        
     }
 }

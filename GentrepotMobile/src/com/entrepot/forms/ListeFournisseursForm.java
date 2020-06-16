@@ -111,7 +111,7 @@ public class ListeFournisseursForm extends Form {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
 
-                    if (Dialog.show("Comfirmation", "Vouler vous supprimer ce inventaire ? ", "oui", "non")) {
+                    if (Dialog.show("Comfirmation", "Vouler vous supprimer ce bon ? ", "oui", "non")) {
 
                         sf.deleteFournisseur(e);
                         new ListeFournisseursForm().showBack();
@@ -155,52 +155,37 @@ getToolbar().addMaterialCommandToSideMenu("log-out", FontImage.MATERIAL_INFO, e 
       /*  this.getToolbar().addMaterialCommandToSideMenu("Acceuille", FontImage.MATERIAL_HOME, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-
                 new MenueAgentCaisseForm().show();
-
             }
         });
-
         this.getToolbar().addMaterialCommandToSideMenu("Ajouter Inventaire Caisse", FontImage.MATERIAL_ADD, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-
                 new AjouterInventaireCaisseForm().show();
-
             }
         });
-
         this.getToolbar().addMaterialCommandToSideMenu("Liste Inventaire Caisse", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-
                 new ListeInventaireCaisseForm().show();
-
             }
         });
         this.getToolbar().addMaterialCommandToSideMenu("Ajouter Lettre de relance", FontImage.MATERIAL_ADD, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-
                 new AjouterLettreDeRelanceForm().show();
-
             }
         });
         this.getToolbar().addMaterialCommandToSideMenu("Liste lettre de relance", FontImage.MATERIAL_PLAYLIST_ADD_CHECK, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-
                 new ListeLettreDeRelanceForm().show();
-
             }
         });
-
         this.getToolbar().addMaterialCommandToSideMenu("Deconnecter", FontImage.MATERIAL_EXIT_TO_APP, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-
                 new AuthentificationForm().show();
-
             }
         });*/
 

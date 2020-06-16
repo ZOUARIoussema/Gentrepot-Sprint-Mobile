@@ -66,10 +66,10 @@ public class AddProduitForm extends Form {
         Button img = new Button("Ajouter une image", icone);
 
         Button btn = new Button("Ajouter le produit");
-        ServiceProduitAchat ws = new ServiceProduitAchat();
-        Map x = ws.getResponse("/listSousCat");
+        ServiceProduitAchat sp = new ServiceProduitAchat();
+        Map x = sp.getResponse("/listSousCat");
 
-        ArrayList<SousCategorieAchat> listc = ws.getListSousCategorie(x);
+        ArrayList<SousCategorieAchat> listc = sp.getListSousCategorie(x);
         for (SousCategorieAchat e : listc) {
             c.addItem(e.getNom());
         }
@@ -97,8 +97,8 @@ public class AddProduitForm extends Form {
         ServiceProduitAchat sc = new ServiceProduitAchat();
 
         btn.addActionListener((evt) -> {
-            if ((tfRef.getText().length() == 0) || (tfPv.getText().length() == 0)) {
-                Dialog.show("Alert", "Please fill all the fields", "OK", null);
+            if ((tfRef.getText().length() == 0) || (tfLib.getText().length() == 0) || (tfQ.getText().length() == 0) || (tfC.getText().length() == 0) || (tfQss.getText().length() == 0) || (tfDpa.getText().length() == 0) || (tfTva.getText().length() == 0) || (tfDim.getText().length() == 0) || (tfDes.getText().length() == 0) || (tfTc.getText().length() == 0) || (tfPv.getText().length() == 0)) {
+                Dialog.show("Alert", "Veuillez remplir tous les champs !", "OK", null);
             } else {
                 try {
                     ProduitAchat ch = new ProduitAchat(tfRef.getText(), tfLib.getText(), Integer.parseInt(tfQ.getText()), tfC.getText(), Integer.parseInt(tfQss.getText()), Double.parseDouble(tfDpa.getText()), Double.parseDouble(tfTva.getText()), Double.parseDouble(tfDim.getText()), tfDes.getText(), tfTc.getText(), Double.parseDouble(tfPv.getText()));
@@ -113,7 +113,7 @@ public class AddProduitForm extends Form {
                     }
 
                 } catch (NumberFormatException e) {
-                    Dialog.show("ERROR", "cin must be a number", "OK", null);
+                    Dialog.show("ERROR", "Vérifiez vos informations", "OK", null);
                 }
 
             }

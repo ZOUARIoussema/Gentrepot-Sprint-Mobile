@@ -50,8 +50,8 @@ public class AddFournisseurForm extends Form {
         
 
         btn.addActionListener((evt) -> {
-            if ((tfRais.getText().length() == 0) || (tfMat.getText().length() == 0)) {
-                Dialog.show("Alert", "Please fill all the fields", "OK", null);
+            if ((tfRais.getText().length() == 0) || (tfNum.getText().length() == 0) || (tfAd.getText().length() == 0) || (tfAdM.getText().length() == 0) || (tfMat.getText().length() == 0) || (tfCode.getText().length() == 0)) {
+                Dialog.show("Alert", "Veuillez remplir tous les champs !", "OK", null);
             } 
            //else if (sc.validerEmail(tfAdM.getText())) {
           // Dialog.show("Alerte", "Verifier l'adresse mail", "OK", null);
@@ -69,7 +69,7 @@ public class AddFournisseurForm extends Form {
                     }  }
                     
                 } catch (NumberFormatException e) {
-                    Dialog.show("ERROR", "cin must be a number", "OK", null);
+                    Dialog.show("ERROR", "Vérifiez vos informations", "OK", null);
                 }
 
             }
@@ -113,7 +113,7 @@ public class AddFournisseurForm extends Form {
         
          if (a.length() != 4) {
 
-            Dialog.show("Alerte", "Code postal comporte  chiffres", "OK", null);
+            Dialog.show("Alerte", "Code postal comporte 4 chiffres", "OK", null);
 
             return false;
         }

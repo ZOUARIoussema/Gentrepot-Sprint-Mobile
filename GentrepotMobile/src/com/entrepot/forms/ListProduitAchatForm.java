@@ -42,10 +42,10 @@ public class ListProduitAchatForm extends Form {
         
         
         
-        ServiceProduitAchat ws = new ServiceProduitAchat();
+        ServiceProduitAchat sp = new ServiceProduitAchat();
     
-    Map x = ws.getResponse("/apiP/listP");
-    ArrayList<ProduitAchat> listeprod = ws.getAffProduits(x);
+    Map x = sp.getResponse("/apiP/listP");
+    ArrayList<ProduitAchat> listeprod = sp.getAffProduits(x);
              for (ProduitAchat e : listeprod) {
             Container photos = new Container(new BoxLayout(BoxLayout.Y_AXIS));
             ImageViewer imv = null;

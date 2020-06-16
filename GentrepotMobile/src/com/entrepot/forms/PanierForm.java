@@ -32,8 +32,6 @@ import java.util.List;
  * @author LENOVO
  */
 public class PanierForm extends Form {
-    
-    
    
          
     
@@ -65,18 +63,7 @@ public class PanierForm extends Form {
                                       commande.ajoutercom(v);
                                       
                                       
-        for (int i = 0 ; i < ListProduit.size(); i++ ){
-            
-            add(AddProduit(ListProduit.get(i)) );
-            
-          v.setId( commande.getMaxIdCommnde());
-         
-           LigneCommande c = new LigneCommande(v, ListProduit.get(i), ListProduit.get(i).getPrixVente(), ListProduit.get(i).getQuantiteStock(), ListProduit.get(i).getQuantiteStock() * ListProduit.get(i).getPrixVente(),  ListProduit.get(i).getTva());
-              lc.add(c);  
-                    
-            
-        }
-
+    
         getToolbar().addCommandToLeftBar("Back",null,ev ->{
             previous.showBack();
         });
@@ -113,6 +100,17 @@ public class PanierForm extends Form {
                 
                 System.out.println(total);
                      
+    for (int i = 0 ; i < ListProduit.size(); i++ ){
+            
+            add(AddProduit(ListProduit.get(i)) );
+            
+          v.setId( commande.getMaxIdCommnde());
+          
+           LigneCommande c = new LigneCommande(v, ListProduit.get(i), ListProduit.get(i).getPrixVente(), ListProduit.get(i).getQuantiteStock(), ListProduit.get(i).getQuantiteStock() * ListProduit.get(i).getPrixVente(),  ListProduit.get(i).getTva());
+              lc.add(c);  
+                    
+            
+        }
 
        Label totalc =  new Label("Total Commande : " +Double.toString(total));
 
@@ -142,7 +140,8 @@ public class PanierForm extends Form {
                      ligneC.ajouterlignecom(lc.get(i));
                      
                  }  
-                    v.setTotalC(5);
+                    v.setTotalC(6);
+                   
                     System.out.println(v);
 
                      System.out.println("commande ajouté OK ! ");
@@ -176,9 +175,9 @@ public class PanierForm extends Form {
           
            Container item = new Container(BoxLayout.x());
         
-        EncodedImage enco = EncodedImage.createFromImage(theme.getImage("load.png"), false);
+        EncodedImage enco = EncodedImage.createFromImage(theme.getImage("Logo.png"), false);
         
-        String url = "http://localhost/IntegrationFinalSymfonyMaster/PROJET-SYMFONY-GENTREPOT/gentrepot/web/uploads/images/"+p.getImage();
+        String url = "http://localhost/PROJET-SYMFONY-GENTREPOT/Gentrepot/web/uploads/images/"+p.getImage();
         Image im =URLImage.createToStorage(enco,p.getImage(), url); 
         
         ImageViewer imv = new ImageViewer(im);

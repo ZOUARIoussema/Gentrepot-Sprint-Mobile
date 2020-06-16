@@ -102,3 +102,37 @@ public class ServiceBonLivraison {
     
 }
    
+    
+    
+     private ConnectionRequest request;
+  private boolean responseResult;
+ 
+    
+    
+    public ServiceBonLivraison() {
+        request = DataSource.getInstance().getRequest();
+    }
+    public boolean ajouterBon(BonLivraison v){
+        
+        //String url = "http://localhost/PROJET-SYMFONY-GENTREPOT/Gentrepot/web/app_dev.php/api/apiCommandeVente/ajout?totalC="+v.getTotalC()+"&etat="+v.getEtat()+"&dateC="+v.getDateC()+"&tauxRemise="+v.getTauxRemise()+"&ligneCommande="+v.getLigneCommande(); 
+            
+        String url =Statics.BASE_URL+"/apiBon/ajout/"+v.getCommandeVente().getId()+"?&Nom="+v.getNom()+"&Prenom="+v.getPrenom()+"&AdresseLivraison="+v.getAdresseLivraison();
+        System.out.println(url);
+
+        request.setUrl(url);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return responseResult;
+
+        
+     
+        
+    }
+}

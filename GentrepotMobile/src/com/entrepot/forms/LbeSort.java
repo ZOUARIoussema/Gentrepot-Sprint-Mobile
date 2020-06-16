@@ -23,8 +23,8 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.ImageIO;
 import com.codename1.ui.util.Resources;
-import static com.entrepot.forms.ResevasionMecForm.ACCOUNT_SID;
-import static com.entrepot.forms.ResevasionMecForm.AUTH_TOKEN;
+import static com.entrepot.forms.SMSForm.ACCOUNT_SID;
+import static com.entrepot.forms.SMSForm.AUTH_TOKEN;
 import com.entrepot.models.BonEntree;
 import com.entrepot.services.ServiceBonEntree;
 import com.entrepot.services.ServiceProduitAchat;
@@ -74,8 +74,8 @@ public class LbeSort extends Form {
             cont.add(p);
             cont.add(exx);
             cont.add(supp);
-            Button checkout = new Button("Reserver");
-            cont.add(checkout);
+           // Button checkout = new Button("Reserver");
+           // cont.add(checkout);
 
             try {
                 ScaleImageLabel sep = new ScaleImageLabel(Image.createImage("/Separator.png"));
@@ -94,7 +94,7 @@ public class LbeSort extends Form {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
 
-                    if (Dialog.show("Comfirmation", "Vouler vous supprimer ce inventaire ? ", "oui", "non")) {
+                    if (Dialog.show("Comfirmation", "Vouler vous supprimer ce bon ? ", "oui", "non")) {
 
                         sbe.deleteBonEntree(e);
                         new ListeBonsEntreeForm().showBack();
@@ -106,7 +106,7 @@ public class LbeSort extends Form {
            
           //  Font fnt45 = Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_SMALL);
            // checkout.getUnselectedStyle().setFont(fnt45);
-            checkout.addActionListener((evt) -> {
+         /*   checkout.addActionListener((evt) -> {
                 System.out.println("=========================");
                 String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
                 StringBuilder salt = new StringBuilder();
@@ -127,7 +127,7 @@ public class LbeSort extends Form {
                 System.out.println(codex);
                 Dialog.show("succes", "un sms a éte envoyer au mecanicien el te contactera tres bienteaux ", "ok", null);
                 new ListeBonsEntreeForm().show();
-            });
+            });*/
 
         }
         // this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
@@ -139,7 +139,7 @@ public class LbeSort extends Form {
             new ListeBonsEntreeForm().showBack();
         });
 
-        this.getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_CAMERA, e -> {
+      /*  this.getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_CAMERA, e -> {
             Image screenshot = Image.createImage(getWidth(), getHeight());
             revalidate();
             setVisible(true);
@@ -152,7 +152,7 @@ public class LbeSort extends Form {
             } catch (IOException err) {
                 Log.e(err);
             }
-        });
+        });*/
     }
     public void CreationMenu() {
 

@@ -22,22 +22,32 @@ import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.spinner.Picker;
 import com.codename1.ui.util.Resources;
+import static com.entrepot.forms.AddBonEntreeForm.ACCOUNT_SID;
+import static com.entrepot.forms.AddBonEntreeForm.AUTH_TOKEN;
+import static com.entrepot.forms.AddBonEntreeForm.codex;
 import com.entrepot.models.BonRetour;
 import com.entrepot.models.CommandeApp;
 import com.entrepot.models.CommandeDApprovisionnement;
 import com.entrepot.services.ServiceBonRetour;
 import com.entrepot.services.ServiceProduitAchat;
+import com.twilio.Twilio;
+import com.twilio.type.PhoneNumber;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
+import java.util.Random;
 
 /**
  *
  * @author Mohamed
  */
 public class AddBonRetourForm extends Form {
+    public static String codex;
+    public static final String ACCOUNT_SID = "AC259bf45943274ddfdde68e37a8ad9a13";
+    public static final String AUTH_TOKEN = "4abfada1bfe1402fde7e64cf13d1c81e";
+    String phonenumber = "+21625180502";
 
     Resources theme = UIManager.initFirstTheme("/themeLogistique");
     ComboBox<String> c;
@@ -79,7 +89,11 @@ public class AddBonRetourForm extends Form {
 
         add(cont);
         b.addActionListener(e -> {
-            if (!t.getText().equals("")) {
+            
+            if ((t.getText().length() == 0) ) {
+                Dialog.show("Alert", "veuillez mentionner le motif de retour !", "OK", null);
+            } 
+            else if (!t.getText().equals("")) {
                 BonRetour be = new BonRetour();
                 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -98,6 +112,27 @@ public class AddBonRetourForm extends Form {
                 
                 if (sc.addBonRetour(be)) {
                         Dialog.show("SUCCESS", "Bon de retour ajouté !", "OK", null);
+                        
+                        System.out.println("=========================");
+                String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+                StringBuilder salt = new StringBuilder();
+                Random rnd = new Random();
+                while (salt.length() < 5) { // length of the random string.
+                    int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+                    salt.append(SALTCHARS.charAt(index));
+                }
+                String saltStr = salt.toString();
+                Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+                com.twilio.rest.api.v2010.account.Message messages = com.twilio.rest.api.v2010.account.Message.creator(new PhoneNumber(phonenumber),
+                        new PhoneNumber("+19286123819"),"Un bon de correspondant à la commande d'approvisionnement numero: "+be.getCap()+" a ete cree le "+be.getDate()+" son motif de retour est : "+be.getMotif()).create();
+                //"un client veux de contacter : " + phonenumber + "," + saltStr
+                codex = saltStr;
+                System.out.println("======================");
+                System.out.println("======================");
+                System.out.println("======================");
+                System.out.println(codex);
+                Dialog.show("succes", "Un sms a bien éte envoyer !", "ok", null);
+                
                     
                  ListeBonsRetourForm lb = new ListeBonsRetourForm();
                  lb.showBack();}

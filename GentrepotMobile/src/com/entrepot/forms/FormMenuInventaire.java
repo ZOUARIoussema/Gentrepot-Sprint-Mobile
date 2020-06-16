@@ -5,35 +5,25 @@
  */
 package com.entrepot.forms;
 
-import com.codename1.ui.Form;
-
-import com.codename1.components.MultiButton;
-import com.codename1.components.SpanLabel;
-import com.codename1.l10n.SimpleDateFormat;
+import com.codename1.charts.ChartComponent;
+import com.codename1.charts.models.CategorySeries;
+import com.codename1.charts.renderers.DefaultRenderer;
+import com.codename1.charts.renderers.SimpleSeriesRenderer;
+import com.codename1.charts.util.ColorUtil;
+import com.codename1.charts.views.PieChart;
 import com.codename1.ui.Button;
-import com.codename1.ui.ComboBox;
-import static com.codename1.ui.Component.CENTER;
-import com.codename1.ui.Dialog;
+import com.codename1.ui.Container;
 import com.codename1.ui.Form;
 import com.codename1.ui.Label;
-import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.layouts.FlowLayout;
-import com.codename1.ui.list.*;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
-import com.entrepot.models.Emplacement;
-import com.entrepot.models.Entrepot;
 import com.entrepot.models.InventaireStock;
-import com.entrepot.models.ProduitAchat;
-import com.entrepot.services.ServiceEmplacement;
-import com.entrepot.services.ServiceEntrepot;
 import com.entrepot.services.ServiceInventaireStock;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Map;
 /**
  *
  * @author guiforodrigue
@@ -41,135 +31,125 @@ import java.util.Map;
 public class FormMenuInventaire extends Form{
     
      Resources theme = UIManager.initFirstTheme("/themeStockage");
-    
+     
      public FormMenuInventaire(Form previous){
-        setTitle("GESTION DE L'EMPLACEMENT");
-        setLayout(new FlowLayout(CENTER, CENTER));
+        setTitle("GESTION DES INVENTAIRES");
+        setLayout(new BorderLayout());
         
-        
-        Form ajout = new Form("FAIRE UN INVENTAIRE", BoxLayout.y());
-        Form liste = new Form("LISTE DES INVENTAIRES", BoxLayout.y());
-        Form filtre = new Form("FILTRER LES INVENTAIRES", BoxLayout.y());
-        Button btnAjout = new Button("FAIRE UN INVENTAIRE");
+        Container menu = new Container(BoxLayout.y());                      
+        Button btnAjout = new Button("FAIRE UN INVENTAIRE");        
         Button btnLister = new Button("LISTE DES INVENTAIRES");
         Button btnFiltre = new Button("FILTRER LES INVENTAIRES");
-        this.add(btnAjout);
-        this.add(btnLister);
-        this.add(btnFiltre);
+        Label lv = new Label("");
+        menu.add(lv);
+        menu.add(btnAjout);
+        menu.add(btnLister);
+        menu.add(btnFiltre); 
+
         btnAjout.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-               ajout.show();
+               new FormFaireInventaire().show();
                
             }
         });
         getToolbar().addCommandToLeftBar("Back", null, ev->{
-            previous.showBack();
+            new FormStockageHome().show();
+            //previous.showBack();
         });
-        ajout.getToolbar().addCommandToLeftBar("Back", null, ev->{
-            this.showBack();
-        });
+        
         btnLister.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-               liste.show();
+               new FormListeInventaire().show();
                
             }
         });
         btnFiltre.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
-               filtre.show();
+               new FormFiltreInventaire().show();
                
             }
         });
-        ServiceEmplacement se = new ServiceEmplacement();
-        ArrayList<Emplacement> le = new ArrayList<>();
-        le = se.getAllEmplas();
-        String[] empl = new String[le.size()];
-        for (int j=0;j<le.size();j++){
-            empl[j] = le.get(j).getId()+"-"+le.get(j).getAdresse();
-        }
-        MultiButton ep = new MultiButton("Où...");
-        ep.addActionListener(e -> {
-            Dialog d = new Dialog();
-            d.setLayout(BoxLayout.y());
-            d.getContentPane().setScrollableY(true);
-            for(int iter = 0 ; iter < empl.length ; iter++) {
-                MultiButton mb = new MultiButton(empl[iter]);
-                d.add(mb);
-                mb.addActionListener(ee -> {
-                    ep.setTextLine1(mb.getTextLine1());
-                    d.dispose();
-                    ep.revalidate();
-                });
-            }
-            d.showPopupDialog(ep);
-        });        
-        String[] produits = { "Laptop", "Usb", "smartphone"};
-        MultiButton p = new MultiButton("Quel produit...");
-        p.addActionListener(e -> {
-            Dialog d = new Dialog();
-            d.setLayout(BoxLayout.y());
-            d.getContentPane().setScrollableY(true);
-            for(int iter = 0 ; iter < produits.length ; iter++) {
-                MultiButton mb = new MultiButton(produits[iter]);
-                d.add(mb);
-                mb.addActionListener(ee -> {
-                    p.setTextLine1(mb.getTextLine1());
-                    d.dispose();
-                    p.revalidate();
-                });
-            }
-            d.showPopupDialog(p);
-        });
+        Label l = new Label("Vue Glogale Sur Les inventaires");
+        this.addComponent(BorderLayout.NORTH, menu);
         
-        TextField qteI = new TextField("","qunatiteInventiare");
+        this.addComponent(BorderLayout.SOUTH, this.createPieChartForm());
         
-        Button btnul = new Button("Enregistrer");
-        Button btnV = new Button("Annuler");
-        ajout.add(ep);
-        ajout.add(p);
-        ajout.add(qteI);
-        ajout.add(btnV);
-        ajout.add(btnul);
-        
-        btnV.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-               ServiceInventaireStock sinv = new ServiceInventaireStock();
-               String epl = ep.getTextLine1().substring(0,1);
-               InventaireStock inV = new InventaireStock(new ProduitAchat("C14"),new Emplacement(Integer.valueOf(epl)),Integer.valueOf(qteI.getText()));
-               boolean addsp = sinv.addInv(inV);             
-               if (addsp) {
-                  Dialog.show("Info", "Inventaire enregistrée!", "OK", null); 
-                  qteI.setText("");
-                  ep.setTextLine1("Où...");
-                  p.setTextLine1("Quel produit...");
-               }
-               
-            }
-        });
-        
-        
-        
-        btnul.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {              
-                  Dialog.show("Info", "Annuler l'inventaire!", "OK", null); 
-                  ep.setTextLine1("Où....");
-                  p.setTextLine1("Quel produit...");
-                  qteI.setText("");
-                  
-            }
-        });
-        
-        
-        ServiceInventaireStock sp = new ServiceInventaireStock();
-        ArrayList<InventaireStock> lp = new ArrayList<>();
-        lp = sp.getAllInvs();               
-        for(int i=0;i<lp.size();i++){
-            liste.add(new Label(i+1 + "->" + lp.get(i).getDateCreation()+ "  " + lp.get(i).getEmplacement().getAdresse()+"  "+ lp.get(i).getProduitAchat())+ "  "+ lp.get(i).getEcart());
-        }
     }
+     
+      
+    /**
+     * Creates a renderer for the specified colors.
+     * @param colors the colors
+     * @return
+     */
+    private DefaultRenderer buildCategoryRenderer(int[] colors) {
+          DefaultRenderer renderer = new DefaultRenderer();
+          renderer.setLabelsTextSize(50);
+          renderer.setLegendTextSize(50);
+          renderer.setMargins(new int[]{20, 30, 15, 0});
+          for (int color : colors) {
+          SimpleSeriesRenderer r = new SimpleSeriesRenderer();
+          r.setColor(color);
+          renderer.addSeriesRenderer(r);
+          }
+          return renderer;
+        }
+        /**
+         * Builds a category series using the provided values.
+         *
+         * @param titles the series titles
+         * @param values the values
+         * @return the category series
+         */
+        protected CategorySeries buildCategoryDataset(String title, int[] values) {
+          CategorySeries series = new CategorySeries(title);
+          
+          for (int i=0;i<values.length;i++) {
+              if (i==0) series.add("A: "+values[i]+"  " ,values[i]);
+              if (i==1) series.add("B: "+values[i]+"  " ,values[i]);
+              if (i==2) series.add("C: "+values[i] ,values[i]);
+          }
+          
+          return series;
+        }
+        public ChartComponent createPieChartForm() {
+          // Générer les valeurs
+          int M = 0;
+          int B = 0;
+          ServiceInventaireStock si = new ServiceInventaireStock();
+          ArrayList<InventaireStock> s = new ArrayList<>();
+          
+          s = si.getAllInvs();
+          for(int i=0; i<s.size();i++){
+              if(s.get(i).getEcart() == 0) B++;
+              if(s.get(i).getEcart() != 0) M++;
+          }
+          int[] values = new int[]{B, M};
+          // Mettre le rendu en place
+          int[] colors = new int[]{ColorUtil.GREEN, ColorUtil.rgb(255,0,0)};
+          DefaultRenderer renderer = buildCategoryRenderer(colors);
+          renderer.setZoomButtonsVisible(true);
+          renderer.setZoomEnabled(true);
+          renderer.setChartTitleTextSize(50);//20
+          renderer.setDisplayValues(true);
+          renderer.setShowLabels(true);
+          SimpleSeriesRenderer r = renderer.getSeriesRendererAt(0);
+          r.setGradientEnabled(true);
+          r.setGradientStart(0, ColorUtil.BLUE);
+          r.setGradientStop(0, ColorUtil.GREEN);
+          r.setHighlighted(true);
+          Label l = new Label("Vue Glogale Sur Les inventaires par classe");
+          
+          // Create the chart ... pass the values and renderer to the chart object.
+          PieChart chart = new PieChart(buildCategoryDataset("VUE GLOBALE SUR LES INVENTAIRES PAR CLASSE", values), renderer);
+          
+          // Wrap the chart in a Component so we can add it to a form
+          ChartComponent c = new ChartComponent(chart);
+          
+          return c;
+                   
+       } 
 }

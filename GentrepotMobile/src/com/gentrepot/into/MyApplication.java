@@ -16,6 +16,9 @@ import com.entrepot.forms.AddOrdreForm;
 import com.entrepot.forms.AjouterInventaireCaisseForm;
 import com.entrepot.forms.AuthentificationForm;
 import com.entrepot.forms.CreerCompteForm;
+
+import com.entrepot.forms.FormStockageHome;
+
 import com.entrepot.forms.HomeAchat;
 import com.entrepot.forms.HomeLogistiqueForm;
 import com.entrepot.forms.ListeLettreDeRelanceForm;
@@ -65,11 +68,18 @@ public class MyApplication {
         hi.add(new Label("Hi World"));
         hi.show();*/
 
+
+
+        new AuthentificationForm().show();
+       //new FormStockageHome().show();
+
+
       // new HomeLogistiqueForm().show();
-       //new AuthentificationForm().show();
+      // new AuthentificationForm().show();
     //  new MenueAgentCaisseForm().show();
-        new HomeLogistiqueForm().show();
-    //   new HomeAchat().show();
+      //  new HomeLogistiqueForm().show();
+     // new HomeAchat().show();
+
     }
 
     public void stop() {

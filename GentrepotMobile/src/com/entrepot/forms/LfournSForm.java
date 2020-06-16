@@ -111,7 +111,7 @@ public class LfournSForm extends Form {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
 
-                    if (Dialog.show("Comfirmation", "Vouler vous supprimer ce inventaire ? ", "oui", "non")) {
+                    if (Dialog.show("Comfirmation", "Vouler vous supprimer ce fournisseur ? ", "oui", "non")) {
 
                         sf.deleteFournisseur(e);
                         new ListeFournisseursForm().showBack();

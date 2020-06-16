@@ -104,7 +104,7 @@ public class CommandeForm extends Form{
     
     public Container AddItems( CommandeVente p) {
         
-        Resources theme = UIManager.initFirstTheme("/theme");
+        Resources theme = UIManager.initFirstTheme("/themeVente");
         Container item = new Container(BoxLayout.x());
         
        
@@ -133,12 +133,12 @@ public class CommandeForm extends Form{
         
         
         
-          Label prix = new Label ("Taux de remise : ");
+        /*  Label prix = new Label ("Taux de remise : ");
         
         
         prix.getUnselectedStyle().setFont(fnt);
         
-        Label Lprix = new Label(Double.toString(p.getTauxRemise()));
+        Label Lprix = new Label(Double.toString(10));
         
         Container prixC = new Container (BoxLayout.x());
         
@@ -156,43 +156,40 @@ public class CommandeForm extends Form{
         
         classe.getUnselectedStyle().setFont(fnt);
         
-        Label Lclass = new Label(Double.toString(p.getTotalC()));
-        
+        Label Lclass = new Label(Double.toString(12620.0));*/
+        Integer h =p.getId();
+        Label id = new Label(h.toString());
         Container classc = new Container (BoxLayout.x());
         
-        classc.add(classe);
-        classc.add(Lclass);
+       // classc.add(classe);
+        //classc.add(Lclass);
         
         data.add(classc);
-        
+      //  data.add(id);
         Button btnadd = new Button("Livrer");
         
-
-        btnadd.addPointerReleasedListener(ev-> {
+data.add(btnadd);
+     btnadd.addPointerReleasedListener(ev-> {
         Dialog.setDefaultBlurBackgroundRadius(15);
         
-        if(Dialog.show("Confirmation", "Livrer" ,"oui","non")){
-             
-            
-               
-               
-                System.out.println("Livraison en cours  ! ");
-                                Dialog.show("Success", "Livraison en cours  !", "OK" , null);
+        if(Dialog.show("Confirmation", "Livrer","oui","non")){
+              
+         
+                 new BonLForm(this,p).show();
 
           
+     
         }
-        
-         
-        });
-        data.add(btnadd);
+     });
+      
            item.add(data);
         return item;
         
         
-    }
+    
 
    
-    }
+    }}
 
     
 
