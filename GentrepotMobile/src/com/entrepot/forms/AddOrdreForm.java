@@ -6,6 +6,7 @@
 package com.entrepot.forms;
 
 import com.codename1.io.Log;
+import com.codename1.messaging.Message;
 import com.codename1.ui.Button;
 import com.codename1.ui.Calendar;
 import com.codename1.ui.ComboBox;
@@ -29,6 +30,7 @@ import com.entrepot.services.ServiceVehicule;
 import java.util.Date;
 import com.entrepot.models.*;
 import com.entrepot.services.ServiceAideChauffeur;
+import com.entrepot.services.ServiceBonLivraison;
 import com.entrepot.services.ServiceChauffeur;
 import java.util.List;
 
@@ -41,25 +43,28 @@ public class AddOrdreForm extends Form {
     ServiceVehicule serviceVehicule = new ServiceVehicule();
     ServiceChauffeur serviceChauffeur = new ServiceChauffeur();
     ServiceAideChauffeur serviceAideChauffeur = new ServiceAideChauffeur();
+    ServiceBonLivraison serviceBonLivraion = new ServiceBonLivraison();
 
     List<Vehicule> listeV = serviceVehicule.getAllVehiculeD();
     List<Chauffeur> listeCh = serviceChauffeur.getChauf();
     List<AideChauffeur> listeAide = serviceAideChauffeur.getAllAideChauffeur();
-    
-     Resources theme = UIManager.initFirstTheme("/themeLogistique");
-        ServiceOrdreMission sc = new ServiceOrdreMission();
+    List<BonLivraison> listebo = serviceBonLivraion.getAllBon();
+
+    Resources theme = UIManager.initFirstTheme("/themeLogistique");
+    ServiceOrdreMission sc = new ServiceOrdreMission();
+
     public AddOrdreForm() {
         super("Ajouter ordre", BoxLayout.y());
-        
+
         this.setLayout(new FlowLayout(CENTER, CENTER));
-          this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
-           
+        this.getStyle().setBgImage(theme.getImage("kashmir.png"), focusScrolling);
 
         Label textVehicule = new Label("Vehicule");
         ComboBox<Integer> comboV = new ComboBox();
         ComboBox comboCh = new ComboBox();
         ComboBox comboAide = new ComboBox();
-       
+        ComboBox comboBon = new ComboBox();
+
         for (Vehicule v : listeV) {
 
             comboV.addItem(v.getMatricule());
@@ -82,6 +87,14 @@ public class AddOrdreForm extends Form {
 
         }
 
+        Label textBonL = new Label("BonLivraison");
+
+        for (BonLivraison bonn : listebo) {
+
+            comboBon.addItem(bonn.getDateSortie());
+
+        }
+
         this.setLayout(BoxLayout.y());
 
         Container c = new Container(BoxLayout.y());
@@ -91,11 +104,11 @@ public class AddOrdreForm extends Form {
         Label labelDateSortie = new Label("Date dsortie");
         Picker datePickerS = new Picker();
         datePickerS.setType(Display.PICKER_TYPE_DATE);
-          //TextField tfId = new TextField(null, "id");
+        //TextField tfId = new TextField(null, "id");
         Label labelDateRetour = new Label("Date retour");
         Picker datePickerR = new Picker();
         datePickerS.setType(Display.PICKER_TYPE_DATE);
-        
+
         Label lid = new Label("numero ordre");
         TextField textId = new TextField("");
 
@@ -105,37 +118,36 @@ public class AddOrdreForm extends Form {
 
                 Vehicule v = listeV.get(comboV.getSelectedIndex());
 
-                AideChauffeur aideChauffeur =listeAide.get(comboAide.getSelectedIndex());
-                
-                Chauffeur ch = listeCh.get(comboCh.getSelectedIndex());
-                 
-               
+                AideChauffeur aideChauffeur = listeAide.get(comboAide.getSelectedIndex());
 
-                OrdreMission ordreMission = new OrdreMission( v, ch, aideChauffeur, new Date(), datePickerS.getDate(), datePickerR.getDate());
+                Chauffeur ch = listeCh.get(comboCh.getSelectedIndex());
+
+                BonLivraison b = listebo.get(comboBon.getSelectedIndex());
+
+                OrdreMission ordreMission = new OrdreMission(v, ch, aideChauffeur, new Date(), datePickerS.getDate(), datePickerR.getDate());
 
                 ordreMission.setId(Integer.parseInt(textId.getText()));
-                
-                // System.out.println(ordreMission);
-                              sc.addOrdreMission(ordreMission);
-            }
-            
-        });
-        
-        
-        
-                
+                ordreMission.getBonLivraisons().add(b);
 
-        c.addAll(lid,textId,textVehicule, comboV, textChauffeur, comboCh, textAideChauf, comboAide, labelDateSortie, datePickerS, labelDateRetour, datePickerR, btn);
+                // System.out.println(ordreMission);
+                sc.addOrdreMission(ordreMission);
+
+                Message m = new Message("Forum Created");
+                Display.getInstance().sendMessage(new String[]{""}, "liste de fav", m);
+                
+            }
+
+        });
+
+        c.addAll(lid, textId, textVehicule, comboV, textChauffeur, comboCh, textAideChauf, comboAide, labelDateSortie, datePickerS, labelDateRetour, datePickerR, textBonL, comboBon, btn);
 
         this.add(c);
-          this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
-         
+        this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
+
             new HomeLogistiqueForm().show();
-            
+
         });
-     
+
     }
-   
+
 }
-
-

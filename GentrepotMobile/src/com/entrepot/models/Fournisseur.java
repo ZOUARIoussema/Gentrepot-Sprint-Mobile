@@ -20,6 +20,14 @@ public class Fournisseur implements Comparable<Fournisseur>{
     private int codePostale;
 
     public Fournisseur() {
+        
+    }
+    
+
+    public Fournisseur(int id, String adresseMail) {
+        this.id = id;
+        this.adresseMail = adresseMail;
+
     }
 
     public Fournisseur(int id, String raisonSociale, int numeroTelephone, String adresse, String adresseMail, String matriculeFiscale, int codePostale) {

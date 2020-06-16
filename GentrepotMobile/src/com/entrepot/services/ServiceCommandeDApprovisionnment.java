@@ -10,14 +10,9 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
-import com.codename1.l10n.DateFormat;
-import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.events.ActionListener;
 import com.entrepot.models.CommandeDApprovisionnement;
-import com.entrepot.models.Emplacement;
 import com.entrepot.models.Fournisseur;
-import com.entrepot.models.InventaireStock;
-import com.entrepot.models.ProduitAchat;
 import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
 import java.io.IOException;
@@ -25,8 +20,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 
 /**
  *
@@ -97,31 +91,36 @@ public class ServiceCommandeDApprovisionnment {
         return responseResult;
     }
     public ArrayList<CommandeDApprovisionnement> parseComs(String jsonText) {
-        coms = new ArrayList<>();
+        try {
+            coms = new ArrayList<>();
 
-             JSONArray jsonArray = new JSONArray(jsonText);      
-             for(int i=0;i<jsonArray.length();i++)
-             {
-                JSONObject ob = jsonArray.getJSONObject(i);
+            JSONParser jp = new JSONParser();
+            Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            for (Map<String, Object> ob : list) {
+              
                 int numeroC = (int)Float.parseFloat(ob.get("numeroC").toString());
                 double totalC = (double)Float.parseFloat(ob.get("numeroC").toString());
                 double tauxRemise = (double)Float.parseFloat(ob.get("tauxRemise").toString());
                 double totalTva = (double)Float.parseFloat(ob.get("totalTVA").toString());
                 String status = ob.get("etat").toString();
-                JSONObject dateCreation  = new JSONObject(ob.get("dateCreation").toString());                
-                float da = Float.parseFloat(dateCreation.get("timestamp").toString()); 
-                Date dCeation = new Date((long) (da - 3600) * 1000);                
-                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-                String dp = df.format(dCeation);
+                Map<String, Object> dateCreation = (Map<String, Object>) ob.get("dateCreation");
+                float da = Float.parseFloat(dateCreation.get("timestamp").toString());
+                Date dp = new Date((long) (da - 3600) * 1000);               
                 String etat = ob.get("etat").toString();
-                JSONObject four  = new JSONObject(ob.get("fournisseur").toString());
-                Fournisseur fournisseur = new Fournisseur((int)Float.parseFloat(four.get("id").toString()));
+                Map<String, Object> fo = (Map<String, Object>) ob.get("fournisseur");
+                int idf = (int)Float.parseFloat(fo.get("id").toString());
+                String adrf = fo.get("adresseMail").toString();
+                Fournisseur fournisseur = new Fournisseur(idf, adrf);
                 
                 coms.add(new CommandeDApprovisionnement(numeroC, totalC, dp, etat, tauxRemise, totalTva, fournisseur));
+               
             }
 
-        return coms;
-        
+        } catch (IOException ex) {
+        }
+        return coms;   
     }
     
 }

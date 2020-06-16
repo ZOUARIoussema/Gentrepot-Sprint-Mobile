@@ -6,6 +6,7 @@
 package com.entrepot.models;
 
 import java.util.ArrayList;
+import java.util.Date;
  
 import java.util.List;
 
@@ -16,10 +17,10 @@ import java.util.List;
 public class Perte {
 
     private int id;
-    private String date;
+    private Date date;
     private List<LignePerte>lignePertes;
 
-    public Perte(int id, String date) {
+    public Perte(int id, Date date) {
         this.id = id;
         this.date = date;
         this.lignePertes=new ArrayList<>();
@@ -28,9 +29,9 @@ public class Perte {
     
     
      
-    public Perte(String date) {
+    public Perte(Date date) {
         this.date = date;
-        //this.lignePertes=new ArrayList<>();
+        this.lignePertes=new ArrayList<>();
     }
 
     public int getId() {
@@ -41,11 +42,11 @@ public class Perte {
         this.id = id;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

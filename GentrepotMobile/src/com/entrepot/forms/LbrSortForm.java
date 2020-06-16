@@ -81,7 +81,7 @@ public class LbrSortForm extends Form {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
 
-                    if (Dialog.show("Comfirmation", "Vouler vous supprimer ce inventaire ? ", "oui", "non")) {
+                    if (Dialog.show("Comfirmation", "Vouler vous supprimer ce bon ? ", "oui", "non")) {
 
                         ds.deleteBonRetour(e);
                         new ListeBonsRetourForm().showBack();
@@ -100,7 +100,7 @@ public class LbrSortForm extends Form {
             new ListeBonsRetourForm().showBack();
         });
         
-        this.getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_CAMERA, e->{
+       /* this.getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_CAMERA, e->{
                Image screenshot = Image.createImage(getWidth(), getHeight());
         revalidate();
         setVisible(true);
@@ -113,7 +113,7 @@ public class LbrSortForm extends Form {
         } catch(IOException err) {
             Log.e(err);
         }
-           });
+           });*/
     }
 public void CreationMenu() {
 

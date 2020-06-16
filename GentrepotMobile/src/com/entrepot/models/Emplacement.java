@@ -26,7 +26,14 @@ public class Emplacement {
         this.classe = classe;
         this.entrepot = entrepot;
     }
-    
+    public Emplacement(int id, String adresse, int capaciteStockage, int quantiteStocker, String classe) {
+        this.id = id;
+        this.adresse = adresse;
+        this.capaciteStockage = capaciteStockage;
+        this.quantiteStocker = quantiteStocker;
+        this.classe = classe;
+        
+    }
     
     
       
@@ -40,7 +47,7 @@ public class Emplacement {
         
     }
     
-      public Emplacement(String adresse, int capaciteStockage, int quantiteStocker, String classe) {
+    public Emplacement(String adresse, int capaciteStockage, int quantiteStocker, String classe) {
         
         this.adresse = adresse;
         this.capaciteStockage = capaciteStockage;
@@ -49,9 +56,15 @@ public class Emplacement {
         
         
     }
+    public Emplacement(int id ,String adresse) {
+        
+        this.adresse = adresse;
+        this.id = id;
+               
+    }
       
       
-       public Emplacement(int id) {
+    public Emplacement(int id) {
         
         this.id = id;
        

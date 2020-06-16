@@ -45,7 +45,7 @@ public class AddVehiculeForm extends Form {
                 try {
                    Vehicule v = new Vehicule(Integer.parseInt(tfMatricule.getText()), Integer.parseInt(tfCapacite.getText()), tftype.getText());
                     if (sc.addVehicule(v)) {
-                        Dialog.show("SUCCESS", "chauffeur sent", "OK", null);
+                        Dialog.show("SUCCESS", "Vehicule", "OK", null);
                     } else {
                         Dialog.show("ERROR", "Server error", "OK", null);
                    
@@ -53,7 +53,7 @@ public class AddVehiculeForm extends Form {
                     }   
                     
                 } catch (NumberFormatException e) {
-                    Dialog.show("ERROR", "cin must be a number", "OK", null);
+                    Dialog.show("ERROR", "Matricule must be a number", "OK", null);
                 }
 
             }

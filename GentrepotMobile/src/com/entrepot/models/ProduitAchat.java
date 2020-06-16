@@ -86,7 +86,10 @@ public class ProduitAchat implements Comparable<ProduitAchat>{
     public ProduitAchat(String reference) {
         this.reference = reference;
     }
-    
+    public ProduitAchat(String reference, String libelle) {
+        this.reference = reference;
+        this.libelle = libelle;
+    }
      
     public ProduitAchat(String reference, String libelle, int quantiteStock,double prix) {
         this.reference = reference;
@@ -121,11 +124,6 @@ public class ProduitAchat implements Comparable<ProduitAchat>{
         this.image = image;
     }
 
-
-    public ProduitAchat(String reference, String libelle) {
-        this.reference = reference;
-        this.libelle = libelle;
-    }
     
 
     public String getReference() {

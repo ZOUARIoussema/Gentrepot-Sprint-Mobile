@@ -23,8 +23,8 @@ import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.ImageIO;
 import com.codename1.ui.util.Resources;
-import static com.entrepot.forms.ResevasionMecForm.ACCOUNT_SID;
-import static com.entrepot.forms.ResevasionMecForm.AUTH_TOKEN;
+import static com.entrepot.forms.SMSForm.ACCOUNT_SID;
+import static com.entrepot.forms.SMSForm.AUTH_TOKEN;
 import com.entrepot.models.BonEntree;
 import com.entrepot.services.ServiceBonEntree;
 import com.entrepot.services.ServiceProduitAchat;
@@ -44,7 +44,7 @@ public class ListeBonsEntreeForm extends Form {
 
     public static String codex;
     public static final String ACCOUNT_SID = "AC259bf45943274ddfdde68e37a8ad9a13";
-    public static final String AUTH_TOKEN = "6f2390afc17688e13b1e8b5b7b111d70";
+    public static final String AUTH_TOKEN = "4abfada1bfe1402fde7e64cf13d1c81e";
     String phonenumber = "+21625180502";
 
     Resources theme = UIManager.initFirstTheme("/themeLogistique");
@@ -74,8 +74,8 @@ public class ListeBonsEntreeForm extends Form {
             cont.add(p);
             cont.add(exx);
             cont.add(supp);
-            Button checkout = new Button("Reserver");
-            cont.add(checkout);
+          //  Button checkout = new Button("SMS");
+           // cont.add(checkout);
 
             try {
                 ScaleImageLabel sep = new ScaleImageLabel(Image.createImage("/Separator.png"));
@@ -94,7 +94,7 @@ public class ListeBonsEntreeForm extends Form {
                 @Override
                 public void actionPerformed(ActionEvent evt) {
 
-                    if (Dialog.show("Comfirmation", "Vouler vous supprimer ce inventaire ? ", "oui", "non")) {
+                    if (Dialog.show("Comfirmation", "Vouler vous supprimer ce bon ? ", "oui", "non")) {
 
                         sbe.deleteBonEntree(e);
                         new ListeBonsEntreeForm().showBack();
@@ -106,7 +106,9 @@ public class ListeBonsEntreeForm extends Form {
            
           //  Font fnt45 = Font.createSystemFont(Font.FACE_SYSTEM, Font.STYLE_BOLD, Font.SIZE_SMALL);
            // checkout.getUnselectedStyle().setFont(fnt45);
-            checkout.addActionListener((evt) -> {
+           
+           
+          /* checkout.addActionListener((evt) -> {
                 System.out.println("=========================");
                 String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
                 StringBuilder salt = new StringBuilder();
@@ -127,7 +129,7 @@ public class ListeBonsEntreeForm extends Form {
                 System.out.println(codex);
                 Dialog.show("succes", "un sms a éte envoyer au mecanicien el te contactera tres bienteaux ", "ok", null);
                 new ListeBonsEntreeForm().show();
-            });
+            });*/
 
         }
       //  this.getToolbar().addCommandToLeftBar("Return", null, (evt) -> {
@@ -142,12 +144,11 @@ public class ListeBonsEntreeForm extends Form {
         });
         
 
-        this.getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_CAMERA, e -> {
+      /*  this.getToolbar().addMaterialCommandToRightBar("", FontImage.MATERIAL_CAMERA, e -> {
             Image screenshot = Image.createImage(getWidth(), getHeight());
             revalidate();
             setVisible(true);
             paintComponent(screenshot.getGraphics(), true);
-
             String imageFile = FileSystemStorage.getInstance().getAppHomePath() + "screenshott.png";
             System.out.println(imageFile);
             try (OutputStream os = FileSystemStorage.getInstance().openOutputStream(imageFile)) {
@@ -155,7 +156,7 @@ public class ListeBonsEntreeForm extends Form {
             } catch (IOException err) {
                 Log.e(err);
             }
-        });
+        });*/
     }
  public void CreationMenu() {
 

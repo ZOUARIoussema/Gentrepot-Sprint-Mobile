@@ -10,12 +10,9 @@ import com.codename1.io.ConnectionRequest;
 import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
-import com.codename1.l10n.DateFormat;
-import com.codename1.l10n.SimpleDateFormat;
 import com.codename1.ui.events.ActionListener;
 import com.entrepot.models.InventaireStock;
 import com.entrepot.models.Emplacement;
-import com.entrepot.models.Perte;
 import com.entrepot.models.ProduitAchat;
 import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
@@ -24,8 +21,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 /**
  *
  * @author oussema
@@ -95,29 +91,39 @@ public class ServiceInventaireStock {
         return responseResult;
     }
     public ArrayList<InventaireStock> parseInvs(String jsonText) {
-        invs = new ArrayList<>();
+        
+        try {
+            invs = new ArrayList<>();
 
-             JSONArray jsonArray = new JSONArray(jsonText);      
-             for(int i=0;i<jsonArray.length();i++)
-             {
-                JSONObject ob = jsonArray.getJSONObject(i);
+            JSONParser jp = new JSONParser();
+            Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
+
+            List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
+            for (Map<String, Object> ob : list) {
+
                 int id = (int)Float.parseFloat(ob.get("id").toString());
-                int qunatiteInventiare = (int)Float.parseFloat(ob.get("qunatiteInventiare").toString());
+                int qunatiteInventiare = (int)Float.parseFloat(ob.get("quantiteInventaire").toString());
                 int ecart = (int)Float.parseFloat(ob.get("ecart").toString());
                 int quantiteTheorique = (int)Float.parseFloat(ob.get("quantiteTheorique").toString());
-                JSONObject dateCreation  = new JSONObject(ob.get("dateCreation").toString());                
-                float da = Float.parseFloat(dateCreation.get("timestamp").toString()); 
-                Date dCeation = new Date((long) (da - 3600) * 1000);                
-                DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-                String dp = df.format(dCeation);
-                JSONObject produit  = new JSONObject(ob.get("produitAchat").toString());
-                ProduitAchat produitAchat = new ProduitAchat(produit.get("reference").toString());
-                JSONObject empl  = new JSONObject(ob.get("emplacement").toString());
-                Emplacement emplacement = new Emplacement((int)Float.parseFloat(empl.get("id").toString()));
-                
+                Map<String, Object> dated = (Map<String, Object>) ob.get("dateCreation");
+                float da = Float.parseFloat(dated.get("timestamp").toString());
+                Date dp = new Date((long) (da - 3600) * 1000);
+                Map<String, Object> f = (Map<String, Object>) ob.get("produit");
+                String ref = f.get("reference").toString();
+                String libelle = f.get("libelle").toString();
+                ProduitAchat produitAchat = new ProduitAchat(ref, libelle);
+                Map<String, Object> e = (Map<String, Object>) ob.get("emplacement");
+                String adr = e.get("adresse").toString();
+                String cl = e.get("classe").toString();
+                int qt = (int)Float.parseFloat(e.get("quantiteStocker").toString());        
+                int cp = (int)Float.parseFloat(e.get("capaciteStockage").toString());        
+                int ide = (int)Float.parseFloat(e.get("id").toString());
+                Emplacement emplacement = new Emplacement(ide,adr,cp,qt,cl);               
                 invs.add(new InventaireStock( id, produitAchat, emplacement, dp, qunatiteInventiare, ecart, quantiteTheorique));
-            
-            }
+                        }
+
+        } catch (IOException ex) {
+        }
 
         return invs;
         

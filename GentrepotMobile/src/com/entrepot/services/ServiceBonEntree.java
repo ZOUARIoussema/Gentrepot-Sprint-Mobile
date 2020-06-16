@@ -11,7 +11,6 @@ import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.Dialog;
 import com.codename1.ui.events.ActionListener;
-import com.entrepot.models.Be;
 import com.entrepot.models.BonEntree;
 import com.entrepot.utls.DataSource;
 import com.entrepot.utls.Statics;
@@ -41,7 +40,7 @@ public class ServiceBonEntree {
         request.addRequestHeader("X-Requested-With", "XMLHttpRequest");
 
         
-        request.addArgument("cap", be.getCap()+ "");
+        request.addArgument("cap", be.getCap()+"");
         request.addArgument("date", be.getDate() + "");
         request.addArgument("dateProd", be.getDateProduction()+"");
         request.addArgument("dateExp", be.getDateExpiration()+"");  
@@ -61,39 +60,7 @@ public class ServiceBonEntree {
         return responseResult;
     }
     
-    public void addBonEntreee(Be f) {
-
-         String url = "http://127.0.0.1:8000/api/addBonEntreee";
-        ConnectionRequest con = new ConnectionRequest();
-
-        con.setUrl(url);
-        con.addRequestHeader("X-Requested-With", "XMLHttpRequest");
-
-        con.addArgument("cap", f.getCap() + "");
-        con.addArgument("date", f.getDate() + "");
-        con.addArgument("dateProd", f.getDateProduction());
-        con.addArgument("dateExp", f.getDateExpiration());
-
-        con.setPost(true);
-        System.out.println(url);
-        con.addResponseListener(new ActionListener<NetworkEvent>() {
-
-            @Override
-            public void actionPerformed(NetworkEvent evt) {
-
-                byte[] data = (byte[]) evt.getMetaData();
-                String s = new String(data);
-                System.out.println(s);
-                if (s.equals("Done")) {
-                    Dialog.show("Confirmation", "success", "Ok", null);
-                } else {
-                    Dialog.show("Erreur", "vous avez déja enregistré un bon d'entrée pour cette commande", "Ok", null);
-                }
-            }
-        });
-
-        NetworkManager.getInstance().addToQueueAndWait(con);
-    }
+    
     
     
     

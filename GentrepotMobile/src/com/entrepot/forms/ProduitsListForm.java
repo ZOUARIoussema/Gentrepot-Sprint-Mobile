@@ -152,9 +152,7 @@ add("haja");
         
         super("Produits list", BoxLayout.y());
         
-
         this.add(new SpanLabel(new ServiceProduitAchat().getAllProduits().toString()));
-
           
         
        
