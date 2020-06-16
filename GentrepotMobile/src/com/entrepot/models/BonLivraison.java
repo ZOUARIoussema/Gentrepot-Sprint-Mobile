@@ -44,6 +44,16 @@ public class BonLivraison {
         this.id = id;
     }
 
+    public BonLivraison(String adresseLivraison, String etat, Date dateCreation, Date dateSortie, String nom, String prenom) {
+        this.ordreMission = ordreMission;
+        this.adresseLivraison = adresseLivraison;
+        this.etat = etat;
+        this.dateCreation = dateCreation;
+        this.dateSortie = dateSortie;
+        this.nom = nom;
+        this.prenom = prenom;
+    }
+
    
     
     

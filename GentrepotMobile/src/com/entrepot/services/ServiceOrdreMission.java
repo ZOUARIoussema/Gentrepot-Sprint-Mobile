@@ -31,34 +31,37 @@ import java.util.Map;
  * @author oussema
  */
 public class ServiceOrdreMission {
-      private ConnectionRequest request;
+
+    private ConnectionRequest request;
 
     private boolean responseResult;
     public ArrayList<OrdreMission> tasks;
     ServiceVehicule sv = new ServiceVehicule();
     ServiceChauffeur c = new ServiceChauffeur();
-       ServiceAideChauffeur ca = new ServiceAideChauffeur();
-    public ServiceOrdreMission () {
+    ServiceAideChauffeur ca = new ServiceAideChauffeur();
+
+    public ServiceOrdreMission() {
         request = DataSource.getInstance().getRequest();
     }
-    public boolean addOrdreMission (OrdreMission o) {
-        
-        
+
+    public boolean addOrdreMission(OrdreMission o) {
+
+        BonLivraison bon = o.getBonLivraisons().get(0);
+
+        System.out.println(bon.getId());
+
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        
+
         String dateRString = format.format(o.getDateRetour());
-        
-          String dateSString = format.format(o.getDateSortie());
-        
-        
-        
-        
-        String url = Statics.BASE_URL + "/apiordre/ajout"+"?vehicule="+ o.getVehicule().getId()+ "&chauffeur=" + o.getChauffeur().getCin()+ "&Aidechauffeur=" + o.getAideChauffeur().getCin()
-                + "&dateCreation=" +o.getDateCreation() + "&dateSortie=" +dateSString + "&dateRetour=" +dateRString
-                +"&id="+o.getId();
-  
-         System.out.println(url);
-        
+
+        String dateSString = format.format(o.getDateSortie());
+
+        String url = Statics.BASE_URL + "/apiordre/ajout" + "?vehicule=" + o.getVehicule().getId() + "&chauffeur=" + o.getChauffeur().getCin() + "&Aidechauffeur=" + o.getAideChauffeur().getCin()
+                + "&dateCreation=" + o.getDateCreation() + "&dateSortie=" + dateSString + "&dateRetour=" + dateRString
+                + "&id=" + o.getId() + "$idBon" + bon.getId();
+
+        System.out.println(url);
+
         request.setUrl(url);
         request.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -69,11 +72,31 @@ public class ServiceOrdreMission {
         });
         NetworkManager.getInstance().addToQueueAndWait(request);
 
+        update(o, bon);
+        
         return responseResult;
     }
+
+    public void update(OrdreMission ordre, BonLivraison bon) {
+
+        String url = Statics.BASE_URL + "/apibonn/update" + "?idBon=" + bon.getId()
+                + "&idordre=" + ordre.getId();
+
+        request.setUrl(url);
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+                request.removeResponseListener(this);
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+    }
+
     public ArrayList<OrdreMission> getAllOrdrer() {
         String url = Statics.BASE_URL + "/apiordre/affiche";
-        
+
         System.out.println(url);
 
         request.setUrl(url);
@@ -98,9 +121,8 @@ public class ServiceOrdreMission {
             Map<String, Object> tasksListJson = jp.parseJSON(new CharArrayReader(jsonText.toCharArray()));
             List<Map<String, Object>> list = (List<Map<String, Object>>) tasksListJson.get("root");
             for (Map<String, Object> obj : list) {
-                
-               
-               /* int mat = Integer.parseInt(obj.get("matricule").toString());
+
+                /* int mat = Integer.parseInt(obj.get("matricule").toString());
                 Vehicule v = sv.getVehiculeByMat(mat);
                 
                 String cin = (obj.get("cin").toString());
@@ -108,35 +130,33 @@ public class ServiceOrdreMission {
                 
                String Cin =(obj.get("cin").toString());
                 AideChauffeur cha = ca.getAideChauffeurByCin(Cin);*/
-               
                 Map<String, Object> b = (Map<String, Object>) obj.get("bondelivraison ");
                 int BonLiv = (int) Float.parseFloat(b.get("id").toString());
-                
-                  Map<String, Object> bl = (Map<String, Object>) obj.get("AideChauffeur ");
+
+                Map<String, Object> bl = (Map<String, Object>) obj.get("AideChauffeur ");
                 String aide = (bl.get("cin").toString());
-               
-                 Map<String, Object> bliv = (Map<String, Object>) obj.get("Chauffeur ");
-                String chauff= (bliv.get("cin").toString());
-                
-               Map<String, Object> bli = (Map<String, Object>) obj.get("vehicule ");
+
+                Map<String, Object> bliv = (Map<String, Object>) obj.get("Chauffeur ");
+                String chauff = (bliv.get("cin").toString());
+
+                Map<String, Object> bli = (Map<String, Object>) obj.get("vehicule ");
                 int v = (int) Float.parseFloat(bli.get("id").toString());
-                
-                 /*Date dateSortie = (Date) (obj.get("datesortie"));
+
+                /*Date dateSortie = (Date) (obj.get("datesortie"));
                   Date dateRetour = (Date) (obj.get("dateretour"));
                    Date dateCreation = (Date) (obj.get("datecreation"));*/
-                 
-                  Map<String, Object> dated = (Map<String, Object>) obj.get("datecreation");
+                Map<String, Object> dated = (Map<String, Object>) obj.get("datecreation");
                 float da = Float.parseFloat(dated.get("timestamp").toString());
                 Date dateCreation = new Date((long) (da - 3600) * 1000);
-                
-             Map<String, Object> date = (Map<String, Object>) obj.get("datesortie");
+
+                Map<String, Object> date = (Map<String, Object>) obj.get("datesortie");
                 float dat = Float.parseFloat(date.get("timestamp").toString());
-                 Date dateSortie = new Date((long) (dat - 3600) * 1000);
-                 
-                   Map<String, Object> d= (Map<String, Object>) obj.get("dateretour"); 
-                 float datr = Float.parseFloat(d.get("timestamp").toString());
-                 Date dateRetour = new Date((long) (datr - 3600) * 1000);
-                
+                Date dateSortie = new Date((long) (dat - 3600) * 1000);
+
+                Map<String, Object> d = (Map<String, Object>) obj.get("dateretour");
+                float datr = Float.parseFloat(d.get("timestamp").toString());
+                Date dateRetour = new Date((long) (datr - 3600) * 1000);
+
                 tasks.add(new OrdreMission(new Vehicule(v), new Chauffeur(chauff), new AideChauffeur(aide), dateCreation, dateSortie, dateRetour, (List<BonLivraison>) new BonLivraison(BonLiv)));
             }
 
@@ -146,5 +166,26 @@ public class ServiceOrdreMission {
         return tasks;
     }
 
-  
+    public boolean deleteOrdre(OrdreMission o) {
+        String url = Statics.BASE_URL + "/apiOrdreD/delete/{id}" + o.getId();
+
+        request.setUrl(url);
+
+        System.out.println(url);
+
+        request.addResponseListener(new ActionListener<NetworkEvent>() {
+
+            @Override
+            public void actionPerformed(NetworkEvent evt) {
+                responseResult = request.getResponseCode() == 200; // Code HTTP 200 OK
+
+                System.out.println(request.getResponseCode());
+
+            }
+        });
+        NetworkManager.getInstance().addToQueueAndWait(request);
+
+        return responseResult;
+    }
+
 }

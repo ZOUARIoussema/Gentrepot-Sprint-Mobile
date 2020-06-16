@@ -34,7 +34,7 @@ public class AddChauffeurForm extends Form{
         TextField tfPrenom= new TextField(null, "chauffeur prenom");
          TextField tfAdresse= new TextField(null, "chauffeur adresse");
        // TextField tfEtat= new TextField(null, "chauffeur etat");
-        Button btn = new Button("Add the chauffeur");
+        Button btn = new Button("Ajouter chauffeur");
         
         ServiceChauffeur sc = new ServiceChauffeur();
 
